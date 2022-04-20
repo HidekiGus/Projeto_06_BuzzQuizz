@@ -1,11 +1,29 @@
-.topo {
-    background-color: red;
-}
-
-h1 {
-    font-size: 47px;
-}
-
-
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+.body {
+    font-family:'Roboto',sans-serif;
+}
+
+.topo {
+    background-color: #EC362D;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0.5px 0.5px 10px 0.5px rgb(160, 152, 152);
+    padding:10px;
+}
+
+.titulo {
+    font-size: 37px;
+    color:#ffffff;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+
+
+
