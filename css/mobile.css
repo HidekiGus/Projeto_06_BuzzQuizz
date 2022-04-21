@@ -1,1 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+@media (max-width: 1100px) {
+  .capa_quizz h2 {
+    font-size: 4vmin;
+    padding: 4vmin;
+  }
+
+  .quizzesdoUsuario .titulo {
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+  .conteudo {
+    margin: 100px 16vmin;
+  }
+
+  .opcoes_quizz {
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 0px;
+    
+  }
+
+  .quizzesdoUsuario ion-icon {
+    font-size: 6vmin;
+}
+
+  .capa_quizz {
+    height: 25%;
+    width: 100%;
+    margin-top: 5%;
+    margin-left: 0px;
+  }
+
+  /* TEXTO   */
+
+  .quizzesSite > h2 {
+    font-size:4vmin;
+  }
+
+  .quizzesdoUsuario .titulo > h2 {
+    font-size:4vmin;
+  }
+
+}
+
+@media (max-width: 730px) {
+  .conteudo {
+    margin: 100px 8vmin;
+  }
+}
+
+
+
+
+
+

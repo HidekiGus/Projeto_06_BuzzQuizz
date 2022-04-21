@@ -36,7 +36,7 @@ body {
 }
 
 .capa_quizz {
-    height: 240px;
+    height: 25%;
     width: 32%;
     margin-top: 2%;
     position:relative;
@@ -63,16 +63,16 @@ body {
     margin-top: 70px;
 }
 
-.quizzesUsuario {
+.quizzesdoUsuario {
     margin-top: 70px;
 }
 
-.quizzesUsuario .titulo {
+.quizzesdoUsuario .titulo {
     display:flex;
     align-items:center;
 }
 
-.quizzesUsuario ion-icon {
+.quizzesdoUsuario ion-icon {
     color: #EC362D;
     font-size: 34px;
     margin-left: 20px;
@@ -96,6 +96,10 @@ body {
 }
 
 .quizzesSite > h2 {
+    font-size:18px;
+}
+
+.quizzesdoUsuario .titulo > h2 {
     font-size:18px;
 }
 
@@ -127,3 +131,12 @@ body {
     justify-content: center;
 
 }
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1350px) {
+    .capa_quizz h2 {
+        font-size: 16px;
+    }
+}
+

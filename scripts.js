@@ -5,7 +5,7 @@
 
 
 function listar_quizzUsuario() {
-  let opcoes_quizz = document.querySelector(".quizzesUsuario").querySelector(".opcoes_quizz");
+  let opcoes_quizz = document.querySelector(".quizzesdoUsuario").querySelector(".opcoes_quizz");
   opcoes_quizz.innerHTML = "<div onclick='exibir()' class='capa_quizz texto_branco'><div class='degradee'></div><img src='imagens/potterhead.jpg'/><h2>O quão Potterhead é você?</h2></div><div  onclick='exibir()' class='capa_quizz texto_branco'><div class='degradee'></div><img src='imagens/potterhead.jpg' /><h2>O quão Potterhead é você?</h2></div>"
 }
 listar_quizzUsuario()
