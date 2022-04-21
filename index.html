@@ -18,16 +18,34 @@
         <h1>BuzzQuizz</h1>
     </div>
 
-    <div class="quizzesUsuarios">
-        <h2>Você não criou nenhum quizz ainda :(</h2>
-        <button>Criar Quizz</button>
+    <div class="conteudo">
+        <div class="quizzesUsuarios">
+            <h2>Você não criou nenhum quizz ainda :(</h2>
+            <button>Criar Quizz</button>
+        </div>
+
+        <!--              Listagem dos Quizzes                -->
+
+        <div class="quizzesUsuario escondido">
+            <div class="titulo">
+                <h2 class="bold">Seus Quizzes</h2>
+                <ion-icon name="add-circle"></ion-icon>
+            </div>
+            <div class="opcoes_quizz">
+            </div>
+        </div>
+
+        <div class="quizzesSite">
+            <h2 class="bold">Todos os Quizzes</h2>
+            <div class="opcoes_quizz">
+            </div>
+        </div>
+
+          <!--        Fim da Listagem dos Quizzes                -->
+
     </div>
 
-    <div class="quizzesSite">
-        <h2>Todos os Quizzes</h2>
-    </div>
-
-    <div class="paginaQuizz">
+    <div class="paginaQuizz escondido">
         <div class="bannerQuiz">
             <img src="" alt="">
             <h1>Titulo Quizz</h1>
@@ -35,6 +53,7 @@
     </div>
 
 
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/Projeto_06_BuzzQuizz/scripts.js"></script>
 </body>
