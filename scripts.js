@@ -11,17 +11,49 @@ function carregarQuizzes () {
 carregarQuizzes()
 
 function quizzesServ (resposta) {
-  console.log(resposta.data) 
+  quizzInfo = resposta.data;
+  
+console.log(quizzInfo.questions)
+  disporQuizz.innerHTML = `<div class="bannerQuiz">
+  <h1>${quizzInfo.title}</h1>
+</div>`;
 
+  for (let i = 0; i < 10; i++) {
+    disporQuizz.innerHTML += `
     
-    
+
+<div class="primeira pergunta">
+            <div class="topo-pergunta">
+                <h1>${quizzInfo.questions[i].title}</h1>
+            </div>
+
+            <div class="respostas">
+
+                <div class="row-1">
+                <img class="alternativa-1" src=${quizzInfo.questions[i].answers[0].image} alt="alternativa-1">
+                <h3>${quizzInfo.questions[i].answers[0].text}</h3>
+
+                <img class="alternativa-2" src=${quizzInfo.questions[i].answers[1].image} alt="alternativa-2">
+                <h3>${quizzInfo.questions[i].answers[1].text}</h3>
+            </div>
+
+            <div class="row-2">
+            <img class="alternativa-3" src=${quizzInfo.questions[i].answers[2].image} alt="alternativa-3">
+            <h3>${quizzInfo.questions[i].answers[2].text}</h3>
+
+            <img class="alternativa-4" src=${quizzInfo.questions[i].answers[3].image} alt="alternativa-4">
+            <h3>${quizzInfo.questions[i].answers[3].text}</h3>
+            </div>
+
+            </div>
+
+        </div>
+`
+
+
+  }
 
 }
-
-<<<<<<< HEAD
-=======
-//https://www.10wallpaper.com/wallpaper/1366x768/1404/white_blossom_flowers-Plants_HD_Wallpaper_1366x768.jpg
-
 
 
 function listar_quizzUsuario() {
@@ -40,4 +72,3 @@ function exibir() {
   let conteudo = document.querySelector(".conteudo");
   conteudo.classList.add("escondido");
 }
->>>>>>> 3104e5d2119e2b11fa3cac5ab9a4fc920c216df3
