@@ -12,16 +12,9 @@ carregarQuizzes()
 
 function quizzesServ (resposta) {
   console.log(resposta.data) 
-
-    
-    
+  
 
 }
-
-<<<<<<< HEAD
-=======
-//https://www.10wallpaper.com/wallpaper/1366x768/1404/white_blossom_flowers-Plants_HD_Wallpaper_1366x768.jpg
-
 
 
 function listar_quizzUsuario() {
@@ -40,4 +33,3 @@ function exibir() {
   let conteudo = document.querySelector(".conteudo");
   conteudo.classList.add("escondido");
 }
->>>>>>> 3104e5d2119e2b11fa3cac5ab9a4fc920c216df3
