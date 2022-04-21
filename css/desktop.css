@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
 
+*{
+    box-sizing: border-box;
+}
+
 body {
     font-family:'Roboto',sans-serif;
     background-color: #E5E5E5;
@@ -16,24 +20,108 @@ body {
     align-items: center;
     box-shadow: 0.5px 0.5px 10px 0.5px rgb(160, 152, 152);
     padding:10px;
+    position:fixed;
+    top:0px;
+    right:0px;
+    z-index:1;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    margin: 5% 16%;
+}
+
+.opcoes_quizz {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px -1%;
+}
+
+.capa_quizz {
+    height: 25%;
+    width: 32%;
+    margin-top: 2%;
+    position:relative;
+    margin-left: 1%;
+    
+}
+
+.degradee {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.capa_quizz img {
+    object-fit: cover;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.quizzesSite {
+    margin-top: 70px;
+}
+
+.quizzesdoUsuario {
+    margin-top: 70px;
+}
+
+.quizzesdoUsuario .titulo {
+    display:flex;
+    align-items:center;
+}
+
+.quizzesdoUsuario ion-icon {
+    color: #EC362D;
+    font-size: 34px;
+    margin-left: 20px;
+}
+
+
+/* PARA ESCONDER ALGUMA TAG */
+
+.escondido {
+    display:none;
 }
 
 /* CLASSES PRA TEXTO */
 
+.capa_quizz h2 {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 18px;
+    font-size: 20px;
+}
+
+.quizzesSite > h2 {
+    font-size:18px;
+}
+
+.quizzesdoUsuario .titulo > h2 {
+    font-size:18px;
+}
+
  .topo h1{
     font-size: 37px;
-    color:#ffffff;
 }
 
 .bold {
     font-weight: bold;
 }
 
-.pagina-inicial {
-    display: none;
+
+.texto_branco {
+    color:#ffffff;
 }
 
+
 /* CLASSES PRA COR */
+
 
 /* PÁGINA DO QUIZZ */
 
@@ -96,3 +184,11 @@ body {
     font-size: 20px;
     font-weight: 700;
 }
+/* RESPONSIVIDADE */
+
+@media (max-width: 1350px) {
+    .capa_quizz h2 {
+        font-size: 16px;
+    }
+}
+
