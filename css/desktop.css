@@ -19,15 +19,19 @@ body {
 
  .topo h1{
     font-size: 37px;
-    color:#ffffff;
 }
 
 .bold {
     font-weight: bold;
 }
 
+.texto_branco {
+    color:#ffffff;
+}
+
 
 /* CLASSES PRA COR */
+
 
 /* PÁGINA DO QUIZZ */
 
