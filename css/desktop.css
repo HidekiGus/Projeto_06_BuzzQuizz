@@ -2,6 +2,9 @@
 
 body {
     font-family:'Roboto',sans-serif;
+    background-color: #E5E5E5;
+    box-sizing: border-box;
+  
 }
 
 .topo {
@@ -26,18 +29,70 @@ body {
     font-weight: bold;
 }
 
+.pagina-inicial {
+    display: none;
+}
 
 /* CLASSES PRA COR */
 
 /* PÁGINA DO QUIZZ */
 
 .bannerQuiz {
+    /*display:none;*/
     width: 100%;
-    height: 150px;
+    height: 227px;
     object-fit: cover;
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(https://p4.wallpaperbetter.com/wallpaper/275/707/645/branches-spring-sakura-flowering-pink-hd-wallpaper-preview.jpg) ;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(https://images5.alphacoders.com/109/thumb-1920-1099191.jpg) ;
     display: flex;
     align-items: center;
     justify-content: center;
 
+}
+
+.bannerQuiz > h1 {
+    font-size: 39px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.topo-pergunta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 137.99px;
+    width: 688.16px;
+    background-color: rgb(6, 133, 118);
+    font-size: 27px;
+    color: #ffffff;
+    font-weight: 400;
+   margin-top: 28px;
+}
+
+.pergunta{
+    width: 759px;
+    height: 676px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   margin: 42px auto 50px auto;
+    
+}
+
+.respostas {
+    display: flex;
+    align-items: inline;
+}
+
+.respostas img {
+    width: 329.91px;
+    height: 175.2px;
+    object-fit: cover;
+    margin: 20px 12px 12px 12px;
+}
+
+.respostas h3 {
+    margin: 0px 12px 0px 12px;
+    font-size: 20px;
+    font-weight: 700;
 }
