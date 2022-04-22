@@ -124,6 +124,28 @@ function exibir(elemento) {
 
 // CRIAÇÃO   DO    QUIZZ     --------------------------------
 
+function pagina_um() {
+  let pagina_um = document.querySelector(".pagina_um");
+  esconderElemento(".conteudo");
+  esconderElemento(".paginaQuizz");
+  esconderElemento(".pagina_dois");
+  esconderElemento(".pagina_tres");
+  
+
+  pagina_um.innerHTML = `
+  <h1>Comece pelo começo</h1>
+
+            <form action="">
+                <input type="text" placeholder="Titulo do seu quizz">
+                <input type="text" placeholder="URL da imagem do seu quizz">
+                <input type="text" placeholder="Quantidade de perguntas do quizz">
+                <input type="text" placeholder="Quantidade de niveis do quizz">
+                <input type="button" value="Prosseguir pra criar perguntas">
+            </form>`
+ }
+
+ pagina_um()
+
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
 // Adiciona o formulário de perguntas da etapa dois da criação
@@ -149,7 +171,7 @@ function pagina_dois() {
     </div>
   `
 }
-pagina_dois()
+//pagina_dois()
 
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
