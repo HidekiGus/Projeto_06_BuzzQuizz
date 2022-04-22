@@ -158,14 +158,13 @@ function pagina_um() {
         <input class="segundo_input" type="text" placeholder="Quantidade de perguntas do quizz" />
         <input class="segundo_input" type="text" placeholder="Quantidade de níveis do quizz" />
     </div>
-
-    <div class="button">
+  </div>
+  <div class="button">
         <button type="submit">Prosseguir para criar perguntas</button>
-    </div>
-  </div>`
+    </div>`
  }
 
- //pagina_um()
+ pagina_um()
 
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
@@ -191,13 +190,18 @@ function pagina_dois() {
           <input class="primeiro_input" type="text" placeholder="Resposta correta" />
           <input class="segundo_input" type="text" placeholder="URL da imagem" />
       </div>
-      <div class="button">
-          <button type="submit">Prosseguir para criar níveis</button>
+      <div class="bloco_inputs" >
+          <div class="bold" >Respostas Incorretas</div>
+          <input class="primeiro_input" type="text" placeholder="Resposta correta" />
+          <input class="segundo_input" type="text" placeholder="URL da imagem" />
       </div>
     </div>
+    <div class="button">
+          <button type="submit">Prosseguir para criar níveis</button>
+      </div>
   `
 }
-pagina_dois()
+//pagina_dois()
 
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
