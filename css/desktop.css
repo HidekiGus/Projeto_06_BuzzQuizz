@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
 
+*{
+    box-sizing: border-box;
+}
+
 body {
-    
-    font-family:'Roboto', sans-serif;
+    font-family:'Roboto',sans-serif;
+    background-color: #ffffff;
+    box-sizing: border-box;
+  
 }
 
 .topo {
@@ -15,16 +21,213 @@ body {
     align-items: center;
     box-shadow: 0.5px 0.5px 10px 0.5px rgb(160, 152, 152);
     padding:10px;
+    position:fixed;
+    top:0px;
+    right:0px;
+    z-index:1;
 }
 
-.titulo {
-    font-weight: 400;
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    margin: 100px 16%;
+}
+
+.opcoes_quizz {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px -1%;
+}
+
+.capa_quizz {
+    width: 22vmax;
+    height: 15vmax;
+    margin-top: 2%;
+    position: relative;
+    border-radius: 5px;
+    margin-left: 1.2%;    
+}
+
+.degradee {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0px;
+    left: 0px;
+    border-radius: 5px;
+}
+
+.capa_quizz img {
+    object-fit: cover;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0.5px 0.5px 10px 0.5px rgb(197, 195, 195);
+}
+
+.quizzesSite {
+    margin-top: 70px;
+}
+
+.quizzesdoUsuario {
+    margin-top: 70px;
+}
+
+.quizzesdoUsuario .titulo {
+    display:flex;
+    align-items:center;
+}
+
+.quizzesdoUsuario ion-icon {
+    color: #EC362D;
+    font-size: 34px;
+    margin-left: 20px;
+}
+
+.quizzesUsuarios {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    width: 100%;
+    min-height: 220px;
+    height: 20vmin;
+    margin-top: 2%;
+
+    border-radius: 5px;
+    border: 1px dashed #d5d5d5;
+}
+
+.botaoCriarQuiz {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50px;
+    border: 1px dashed #EC362D;
+
+    font-size: 20px;
+    color: #EC362D;
+
+    width: 150px;
+    height: 40px;
+}
+
+/* PARA ESCONDER ALGUMA TAG */
+
+.escondido {
+    display: none;
+}
+
+/* CLASSES PRA TEXTO */
+
+.capa_quizz h2 {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 2vmin;
+    font-size: 1.1vmax;
+    word-break:break-word;
+}
+
+.quizzesSite > h2 {
+    font-size:18px;
+}
+
+.quizzesdoUsuario .titulo > h2 {
+    font-size:18px;
+}
+
+.quizzesUsuarios h2 {
+    width: 50%;
+    text-align: center;
+    margin-bottom: 5%;
+    font-family: 'Roboto';
+    font-size: 20px;
+    color: #b9b9b9;
+}
+
+.topo h1{
     font-size: 37px;
-    color:#ffffff;
 }
 
 .bold {
     font-weight: bold;
+}
+
+
+.texto_branco {
+    color:#ffffff;
+}
+
+
+/* CLASSES PRA COR */
+
+
+/* PÁGINA DO QUIZZ */
+
+.bannerQuiz {
+    /*display:none;*/
+    width: 100%;
+    height: 227px;
+    object-fit: cover;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(https://images5.alphacoders.com/109/thumb-1920-1099191.jpg);
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.bannerQuiz > h1 {
+    font-size: 39px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.topo-pergunta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 137.99px;
+    width: 688.16px;
+    background-color: rgb(6, 133, 118);
+    font-size: 27px;
+    color: #ffffff;
+    font-weight: 400;
+   margin-top: 28px;
+}
+
+.pergunta{
+    width: 759px;
+    height: 676px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   margin: 42px auto 50px auto;
+    
+}
+
+.respostas {
+    display: flex;
+    align-items: inline;
+}
+
+.respostas img {
+    width: 329.91px;
+    height: 175.2px;
+    object-fit: cover;
+    margin: 20px 12px 12px 12px;
+}
+
+.respostas h3 {
+    margin: 0px 12px 0px 12px;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 
