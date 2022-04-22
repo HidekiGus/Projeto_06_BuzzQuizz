@@ -3,18 +3,13 @@ let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
-let lista;
 
-function carregarQuizzes () {
-     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
-
+function carregarQuizzes (id) {
+     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
     promise.then(quizzesServ);
 }
 
-carregarQuizzes()
-
-
-
+// Função que torna as respostas aleatórias
 function embaralhar() { 
   return Math.random() - 0.5
 }
@@ -22,19 +17,16 @@ function embaralhar() {
 
 function quizzesServ (resposta) {
   quizzInfo = resposta.data;
-
-  console.log(quizzInfo.questions.length)
+  esconderElemento(".conteudo");
+  esconderElemento(".criacao_quizz");
   disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzInfo.image}');">
   <h1>${quizzInfo.title}</h1>
   </div>`;
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
-    // Esta função é para embaralhar a lista de respostas
-    lista = [1,2,3,4];
-    console.log(quizzInfo.questions[i].answers)
+  
     // A lista de respostas chama a função embaralha
     quizzInfo.questions[i].answers.sort(embaralhar)
-    console.log(quizzInfo.questions[i].answers)
 
     disporQuizz.innerHTML += 
     
@@ -92,7 +84,7 @@ function listar_quizzUsuario() {
     </div>`
 }
 
-listar_quizzUsuario()
+//listar_quizzUsuario()
 
 
 // LISTAR TODOS OS QUIZZES 
@@ -133,6 +125,7 @@ function exibir(elemento) {
   esconderElemento(".conteudo");
   // Pega o id que estava no nome da classe
   let id = elemento.classList[2];
+  carregarQuizzes(id)
 }
 
 // FIM DO  EXIBIR   QUIZZ     --------------------------------------
@@ -223,7 +216,7 @@ function pagina_dois() {
     </div>
   `
 }
-pagina_dois()
+//pagina_dois()
 
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
