@@ -6,7 +6,7 @@
 
 body {
     font-family:'Roboto',sans-serif;
-    background-color: #E5E5E5;
+    background-color: #ffffff;
     box-sizing: border-box;
   
 }
@@ -29,7 +29,7 @@ body {
 .conteudo {
     display: flex;
     flex-direction: column;
-    margin: 5% 16%;
+    margin: 100px 16%;
 }
 
 .opcoes_quizz {
@@ -94,8 +94,8 @@ body {
     position: absolute;
     bottom: 0px;
     left: 0px;
-    padding: 18px;
-    font-size: 20px;
+    padding: 2vmin;
+    font-size: 1.2vmax;
 }
 
 .quizzesSite > h2 {
@@ -184,11 +184,7 @@ body {
     font-size: 20px;
     font-weight: 700;
 }
-/* RESPONSIVIDADE */
 
-@media (max-width: 1350px) {
-    .capa_quizz h2 {
-        font-size: 16px;
-    }
-}
+
+
 
