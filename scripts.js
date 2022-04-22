@@ -57,6 +57,9 @@ console.log(quizzInfo.questions)
 
 }
 
+
+//     LISTAGEM        DOS      QUIZZES --------------------------
+
 function pegarQuizzes() {
   let promise = axios.get(api+"quizzes");
   promise.then(listar_quizzSite);
@@ -84,7 +87,14 @@ function listar_quizzSite(resposta) {
 
 }
 
+//FIM   DA  LISTAGEM  DOS   QUIZZES --------------------------
+
+
+// EXIBIR   QUIZZ     --------------------------------------
+
 function exibir() {
   let conteudo = document.querySelector(".conteudo");
   conteudo.classList.add("escondido");
 }
+
+// FIM DO  EXIBIR   QUIZZ     --------------------------------------
