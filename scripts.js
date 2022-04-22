@@ -164,7 +164,7 @@ function pagina_um() {
     </div>`
  }
 
- pagina_um()
+ //pagina_um()
 
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
@@ -192,16 +192,38 @@ function pagina_dois() {
       </div>
       <div class="bloco_inputs" >
           <div class="bold" >Respostas Incorretas</div>
-          <input class="primeiro_input" type="text" placeholder="Resposta correta" />
-          <input class="segundo_input" type="text" placeholder="URL da imagem" />
+          <div class="dupla_input">
+            <input class="primeiro_input" type="text" placeholder="Resposta Incorreta 1" />
+            <input class="segundo_input" type="text" placeholder="URL da imagem 1" />
+          </div>
+          <div class="dupla_input">
+            <input class="primeiro_input" type="text" placeholder="Resposta Incorreta 2" />
+            <input class="segundo_input" type="text" placeholder="URL da imagem 2" />
+          </div>
+          <div class="dupla_input">
+            <input class="primeiro_input" type="text" placeholder="Resposta Incorreta 3" />
+            <input class="segundo_input" type="text" placeholder="URL da imagem 3" />
+          </div>
+      </div>
+    </div>
+    <div class="formulario" >
+      <div class="bloco_inputs inline" >
+          <div class="bold" >Pergunta 2 </div>
+          <ion-icon name="create-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="formulario" >
+      <div class="bloco_inputs inline" >
+          <div class="bold" >Pergunta 3 </div>
+          <ion-icon name="create-outline"></ion-icon>
       </div>
     </div>
     <div class="button">
           <button type="submit">Prosseguir para criar níveis</button>
-      </div>
+    </div>
   `
 }
-//pagina_dois()
+pagina_dois()
 
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
