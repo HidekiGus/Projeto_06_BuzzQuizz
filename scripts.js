@@ -218,6 +218,32 @@ function pagina_dois() {
 }
 //pagina_dois()
 
+
+// TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
+// 
+
+function pagina_quatro () {
+  let pagina_quatro = document.querySelector(".pagina_quatro");
+  // esconder os outros elementos do site
+  esconderElemento(".conteudo");
+  esconderElemento(".paginaQuizz");
+  esconderElemento(".pagina_um");
+  esconderElemento(".pagina_tres");
+  esconderElemento(".pagina_dois");
+  pagina_quatro.innerHTML =  ` 
+    <div class="titulo bold"> Seu quizz está pronto! </div>
+    <div class='capa_quizz_construcao texto_branco'>
+      <div class='degradee'></div>
+      <img src='imagens/potterhead.jpg'/>
+      <h2>O quão Potterhead é você?</h2>
+    </div>
+    <div class="button">
+          <button type="submit">Acessar Quizz</button>
+          <div class="titulo"> Voltar para home </div>
+    </div>
+  ` 
+}
+pagina_quatro()
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
 
