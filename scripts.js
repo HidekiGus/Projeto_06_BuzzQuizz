@@ -57,7 +57,7 @@ console.log(quizzInfo.questions)
 }
 
 
-//     LISTAGEM        DOS      QUIZZES --------------------------
+//  LISTAGEM      DOS      QUIZZES   ------------------------------
 
 function pegarQuizzes() {
   let promise = axios.get(api+"quizzes");
@@ -77,16 +77,19 @@ function listar_quizzSite(resposta) {
   lista_quizzes=resposta.data;
   let texto ="";
   for (i=0; i<lista_quizzes.length; i++){
-    let titulo = lista_quizzes[i].title;
-    let image = lista_quizzes[i].image;
-    texto = texto +  "<div onclick='exibir()' class='capa_quizz texto_branco'><div class='degradee'></div><img src="+image+" /><h2>"+titulo+"</h2></div>"
+    texto = texto +  `
+    <div onclick='exibir()' class='capa_quizz texto_branco'>
+      <div class='degradee'></div>
+      <img src=${lista_quizzes[i].image} />
+      <h2>${lista_quizzes[i].title}</h2>
+     </div> `
   }
   let opcoes_quizz = document.querySelector(".quizzesSite").querySelector(".opcoes_quizz");
   opcoes_quizz.innerHTML = texto;
 
 }
 
-//FIM   DA  LISTAGEM  DOS   QUIZZES --------------------------
+//FIM   DA  LISTAGEM  DOS  QUIZZES --------------------------
 
 
 // EXIBIR   QUIZZ     --------------------------------------
