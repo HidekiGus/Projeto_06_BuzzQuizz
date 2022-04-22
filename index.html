@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/desktop.css">
     <link rel="stylesheet" href="css/mobile.css">
-
 </head>
 
 <body>
@@ -19,10 +18,10 @@
         <h1>BuzzQuizz</h1>
     </div>
 
-    <div class="conteudo escondido">
+    <div class="conteudo">
         <div class="quizzesUsuarios">
             <h2>Você não criou nenhum quizz ainda :(</h2>
-            <button>Criar Quizz</button>
+            <div class="botaoCriarQuiz" onclick="botaoCriarQuiz()">Criar Quizz</div>
         </div>
 
         <!--              Listagem dos Quizzes                -->
@@ -30,7 +29,7 @@
         <div class="quizzesdoUsuario">
             <div class="titulo">
                 <h2 class="bold">Seus Quizzes</h2>
-                <ion-icon name="add-circle"></ion-icon>
+                    <ion-icon name="add-circle" onclick="botaoCriarQuiz()"></ion-icon>
             </div>
             <div class="opcoes_quizz">
             </div>
@@ -44,9 +43,10 @@
 
           <!--        Fim da Listagem dos Quizzes                -->
 
+
     </div>
 
-    <div class="paginaQuizz ">
+    <div class="paginaQuizz">
         <div class="bannerQuiz">
             <h1>O Quanto Você Conhece Teyvat?</h1>
         </div>
@@ -105,11 +105,16 @@
             </div>
 
         </div>
-
     </div>
 
+    <div class="criacao_quiz">
+        <div class="pagina_um escondido"></div>
+        <div class="pagina_dois escondido"></div>
+        <div class="pagina_tres escondido">Tela 3 UHUUUUUUUUU</div>
+        <div class="pagina_quatro escondido"></div>
+    </div>
 
-   
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="scripts.js"></script>
 </body>
