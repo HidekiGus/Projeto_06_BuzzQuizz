@@ -6,7 +6,7 @@
 
 body {
     font-family:'Roboto',sans-serif;
-    background-color: #ffffff;
+    background-color: #FAFAFA;
     box-sizing: border-box;
   
 }
@@ -116,6 +116,64 @@ body {
     height: 40px;
 }
 
+
+/*  FORMULÁRIO  */
+
+.formulario {
+    width: 600px;
+    height: 1000px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding:50px 20px;
+    margin-top: 50px;
+}
+
+.bloco_inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario input {
+    margin-top: 20px;
+    height: 30px;
+    width: 100%;
+    border: 1px solid #b9b9b9;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+
+.formulario button {
+    background-color: #EC362D;
+    color: #ffffff;
+    border: 0px;
+    border-radius: 8px;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+
+.formulario input::-webkit-input-placeholder  {
+    color:#b9b9b9;
+    font-style: italic;
+    font-size: 16px;
+}
+
+.criacao_quizz .titulo {
+    font-size: 20px;
+}
+
+.criacao_quizz {
+    margin: 100px 16%;
+}
+
+.pagina_dois {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 /* PARA ESCONDER ALGUMA TAG */
 
 .escondido {
@@ -162,10 +220,6 @@ body {
 .texto_branco {
     color:#ffffff;
 }
-
-
-/* CLASSES PRA COR */
-
 
 /* PÁGINA DO QUIZZ */
 

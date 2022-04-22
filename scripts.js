@@ -60,11 +60,7 @@ console.log(quizzInfo.questions.length)
 
 //  LISTAGEM      DOS      QUIZZES   ------------------------------
 
-function pegarQuizzes() {
-  let promise = axios.get(api+"quizzes");
-  promise.then(listar_quizzSite);
-}
-pegarQuizzes()
+
 
 function listar_quizzUsuario() {
   let opcoes_quizz = document.querySelector(".quizzesdoUsuario").querySelector(".opcoes_quizz");
@@ -84,12 +80,25 @@ function listar_quizzUsuario() {
 listar_quizzUsuario()
 
 
+// LISTAR TODOS OS QUIZZES 
+// Pega a lista de quizzes da api 
+// Chama a função para listar quizzes que está logo abaixo
+function pegarQuizzeSite() {
+  let promise = axios.get(api+"quizzes");
+  promise.then(listar_quizzSite);
+}
+pegarQuizzeSite()
+
+// Função chamada se a promise efetuado com sucesso
+// Pega a resposta da api 
+// E adiciona os quizzes na tela principal do site abaixo de "Todos os quizzes"
 function listar_quizzSite(resposta) {
   lista_quizzes=resposta.data;
   let texto ="";
   for (i=0; i<lista_quizzes.length; i++){
+    // add id no nome da classe para ser pego depois para exibir quizz
     texto = texto +  `
-    <div onclick='exibir(this)' class='capa_quizz texto_branco  ${lista_quizzes[i].id}'>
+    <div onclick='exibir(this)' class='capa_quizz texto_branco  ${lista_quizzes[i].id}'>  
       <div class='degradee'></div>
       <img src=${lista_quizzes[i].image} />
       <h2>${lista_quizzes[i].title}</h2>
@@ -106,22 +115,38 @@ function listar_quizzSite(resposta) {
 // EXIBIR   QUIZZ     --------------------------------------
 
 function exibir(elemento) {
-  let conteudo = document.querySelector(".conteudo");
-  console.log(elemento.classList[2]);
+  esconderElemento(".conteudo");
+  // Pega o id que estava no nome da classe
   let id = elemento.classList[2];
-  esconderTag("conteudo");
 }
 
 // FIM DO  EXIBIR   QUIZZ     --------------------------------------
 
 // CRIAÇÃO   DO    QUIZZ     --------------------------------
 
+
+// TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
+// Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_dois() {
   let pagina_dois = document.querySelector(".pagina_dois");
-  esconderTag("conteudo");
-  esconderTag("paginaQuizz");
+  // esconder os outros elementos do site
+  esconderElemento(".conteudo");
+  esconderElemento(".paginaQuizz");
+  esconderElemento(".pagina_um");
+  esconderElemento(".pagina_tres");
+  esconderElemento(".pagina_um");
   pagina_dois.innerHTML =  ` 
-      afhf
+    <div class="titulo"> Crie suas perguntas </div>
+    <div class="formulario" >
+      <div class="bloco_inputs" >
+          <div>Pergunta 1</div>
+          <input class="primeiro_input" type="text" placeholder="Texto da Pergunta" />
+          <input class="segundo input" type="text" placeholder="Cor de fundo da pergunta" />
+      </div>
+      <div class="button">
+          <button type="submit">Enviar sua mensagem</button>
+      </div>
+    </div>
   `
 }
 pagina_dois()
