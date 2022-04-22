@@ -1,4 +1,4 @@
-// PEGAR QUIZZES DA API (não tá funcionando :P)
+// PEGAR QUIZZES DA API 
 let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
