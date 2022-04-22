@@ -143,6 +143,11 @@ function pagina_dois() {
           <input class="primeiro_input" type="text" placeholder="Texto da Pergunta" />
           <input class="segundo_input" type="text" placeholder="Cor de fundo da pergunta" />
       </div>
+      <div class="bloco_inputs" >
+          <div class="bold" >Resposta Correta</div>
+          <input class="primeiro_input" type="text" placeholder="Resposta correta" />
+          <input class="segundo_input" type="text" placeholder="URL da imagem" />
+      </div>
       <div class="button">
           <button type="submit">Prosseguir para criar níveis</button>
       </div>
