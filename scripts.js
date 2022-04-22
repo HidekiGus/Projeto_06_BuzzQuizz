@@ -4,53 +4,54 @@ let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 
-function carregarQuizzes () {
-     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
+function carregarQuizzes() {
+  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
 
-    promise.then(quizzesServ);
+  promise.then(quizzesServ);
 }
 
 carregarQuizzes()
 
-function quizzesServ (resposta) {
+function quizzesServ(resposta) {
   quizzInfo = resposta.data;
 
-console.log(quizzInfo.questions.length)
+  console.log(quizzInfo.questions.length)
   disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzInfo.image}');">
   <h1>${quizzInfo.title}</h1>
 </div>`;
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
-    disporQuizz.innerHTML += 
-    
-    `
+    disporQuizz.innerHTML +=
+
+      `
 
       <div class="primeira pergunta">
-                  <div class="topo-pergunta">
-                      <h1>${quizzInfo.questions[i].title}</h1>
-                  </div>
+            <div class="topo-pergunta">
+                <h1>${quizzInfo.questions[i].title}</h1>
+            </div>
 
-                  <div class="respostas">
+            <div class="respostas">
 
-                      <div class="row-1">
-                      <img class="alternativa-1" src=${quizzInfo.questions[i].answers[0].image} alt="alternativa-1">
-                      <h3>${quizzInfo.questions[i].answers[0].text}</h3>
+                <div class="row-1">
+                    <img class="alternativa-1" src=${quizzInfo.questions[i].answers[0].image} alt="alternativa-1">
+                    <h3>${quizzInfo.questions[i].answers[0].text}</h3>
 
-                      <img class="alternativa-2" src=${quizzInfo.questions[i].answers[1].image} alt="alternativa-2">
-                      <h3>${quizzInfo.questions[i].answers[1].text}</h3>
-                  </div>
+                    <img class="alternativa-2" src=${quizzInfo.questions[i].answers[1].image} alt="alternativa-2">
+                    <h3>${quizzInfo.questions[i].answers[1].text}</h3>
+                </div>
 
-                  <div class="row-2">
-                  <img class="alternativa-3" src=${quizzInfo.questions[i].answers[2].image} alt="alternativa-3">
-                  <h3>${quizzInfo.questions[i].answers[2].text}</h3>
+                <div class="row-2">
+                    <img class="alternativa-3" src=${quizzInfo.questions[i].answers[2].image} alt="alternativa-3">
+                    <h3>${quizzInfo.questions[i].answers[2].text}</h3>
 
-                  <img class="alternativa-4" src=${quizzInfo.questions[i].answers[3].image} alt="alternativa-4">
-                  <h3>${quizzInfo.questions[i].answers[3].text}</h3>
-                  </div>
+                    <img class="alternativa-4" src=${quizzInfo.questions[i].answers[3].image} alt="alternativa-4">
+                    <h3>${quizzInfo.questions[i].answers[3].text}</h3>
+                </div>
 
-                  </div>
+            </div>
 
-              </div>
+        </div>
+      
       `
 
   }
@@ -84,7 +85,7 @@ listar_quizzUsuario()
 // Pega a lista de quizzes da api 
 // Chama a função para listar quizzes que está logo abaixo
 function pegarQuizzeSite() {
-  let promise = axios.get(api+"quizzes");
+  let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
 pegarQuizzeSite()
@@ -93,11 +94,11 @@ pegarQuizzeSite()
 // Pega a resposta da api 
 // E adiciona os quizzes na tela principal do site abaixo de "Todos os quizzes"
 function listar_quizzSite(resposta) {
-  lista_quizzes=resposta.data;
-  let texto ="";
-  for (i=0; i<lista_quizzes.length; i++){
+  lista_quizzes = resposta.data;
+  let texto = "";
+  for (i = 0; i < lista_quizzes.length; i++) {
     // add id no nome da classe para ser pego depois para exibir quizz
-    texto = texto +  `
+    texto = texto + `
     <div onclick='exibir(this)' class='capa_quizz texto_branco  ${lista_quizzes[i].id}'>  
       <div class='degradee'></div>
       <img src=${lista_quizzes[i].image} />
@@ -153,30 +154,30 @@ function pagina_um() {
     
   </div>`
 
-  
- }
 
- pagina_um()
+}
 
- function especificacoesQuizz() {
+pagina_um()
+
+function especificacoesQuizz() {
   let tituloInput = document.querySelector(".primeiro_input").value
   let imagemInput = document.getElementsByClassName(".segundo_input")
-  
- let qtdPerguntas = document.querySelector(".terceiro_input").value
+
+  let qtdPerguntas = document.querySelector(".terceiro_input").value
   let qtdNiveis = document.querySelector(".quarto_input").value
 
-  
+
   console.log(imagemInput.type)
-if ((tituloInput.length >= 20 && tituloInput <= 65) ) {
-  if (qtdPerguntas < 3) {
-    alert("Erro! A quantidade mínima de perguntas é 3")
-  } 
-else if (qtdNiveis < 2) {
-    alert("Erro! A quantidade mínima de níveis é 2")
-  } else {pagina_dois()} 
-} else { 
-  alert ("Preencha todos os dados corretamente!")
-}
+  if ((tituloInput.length >= 20 && tituloInput <= 65)) {
+    if (qtdPerguntas < 3) {
+      alert("Erro! A quantidade mínima de perguntas é 3")
+    }
+    else if (qtdNiveis < 2) {
+      alert("Erro! A quantidade mínima de níveis é 2")
+    } else { pagina_dois() }
+  } else {
+    alert("Preencha todos os dados corretamente!")
+  }
 
 
 
@@ -192,7 +193,7 @@ function pagina_dois() {
   esconderElemento(".pagina_um");
   esconderElemento(".pagina_tres");
   esconderElemento(".pagina_quatro");
-  pagina_dois.innerHTML =  ` 
+  pagina_dois.innerHTML = ` 
     <div class="titulo bold"> Crie suas perguntas </div>
     <div class="formulario" >
       <div class="bloco_inputs" >
