@@ -197,7 +197,7 @@ function pagina_dois() {
     </div>
   `
 }
-//pagina_dois()
+pagina_dois()
 
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
