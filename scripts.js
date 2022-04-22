@@ -12,15 +12,16 @@ carregarQuizzes()
 
 function quizzesServ (resposta) {
   quizzInfo = resposta.data;
-  
-console.log(quizzInfo.questions)
-  disporQuizz.innerHTML = `<div class="bannerQuiz">
+
+console.log(quizzInfo.questions.length)
+  disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzInfo.image}');">
   <h1>${quizzInfo.title}</h1>
 </div>`;
 
-  for (let i = 0; i < 10; i++) {
-    disporQuizz.innerHTML += `
+  for (let i = 0; i < quizzInfo.questions.length; i++) {
+    disporQuizz.innerHTML += 
     
+    `
 
 <div class="primeira pergunta">
             <div class="topo-pergunta">
