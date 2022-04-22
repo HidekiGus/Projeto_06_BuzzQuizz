@@ -161,12 +161,17 @@ function pagina_dois() {
     <div class="titulo"> Crie suas perguntas </div>
     <div class="formulario" >
       <div class="bloco_inputs" >
-          <div>Pergunta 1</div>
+          <div class="bold" >Pergunta 1</div>
           <input class="primeiro_input" type="text" placeholder="Texto da Pergunta" />
-          <input class="segundo input" type="text" placeholder="Cor de fundo da pergunta" />
+          <input class="segundo_input" type="text" placeholder="Cor de fundo da pergunta" />
+      </div>
+      <div class="bloco_inputs" >
+          <div class="bold" >Resposta Correta</div>
+          <input class="primeiro_input" type="text" placeholder="Resposta correta" />
+          <input class="segundo_input" type="text" placeholder="URL da imagem" />
       </div>
       <div class="button">
-          <button type="submit">Enviar sua mensagem</button>
+          <button type="submit">Prosseguir para criar níveis</button>
       </div>
     </div>
   `
