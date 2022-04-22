@@ -3,6 +3,7 @@ let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
+let lista;
 
 function carregarQuizzes () {
      let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
@@ -12,15 +13,29 @@ function carregarQuizzes () {
 
 carregarQuizzes()
 
+
+
+function embaralhar() { 
+  return Math.random() - 0.5
+}
+
+
 function quizzesServ (resposta) {
   quizzInfo = resposta.data;
 
-console.log(quizzInfo.questions.length)
+  console.log(quizzInfo.questions.length)
   disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzInfo.image}');">
   <h1>${quizzInfo.title}</h1>
-</div>`;
+  </div>`;
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
+    // Esta função é para embaralhar a lista de respostas
+    lista = [1,2,3,4];
+    console.log(quizzInfo.questions[i].answers)
+    // A lista de respostas chama a função embaralha
+    quizzInfo.questions[i].answers.sort(embaralhar)
+    console.log(quizzInfo.questions[i].answers)
+
     disporQuizz.innerHTML += 
     
     `
@@ -124,6 +139,34 @@ function exibir(elemento) {
 
 // CRIAÇÃO   DO    QUIZZ     --------------------------------
 
+function pagina_um() {
+  let pagina_um = document.querySelector(".pagina_um");
+  esconderElemento(".conteudo");
+  esconderElemento(".paginaQuizz");
+  esconderElemento(".pagina_dois");
+  esconderElemento(".pagina_tres");
+  esconderElemento(".pagina_quatro");
+
+  pagina_um.innerHTML = `
+
+  <div class="titulo"> Crie suas perguntas </div>
+  <div class="formulario" >
+    <div class="bloco_inputs" >
+        <div class="bold" >Comece pelo começo</div>
+        <input class="primeiro_input" type="text" placeholder="Titulo do seu Quizz" />
+        <input class="segundo_input" type="text" placeholder="URL da imagem do seu quizz" />
+        <input class="segundo_input" type="text" placeholder="Quantidade de perguntas do quizz" />
+        <input class="segundo_input" type="text" placeholder="Quantidade de níveis do quizz" />
+    </div>
+    
+    <div class="button">
+        <button type="submit">Prosseguir para criar perguntas</button>
+    </div>
+  </div>`
+ }
+
+ //pagina_um()
+
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
 // Adiciona o formulário de perguntas da etapa dois da criação
@@ -154,7 +197,7 @@ function pagina_dois() {
     </div>
   `
 }
-pagina_dois()
+//pagina_dois()
 
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
