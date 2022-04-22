@@ -1,4 +1,4 @@
-// PEGAR QUIZZES DA API 
+// PEGAR QUIZZES DA API (não tá funcionando :P)
 let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
@@ -124,28 +124,6 @@ function exibir(elemento) {
 
 // CRIAÇÃO   DO    QUIZZ     --------------------------------
 
-function pagina_um() {
-  let pagina_um = document.querySelector(".pagina_um");
-  esconderElemento(".conteudo");
-  esconderElemento(".paginaQuizz");
-  esconderElemento(".pagina_dois");
-  esconderElemento(".pagina_tres");
-  
-
-  pagina_um.innerHTML = `
-  <h1>Comece pelo começo</h1>
-
-            <form action="">
-                <input type="text" placeholder="Titulo do seu quizz">
-                <input type="text" placeholder="URL da imagem do seu quizz">
-                <input type="text" placeholder="Quantidade de perguntas do quizz">
-                <input type="text" placeholder="Quantidade de niveis do quizz">
-                <input type="button" value="Prosseguir pra criar perguntas">
-            </form>`
- }
-
- pagina_um()
-
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
 // Adiciona o formulário de perguntas da etapa dois da criação
@@ -156,7 +134,7 @@ function pagina_dois() {
   esconderElemento(".paginaQuizz");
   esconderElemento(".pagina_um");
   esconderElemento(".pagina_tres");
-  esconderElemento(".pagina_um");
+  esconderElemento(".pagina_quatro");
   pagina_dois.innerHTML =  ` 
     <div class="titulo"> Crie suas perguntas </div>
     <div class="formulario" >
@@ -176,7 +154,7 @@ function pagina_dois() {
     </div>
   `
 }
-//pagina_dois()
+pagina_dois()
 
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
