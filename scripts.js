@@ -52,7 +52,6 @@ console.log(quizzInfo.questions)
         </div>
 `
 
-
   }
 
 }
@@ -79,7 +78,7 @@ function listar_quizzSite(resposta) {
   let texto ="";
   for (i=0; i<lista_quizzes.length; i++){
     let titulo = lista_quizzes[i].title;
-    let image = lista_quizzes[i].image
+    let image = lista_quizzes[i].image;
     texto = texto +  "<div onclick='exibir()' class='capa_quizz texto_branco'><div class='degradee'></div><img src="+image+" /><h2>"+titulo+"</h2></div>"
   }
   let opcoes_quizz = document.querySelector(".quizzesSite").querySelector(".opcoes_quizz");
