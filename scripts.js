@@ -4,12 +4,6 @@ let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 
-// FUNÇAO PARA ESCONDER TAG -----------------------------------
-function esconderTag(classe) {
-  let elemento = document.querySelector("."+classe);
-  elemento.classList.add("escondido");
-}
-
 function carregarQuizzes () {
      let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
 
@@ -132,3 +126,54 @@ function pagina_dois() {
 pagina_dois()
 
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
+
+
+// AREA DE TESTES ---\/-----\/-----\/---
+
+// Esconde o elemento recebido como parâmetro
+function esconderElemento(tag) {
+  document.querySelector(tag).classList.add("escondido");
+}
+
+// Exibe o elemento recebido como parâmetro
+function exibirElemento(tag) {
+  document.querySelector(tag).classList.remove("escondido");
+}
+
+// Esconde o elemento recebido como primeiro parâmetro e
+// Exibe o elemento recebido como segundo parâmetro
+function trocaTela(elementoPraEsconder, elementoPraExibir) {
+  esconderElemento(elementoPraEsconder);
+  exibirElemento(elementoPraExibir);
+}
+
+// Confere se o usuário tem quizzes
+function confereQuizzesUsuario() {
+  let parente = document.querySelector(".quizzesdoUsuario");
+  let quizzes_usuario = parente.querySelector(".opcoes_quizz");
+  return quizzes_usuario.children.length;
+}
+
+// Controla qual botão aparece na tela inicial:
+// Se o usuário tem:
+// === 0 quizzes -> Botão Grande
+// !== 0 quizzes -> Seus Quizzes
+function controlaBotaoCriarQuiz() {
+  if (confereQuizzesUsuario() === 0) {
+    // Mostra botão grande
+    exibirElemento(".quizzesUsuarios");
+    // Esconde quizzes do Usuário
+    esconderElemento(".quizzesdoUsuario");
+  } else {
+    // Esconde botão grande e exibe Seus Quizzes
+    trocaTela(".quizzesUsuarios", ".quizzesdoUsuario");
+    // Exibe quizzes do Usuário
+    exibirElemento(".quizzesdoUsuario");
+  }
+}
+
+controlaBotaoCriarQuiz();
+
+function botaoCriarQuiz() {
+  trocaTela(".conteudo", ".pagina_tres");
+}
