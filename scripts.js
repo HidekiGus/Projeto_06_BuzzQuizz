@@ -107,7 +107,7 @@ function listar_quizzSite(resposta) {
     texto = texto +  `
     <div onclick='exibir(this)' class='capa_quizz texto_branco  ${lista_quizzes[i].id}'>  
       <div class='degradee'></div>
-      <img src=${lista_quizzes[i].image} />
+      <img src="${lista_quizzes[i].image}"  />
       <h2>${lista_quizzes[i].title}</h2>
      </div> `
   }
