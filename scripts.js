@@ -134,24 +134,53 @@ function pagina_um() {
 
   pagina_um.innerHTML = `
 
-  <div class="titulo"> Crie suas perguntas </div>
+  <div class="titulo bold">Comece pelo começo</div>
+
   <div class="formulario" >
+
     <div class="bloco_inputs" >
-        <div class="bold" >Comece pelo começo</div>
-        <input class="primeiro_input" type="text" placeholder="Titulo do seu Quizz" />
-        <input class="segundo_input" type="text" placeholder="URL da imagem do seu quizz" />
-        <input class="segundo_input" type="text" placeholder="Quantidade de perguntas do quizz" />
-        <input class="segundo_input" type="text" placeholder="Quantidade de níveis do quizz" />
+
+        <input class="primeiro_input" minlength="20" maxlength="65" type="text" required placeholder="Titulo do seu Quizz"/>
+
+        <input class="segundo_input" type="url" required placeholder="URL da imagem do seu quizz"/>
+
+        <input class="terceiro_input" type="text" placeholder="Quantidade de perguntas do quizz"/>
+
+        <input class="quarto_input" type="text" placeholder="Quantidade de níveis do quizz"/>
     </div>
     
-    <div class="button">
         <button type="submit">Prosseguir para criar perguntas</button>
-    </div>
+    
   </div>`
+
+  
  }
 
  pagina_um()
 
+ function especificacoesQuizz() {
+  let tituloInput = document.querySelector(".primeiro_input").value
+  let imagemInput = document.getElementsByClassName(".segundo_input")
+  
+ let qtdPerguntas = document.querySelector(".terceiro_input").value
+  let qtdNiveis = document.querySelector(".quarto_input").value
+
+  
+  console.log(imagemInput.type)
+if ((tituloInput.length >= 20 && tituloInput <= 65) ) {
+  if (qtdPerguntas < 3) {
+    alert("Erro! A quantidade mínima de perguntas é 3")
+  } 
+else if (qtdNiveis < 2) {
+    alert("Erro! A quantidade mínima de níveis é 2")
+  } else {pagina_dois()} 
+} else { 
+  alert ("Preencha todos os dados corretamente!")
+}
+
+
+
+}
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
 // Adiciona o formulário de perguntas da etapa dois da criação
@@ -164,7 +193,7 @@ function pagina_dois() {
   esconderElemento(".pagina_tres");
   esconderElemento(".pagina_quatro");
   pagina_dois.innerHTML =  ` 
-    <div class="titulo"> Crie suas perguntas </div>
+    <div class="titulo bold"> Crie suas perguntas </div>
     <div class="formulario" >
       <div class="bloco_inputs" >
           <div class="bold" >Pergunta 1</div>

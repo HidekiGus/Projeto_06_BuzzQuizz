@@ -121,7 +121,7 @@ body {
 
 .formulario {
     width: 600px;
-    height: 1000px;
+    height: auto;
     background-color: #ffffff;
     box-shadow: 0.5px 0.5px 10px 0.5px rgb(232, 228, 228);
     display: flex;
