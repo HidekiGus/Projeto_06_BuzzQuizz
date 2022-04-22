@@ -130,18 +130,24 @@ function pagina_um() {
   esconderElemento(".paginaQuizz");
   esconderElemento(".pagina_dois");
   esconderElemento(".pagina_tres");
-  
+  esconderElemento(".pagina_quatro");
 
   pagina_um.innerHTML = `
-  <h1>Comece pelo começo</h1>
 
-            <form action="">
-                <input type="text" placeholder="Titulo do seu quizz">
-                <input type="text" placeholder="URL da imagem do seu quizz">
-                <input type="text" placeholder="Quantidade de perguntas do quizz">
-                <input type="text" placeholder="Quantidade de niveis do quizz">
-                <input type="button" value="Prosseguir pra criar perguntas">
-            </form>`
+  <div class="titulo"> Crie suas perguntas </div>
+  <div class="formulario" >
+    <div class="bloco_inputs" >
+        <div class="bold" >Comece pelo começo</div>
+        <input class="primeiro_input" type="text" placeholder="Titulo do seu Quizz" />
+        <input class="segundo_input" type="text" placeholder="URL da imagem do seu quizz" />
+        <input class="segundo_input" type="text" placeholder="Quantidade de perguntas do quizz" />
+        <input class="segundo_input" type="text" placeholder="Quantidade de níveis do quizz" />
+    </div>
+    
+    <div class="button">
+        <button type="submit">Prosseguir para criar perguntas</button>
+    </div>
+  </div>`
  }
 
  pagina_um()
@@ -156,7 +162,7 @@ function pagina_dois() {
   esconderElemento(".paginaQuizz");
   esconderElemento(".pagina_um");
   esconderElemento(".pagina_tres");
-  esconderElemento(".pagina_um");
+  esconderElemento(".pagina_quatro");
   pagina_dois.innerHTML =  ` 
     <div class="titulo"> Crie suas perguntas </div>
     <div class="formulario" >
