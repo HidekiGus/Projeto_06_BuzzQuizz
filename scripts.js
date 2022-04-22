@@ -4,9 +4,10 @@ let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 
-function carregarQuizzes (id) {
-     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
-    promise.then(quizzesServ);
+function carregarQuizzes() {
+  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
+
+  promise.then(quizzesServ);
 }
 
 // Função que torna as respostas aleatórias
@@ -15,7 +16,7 @@ function embaralhar() {
 }
 
 
-function quizzesServ (resposta) {
+function quizzesServ(resposta) {
   quizzInfo = resposta.data;
   esconderElemento(".conteudo");
   esconderElemento(".criacao_quizz");
@@ -24,6 +25,7 @@ function quizzesServ (resposta) {
   </div>`;
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
+    disporQuizz.innerHTML +=
   
     // A lista de respostas chama a função embaralha
     quizzInfo.questions[i].answers.sort(embaralhar)
@@ -33,31 +35,32 @@ function quizzesServ (resposta) {
     `
 
       <div class="primeira pergunta">
-                  <div class="topo-pergunta">
-                      <h1>${quizzInfo.questions[i].title}</h1>
-                  </div>
+            <div class="topo-pergunta">
+                <h1>${quizzInfo.questions[i].title}</h1>
+            </div>
 
-                  <div class="respostas">
+            <div class="respostas">
 
-                      <div class="row-1">
-                      <img class="alternativa-1" src=${quizzInfo.questions[i].answers[0].image} alt="alternativa-1">
-                      <h3>${quizzInfo.questions[i].answers[0].text}</h3>
+                <div class="row-1">
+                    <img class="alternativa-1" src=${quizzInfo.questions[i].answers[0].image} alt="alternativa-1">
+                    <h3>${quizzInfo.questions[i].answers[0].text}</h3>
 
-                      <img class="alternativa-2" src=${quizzInfo.questions[i].answers[1].image} alt="alternativa-2">
-                      <h3>${quizzInfo.questions[i].answers[1].text}</h3>
-                  </div>
+                    <img class="alternativa-2" src=${quizzInfo.questions[i].answers[1].image} alt="alternativa-2">
+                    <h3>${quizzInfo.questions[i].answers[1].text}</h3>
+                </div>
 
-                  <div class="row-2">
-                  <img class="alternativa-3" src=${quizzInfo.questions[i].answers[2].image} alt="alternativa-3">
-                  <h3>${quizzInfo.questions[i].answers[2].text}</h3>
+                <div class="row-2">
+                    <img class="alternativa-3" src=${quizzInfo.questions[i].answers[2].image} alt="alternativa-3">
+                    <h3>${quizzInfo.questions[i].answers[2].text}</h3>
 
-                  <img class="alternativa-4" src=${quizzInfo.questions[i].answers[3].image} alt="alternativa-4">
-                  <h3>${quizzInfo.questions[i].answers[3].text}</h3>
-                  </div>
+                    <img class="alternativa-4" src=${quizzInfo.questions[i].answers[3].image} alt="alternativa-4">
+                    <h3>${quizzInfo.questions[i].answers[3].text}</h3>
+                </div>
 
-                  </div>
+            </div>
 
-              </div>
+        </div>
+      
       `
 
   }
@@ -91,7 +94,7 @@ function listar_quizzUsuario() {
 // Pega a lista de quizzes da api 
 // Chama a função para listar quizzes que está logo abaixo
 function pegarQuizzeSite() {
-  let promise = axios.get(api+"quizzes");
+  let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
 pegarQuizzeSite()
@@ -100,11 +103,11 @@ pegarQuizzeSite()
 // Pega a resposta da api 
 // E adiciona os quizzes na tela principal do site abaixo de "Todos os quizzes"
 function listar_quizzSite(resposta) {
-  lista_quizzes=resposta.data;
-  let texto ="";
-  for (i=0; i<lista_quizzes.length; i++){
+  lista_quizzes = resposta.data;
+  let texto = "";
+  for (i = 0; i < lista_quizzes.length; i++) {
     // add id no nome da classe para ser pego depois para exibir quizz
-    texto = texto +  `
+    texto = texto + `
     <div onclick='exibir(this)' class='capa_quizz texto_branco  ${lista_quizzes[i].id}'>  
       <div class='degradee'></div>
       <img src="${lista_quizzes[i].image}"  />
@@ -142,23 +145,51 @@ function pagina_um() {
 
   pagina_um.innerHTML = `
 
-  <div class="titulo bold"> Crie suas perguntas </div>
+  <div class="titulo bold">Comece pelo começo</div>
+
   <div class="formulario" >
+
     <div class="bloco_inputs" >
-        <div class="bold" >Comece pelo começo</div>
-        <input class="primeiro_input" type="text" placeholder="Titulo do seu Quizz" />
-        <input class="segundo_input" type="text" placeholder="URL da imagem do seu quizz" />
-        <input class="segundo_input" type="text" placeholder="Quantidade de perguntas do quizz" />
-        <input class="segundo_input" type="text" placeholder="Quantidade de níveis do quizz" />
+
+        <input class="primeiro_input" minlength="20" maxlength="65" type="text" required placeholder="Titulo do seu Quizz"/>
+
+        <input class="segundo_input" type="url" required placeholder="URL da imagem do seu quizz"/>
+
+        <input class="terceiro_input" type="text" placeholder="Quantidade de perguntas do quizz"/>
+
+        <input class="quarto_input" type="text" placeholder="Quantidade de níveis do quizz"/>
     </div>
   </div>
   <div class="button">
         <button type="submit">Prosseguir para criar perguntas</button>
-    </div>`
+    </div> `
  }
 
- //pagina_um()
+//pagina_um()
 
+function especificacoesQuizz() {
+  let tituloInput = document.querySelector(".primeiro_input").value
+  let imagemInput = document.getElementsByClassName(".segundo_input")
+
+  let qtdPerguntas = document.querySelector(".terceiro_input").value
+  let qtdNiveis = document.querySelector(".quarto_input").value
+
+
+  console.log(imagemInput.type)
+  if ((tituloInput.length >= 20 && tituloInput <= 65)) {
+    if (qtdPerguntas < 3) {
+      alert("Erro! A quantidade mínima de perguntas é 3")
+    }
+    else if (qtdNiveis < 2) {
+      alert("Erro! A quantidade mínima de níveis é 2")
+    } else { pagina_dois() }
+  } else {
+    alert("Preencha todos os dados corretamente!")
+  }
+
+
+
+}
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
 // Adiciona o formulário de perguntas da etapa dois da criação
