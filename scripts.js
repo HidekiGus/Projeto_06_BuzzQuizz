@@ -1,29 +1,44 @@
-// PEGAR QUIZZES DA API 
+// PEGAR QUIZZES DA API (não tá funcionando :P)
 let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 
+<<<<<<< HEAD
 function carregarQuizzes() {
   let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
 
   promise.then(quizzesServ);
+=======
+function carregarQuizzes (id) {
+     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
+    promise.then(quizzesServ);
+>>>>>>> 516c3f5fb709d6dd35d3348b6b2bbe5b23c5df9c
 }
 
-carregarQuizzes()
+// Função que torna as respostas aleatórias
+function embaralhar() { 
+  return Math.random() - 0.5
+}
+
 
 function quizzesServ(resposta) {
   quizzInfo = resposta.data;
-
-  console.log(quizzInfo.questions.length)
+  esconderElemento(".conteudo");
+  esconderElemento(".criacao_quizz");
   disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzInfo.image}');">
   <h1>${quizzInfo.title}</h1>
-</div>`;
+  </div>`;
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
     disporQuizz.innerHTML +=
+  
+    // A lista de respostas chama a função embaralha
+    quizzInfo.questions[i].answers.sort(embaralhar)
 
-      `
+    disporQuizz.innerHTML += 
+    
+    `
 
       <div class="primeira pergunta">
             <div class="topo-pergunta">
@@ -78,7 +93,7 @@ function listar_quizzUsuario() {
     </div>`
 }
 
-listar_quizzUsuario()
+//listar_quizzUsuario()
 
 
 // LISTAR TODOS OS QUIZZES 
@@ -101,7 +116,7 @@ function listar_quizzSite(resposta) {
     texto = texto + `
     <div onclick='exibir(this)' class='capa_quizz texto_branco  ${lista_quizzes[i].id}'>  
       <div class='degradee'></div>
-      <img src=${lista_quizzes[i].image} />
+      <img src="${lista_quizzes[i].image}"  />
       <h2>${lista_quizzes[i].title}</h2>
      </div> `
   }
@@ -119,6 +134,7 @@ function exibir(elemento) {
   esconderElemento(".conteudo");
   // Pega o id que estava no nome da classe
   let id = elemento.classList[2];
+  carregarQuizzes(id)
 }
 
 // FIM DO  EXIBIR   QUIZZ     --------------------------------------
@@ -149,11 +165,13 @@ function pagina_um() {
 
         <input class="quarto_input" type="text" placeholder="Quantidade de níveis do quizz"/>
     </div>
-    
+  </div>
+  <div class="button">
         <button type="submit">Prosseguir para criar perguntas</button>
-    
-  </div>`
+    </div> `
+ }
 
+ //pagina_um()
 
 }
 
@@ -193,7 +211,7 @@ function pagina_dois() {
   esconderElemento(".pagina_um");
   esconderElemento(".pagina_tres");
   esconderElemento(".pagina_quatro");
-  pagina_dois.innerHTML = ` 
+  pagina_dois.innerHTML =  ` 
     <div class="titulo bold"> Crie suas perguntas </div>
     <div class="formulario" >
       <div class="bloco_inputs" >
@@ -206,9 +224,36 @@ function pagina_dois() {
           <input class="primeiro_input" type="text" placeholder="Resposta correta" />
           <input class="segundo_input" type="text" placeholder="URL da imagem" />
       </div>
-      <div class="button">
-          <button type="submit">Prosseguir para criar níveis</button>
+      <div class="bloco_inputs" >
+          <div class="bold" >Respostas Incorretas</div>
+          <div class="dupla_input">
+            <input class="primeiro_input" type="text" placeholder="Resposta Incorreta 1" />
+            <input class="segundo_input" type="text" placeholder="URL da imagem 1" />
+          </div>
+          <div class="dupla_input">
+            <input class="primeiro_input" type="text" placeholder="Resposta Incorreta 2" />
+            <input class="segundo_input" type="text" placeholder="URL da imagem 2" />
+          </div>
+          <div class="dupla_input">
+            <input class="primeiro_input" type="text" placeholder="Resposta Incorreta 3" />
+            <input class="segundo_input" type="text" placeholder="URL da imagem 3" />
+          </div>
       </div>
+    </div>
+    <div class="formulario" >
+      <div class="bloco_inputs inline" >
+          <div class="bold" >Pergunta 2 </div>
+          <ion-icon name="create-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="formulario" >
+      <div class="bloco_inputs inline" >
+          <div class="bold" >Pergunta 3 </div>
+          <ion-icon name="create-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="button">
+          <button type="submit">Prosseguir para criar níveis</button>
     </div>
   `
 }

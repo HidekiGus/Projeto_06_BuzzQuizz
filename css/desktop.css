@@ -24,7 +24,7 @@ body {
     position:fixed;
     top:0px;
     right:0px;
-    z-index:1;
+    z-index:2;
 }
 
 .conteudo {
@@ -45,7 +45,12 @@ body {
     margin-top: 2%;
     position: relative;
     border-radius: 5px;
-    margin-left: 1.2%;    
+    margin-left: 1.2%;  
+    transition: all .3s;  
+}
+
+.capa_quizz:hover {
+    transform: translateY(-5px);
 }
 
 .degradee {
@@ -126,7 +131,7 @@ body {
     box-shadow: 0.5px 0.5px 10px 0.5px rgb(232, 228, 228);
     display: flex;
     flex-direction: column;
-    padding:10px 20px;
+    padding:10px 20px 30px 20px;
     margin-top: 50px;
 }
 
@@ -136,8 +141,23 @@ body {
     margin-top: 30px;
 }
 
+.dupla_input{
+    margin-top: 10px;
+}
+
+.inline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formulario ion-icon {
+    font-size:26px;
+}
+
 .formulario input {
-    margin-top: 20px;
+    margin-top: 15px;
     height: 30px;
     width: 100%;
     border: 1px solid #b9b9b9;
@@ -147,7 +167,7 @@ body {
 }
 
 
-.formulario button {
+.criacao_quizz button {
     background-color: #EC362D;
     color: #ffffff;
     border: 0px;
@@ -155,7 +175,19 @@ body {
     font-size: 14px;
     width: 250px;
     height: 40px;
-    margin: 30px 25%;
+    margin: 30px auto;
+    transition: all .3s;
+}
+
+.criacao_quizz .button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.criacao_quizz button:hover {
+    box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(4, 3, 3, 0.18);
 }
 
 
@@ -178,6 +210,24 @@ body {
     align-items: center;
     flex-direction: column;
 }
+
+.pagina_um {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.pagina_tres {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.pagina_quatro {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
 
 /* PARA ESCONDER ALGUMA TAG */
 
@@ -289,6 +339,8 @@ body {
     margin: 0px 12px 0px 12px;
     font-size: 20px;
     font-weight: 700;
+    word-break:break-word;
+
 }
 
 
