@@ -44,6 +44,18 @@
     font-size:4vmin;
   }
 
+  /*  FORMULÁRIO  */
+
+  .criacao_quizz {
+    margin: 100px 0px;
+  }
+
+  .formulario {
+    width: 100%;
+    padding:10px 30px;
+}
+
+
 }
 
 @media (max-width: 730px) {

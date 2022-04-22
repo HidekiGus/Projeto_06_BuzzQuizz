@@ -149,7 +149,7 @@ function pagina_um() {
 
   pagina_um.innerHTML = `
 
-  <div class="titulo"> Crie suas perguntas </div>
+  <div class="titulo bold"> Crie suas perguntas </div>
   <div class="formulario" >
     <div class="bloco_inputs" >
         <div class="bold" >Comece pelo começo</div>
@@ -158,7 +158,7 @@ function pagina_um() {
         <input class="segundo_input" type="text" placeholder="Quantidade de perguntas do quizz" />
         <input class="segundo_input" type="text" placeholder="Quantidade de níveis do quizz" />
     </div>
-    
+
     <div class="button">
         <button type="submit">Prosseguir para criar perguntas</button>
     </div>
@@ -179,7 +179,7 @@ function pagina_dois() {
   esconderElemento(".pagina_tres");
   esconderElemento(".pagina_quatro");
   pagina_dois.innerHTML =  ` 
-    <div class="titulo"> Crie suas perguntas </div>
+    <div class="titulo bold"> Crie suas perguntas </div>
     <div class="formulario" >
       <div class="bloco_inputs" >
           <div class="bold" >Pergunta 1</div>
