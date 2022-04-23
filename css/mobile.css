@@ -33,7 +33,11 @@
     margin-top: 5%;
     margin-left: 0px;
   }
-
+  .capa_quizz_construcao {
+    width: 86vmin;
+    height: 54vmin;
+    margin: 8% 0px;
+  }
   
 
   /* TEXTO   */
@@ -47,8 +51,8 @@
   }
 
   .capa_quizz_construcao h2 {
-    padding: 5vmin;
-    font-size: 5vmin;
+    padding: 4vmin;
+    font-size: 3.4vmin;
 }
 
   /*  FORMULÁRIO  */
@@ -62,18 +66,16 @@
     padding:10px 30px 30px 30px;
 }
 
-.capa_quizz_construcao {
-    width: 90vmin;
-    height: 55vmin;
-    margin: 8% 0px;
-}
-
 }
 
 @media (max-width: 730px) {
   .conteudo {
     margin: 100px 8vmin;
   }
+  .capa_quizz_construcao h2 {
+    padding: 4vmin;
+    font-size: 5vmin;
+}
 }
 
 

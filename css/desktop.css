@@ -63,7 +63,7 @@ body {
 
 .capa_quizz_construcao {
     width: 30vmax;
-    height: 20vmax;
+    height: 18vmax;
     margin: 5% 0px;
     position: relative;
     border-radius: 5px;
@@ -253,7 +253,7 @@ body {
 
 .escondido {
     display: none;
-}
+} 
 
 /*  CLASSES PRA TEXTO   */
 
@@ -271,13 +271,10 @@ body {
     bottom: 0px;
     left: 0px;
     padding: 3vmin;
-    font-size: 1.5vmax;
+    font-size: 1.2vmax;
     word-break:break-word;
 }
 
-.titulo_button {
-    color:#818181;
-}
 
 .quizzesSite > h2 {
     font-size:18px;
@@ -307,6 +304,9 @@ body {
 
 .texto_branco {
     color:#ffffff;
+}
+.texto_cinza {
+    color:#818181;
 }
 
 /* PÁGINA DO QUIZZ */

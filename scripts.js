@@ -4,8 +4,8 @@ let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 
-function carregarQuizzes() {
-  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
+function carregarQuizzes(id) {
+  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
 
   promise.then(quizzesServ);
 }
@@ -132,6 +132,12 @@ function exibir(elemento) {
 }
 
 // FIM DO  EXIBIR   QUIZZ     --------------------------------------
+
+//  VOLTAR  PARA  HOME   --------------------------------------
+function voltar_home() {
+  trocaTela(".criacao_quizz" ,".conteudo")
+  esconderElemento(".paginaQuizz");
+}
 
 // CRIAÇÃO   DO    QUIZZ     --------------------------------
 
@@ -260,6 +266,10 @@ function pagina_quatro () {
   esconderElemento(".pagina_um");
   esconderElemento(".pagina_tres");
   esconderElemento(".pagina_dois");
+
+  // Exemplo para testar o botão Acessar Quizz
+  let criacao_id = 26;
+
   pagina_quatro.innerHTML =  ` 
     <div class="titulo bold"> Seu quizz está pronto! </div>
     <div class='capa_quizz_construcao texto_branco'>
@@ -268,12 +278,13 @@ function pagina_quatro () {
       <h2>O quão Potterhead é você?</h2>
     </div>
     <div class="button">
-          <button>Acessar Quizz</button>
-          <div class="titulo_button"> Voltar para home </div>
+          <button onclick='exibir(this)' class='${criacao_id}'>Acessar Quizz</button>
+          <div onclick='voltar_home()' class="titulo_cinza"> Voltar para home </div>
     </div>
   ` 
 }
 pagina_quatro()
+
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
 
