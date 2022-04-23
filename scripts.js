@@ -18,15 +18,14 @@ function embaralhar() {
 
 function quizzesServ(resposta) {
   quizzInfo = resposta.data;
-  esconderElemento(".conteudo");
+  trocaTela(".conteudo" ,".paginaQuizz")
   esconderElemento(".criacao_quizz");
   disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzInfo.image}');">
   <h1>${quizzInfo.title}</h1>
   </div>`;
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
-    disporQuizz.innerHTML +=
-  
+   
     // A lista de respostas chama a função embaralha
     quizzInfo.questions[i].answers.sort(embaralhar)
 
@@ -127,8 +126,13 @@ function listar_quizzSite(resposta) {
 function exibir(elemento) {
   esconderElemento(".conteudo");
   // Pega o id que estava no nome da classe
-  let id = elemento.classList[2];
-  carregarQuizzes(id)
+  if (elemento.classList.length===1){
+    let id = elemento.classList[0];
+    carregarQuizzes(id)
+  }else{
+    let id = elemento.classList[2];
+    carregarQuizzes(id)
+  }
 }
 
 // FIM DO  EXIBIR   QUIZZ     --------------------------------------
@@ -268,7 +272,7 @@ function pagina_quatro () {
   esconderElemento(".pagina_dois");
 
   // Exemplo para testar o botão Acessar Quizz
-  let criacao_id = 26;
+  let criacao_id = 30;
 
   pagina_quatro.innerHTML =  ` 
     <div class="titulo bold"> Seu quizz está pronto! </div>
@@ -278,7 +282,7 @@ function pagina_quatro () {
       <h2>O quão Potterhead é você?</h2>
     </div>
     <div class="button">
-          <button onclick='exibir(this)' class='${criacao_id}'>Acessar Quizz</button>
+          <button onclick='exibir(this)' class='${criacao_id}' >Acessar Quizz</button>
           <div onclick='voltar_home()' class="titulo_cinza"> Voltar para home </div>
     </div>
   ` 
