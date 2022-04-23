@@ -174,8 +174,8 @@ body {
     font-size:26px;
 }
 
-.formulario input {
-    margin-top: 15px;
+.formulario .inputs {
+    margin-top: 14px;
     height: 30px;
     width: 100%;
     border: 1px solid #b9b9b9;
@@ -183,6 +183,12 @@ body {
     font-size: 14px;
     padding: 20px;
 }
+
+.formulario .invalid {
+    border: 2px solid red;
+}
+
+
 
 
 .criacao_quizz button {
