@@ -53,6 +53,31 @@ body {
     transform: translateY(-5px);
 }
 
+.capa_quizz img {
+    object-fit: cover;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0.5px 0.5px 10px 0.5px rgb(197, 195, 195);
+}
+
+.capa_quizz_construcao {
+    width: 30vmax;
+    height: 18vmax;
+    margin: 5% 0px;
+    position: relative;
+    border-radius: 5px;
+}
+
+
+.capa_quizz_construcao img {
+    object-fit: cover;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0.5px 0.5px 10px 0.5px rgb(197, 195, 195);
+}
+
 .degradee {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
     position: absolute;
@@ -63,13 +88,6 @@ body {
     border-radius: 5px;
 }
 
-.capa_quizz img {
-    object-fit: cover;
-    border-radius: 5px;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0.5px 0.5px 10px 0.5px rgb(197, 195, 195);
-}
 
 .quizzesSite {
     margin-top: 70px;
@@ -156,8 +174,8 @@ body {
     font-size:26px;
 }
 
-.formulario input {
-    margin-top: 15px;
+.formulario .inputs {
+    margin-top: 14px;
     height: 30px;
     width: 100%;
     border: 1px solid #b9b9b9;
@@ -166,23 +184,31 @@ body {
     padding: 20px;
 }
 
+.formulario .invalid {
+    border: 2px solid red;
+}
+
+
+
 
 .criacao_quizz button {
     background-color: #EC362D;
     color: #ffffff;
     border: 0px;
-    border-radius: 10px;
-    font-size: 14px;
-    width: 250px;
-    height: 40px;
+    border-radius: 15px;
+    width: auto;
+    padding: 10px 30px;
     margin: 30px auto;
+    font-size: 16px;
     transition: all .3s;
 }
 
 .criacao_quizz .button {
     width: 100%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 16px;
 }
 
 
@@ -233,7 +259,7 @@ body {
 
 .escondido {
     display: none;
-}
+} 
 
 /*  CLASSES PRA TEXTO   */
 
@@ -245,6 +271,16 @@ body {
     font-size: 1.1vmax;
     word-break:break-word;
 }
+
+.capa_quizz_construcao h2 {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 3vmin;
+    font-size: 1.2vmax;
+    word-break:break-word;
+}
+
 
 .quizzesSite > h2 {
     font-size:18px;
@@ -274,6 +310,9 @@ body {
 
 .texto_branco {
     color:#ffffff;
+}
+.texto_cinza {
+    color:#818181;
 }
 
 /* PÁGINA DO QUIZZ */
