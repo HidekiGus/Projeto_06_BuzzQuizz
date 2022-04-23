@@ -4,16 +4,9 @@ let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 
-<<<<<<< HEAD
-function carregarQuizzes() {
-  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
-
-  promise.then(quizzesServ);
-=======
 function carregarQuizzes (id) {
      let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
     promise.then(quizzesServ);
->>>>>>> 516c3f5fb709d6dd35d3348b6b2bbe5b23c5df9c
 }
 
 // Função que torna as respostas aleatórias
@@ -167,26 +160,25 @@ function pagina_um() {
     </div>
   </div>
   <div class="button">
-        <button type="submit">Prosseguir para criar perguntas</button>
+        <button type="submit" onclick="especificacoesQuizz()">Prosseguir para criar perguntas</button>
     </div> `
  }
 
- //pagina_um()
+ pagina_um()
 
+ 
+function especificacoesQuizz() {
+
+function validateUrl(url) {
+ return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/i.test(url);
 }
 
-pagina_um()
-
-function especificacoesQuizz() {
+  let imagemInput = document.querySelector(".segundo_input").value
   let tituloInput = document.querySelector(".primeiro_input").value
-  let imagemInput = document.getElementsByClassName(".segundo_input")
-
   let qtdPerguntas = document.querySelector(".terceiro_input").value
   let qtdNiveis = document.querySelector(".quarto_input").value
 
-
-  console.log(imagemInput.type)
-  if ((tituloInput.length >= 20 && tituloInput <= 65)) {
+  if ((tituloInput.length >= 20 && tituloInput.length <= 65) && validateUrl(imagemInput) === true) {
     if (qtdPerguntas < 3) {
       alert("Erro! A quantidade mínima de perguntas é 3")
     }
@@ -197,9 +189,14 @@ function especificacoesQuizz() {
     alert("Preencha todos os dados corretamente!")
   }
 
-
-
+  console.log(validateUrl(imagemInput))
+  console.log(imagemInput)
 }
+
+
+
+
+
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
 // Adiciona o formulário de perguntas da etapa dois da criação
