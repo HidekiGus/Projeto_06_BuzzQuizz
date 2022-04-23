@@ -62,12 +62,11 @@ body {
 }
 
 .capa_quizz_construcao {
-    width: 22vmax;
-    height: 15vmax;
-    margin-top: 2%;
+    width: 30vmax;
+    height: 20vmax;
+    margin: 5% 0px;
     position: relative;
     border-radius: 5px;
-    margin-left: 1.2%;   
 }
 
 
@@ -190,11 +189,11 @@ body {
     background-color: #EC362D;
     color: #ffffff;
     border: 0px;
-    border-radius: 10px;
-    font-size: 14px;
-    width: 250px;
-    height: 40px;
+    border-radius: 15px;
+    width: auto;
+    padding: 10px 30px;
     margin: 30px auto;
+    font-size: 16px;
     transition: all .3s;
 }
 
@@ -203,6 +202,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
+    font-size: 16px;
 }
 
 
@@ -264,6 +264,19 @@ body {
     padding: 2vmin;
     font-size: 1.1vmax;
     word-break:break-word;
+}
+
+.capa_quizz_construcao h2 {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 3vmin;
+    font-size: 1.5vmax;
+    word-break:break-word;
+}
+
+.titulo_button {
+    color:#818181;
 }
 
 .quizzesSite > h2 {

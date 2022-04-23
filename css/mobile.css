@@ -34,6 +34,8 @@
     margin-left: 0px;
   }
 
+  
+
   /* TEXTO   */
 
   .quizzesSite > h2 {
@@ -43,6 +45,11 @@
   .quizzesdoUsuario .titulo > h2 {
     font-size:4vmin;
   }
+
+  .capa_quizz_construcao h2 {
+    padding: 5vmin;
+    font-size: 5vmin;
+}
 
   /*  FORMULÁRIO  */
 
@@ -55,6 +62,11 @@
     padding:10px 30px 30px 30px;
 }
 
+.capa_quizz_construcao {
+    width: 90vmin;
+    height: 55vmin;
+    margin: 8% 0px;
+}
 
 }
 

@@ -251,8 +251,7 @@ function pagina_dois() {
 
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
-// 
-
+// Adiciona uma mensagem de sucesso, representando a finalização da criação do quizz
 function pagina_quatro () {
   let pagina_quatro = document.querySelector(".pagina_quatro");
   // esconder os outros elementos do site
@@ -269,8 +268,8 @@ function pagina_quatro () {
       <h2>O quão Potterhead é você?</h2>
     </div>
     <div class="button">
-          <button type="submit">Acessar Quizz</button>
-          <div class="titulo"> Voltar para home </div>
+          <button>Acessar Quizz</button>
+          <div class="titulo_button"> Voltar para home </div>
     </div>
   ` 
 }
