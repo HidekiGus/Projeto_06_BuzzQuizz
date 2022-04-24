@@ -3,20 +3,11 @@ let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
-<<<<<<< HEAD
-let lista_perguntas;
-
-
-function carregarQuizzes(id) {
-  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
-
-  promise.then(quizzesServ);
-=======
+let lista_perguntas=[];
 
 function carregarQuizzes (id) {
      let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
     promise.then(quizzesServ);
->>>>>>> d90eb1197f98757c7dcf60624b6a92cd5f184a14
 }
 
 // Função que torna as respostas aleatórias
@@ -352,54 +343,59 @@ function validateUrl(url) {
 function addPerguntas(){
   // Verifica se não inputs inválidos e/ou vazios
   if(verInvalid(".pagina_dois") && verInputs(".pagina_dois")){
-    alert("sucesssooooooooooooo")
+   
     let pagina = document.querySelector(".pagina_dois");
-    let lista_formulario=pagina.querySelectorAll("formulario");
+    let lista_formulario=pagina.querySelectorAll(".formulario");
 
     // Pegar a tag formulario
     for (i=0;i<lista_formulario.length;i++){
       let formulario = lista_formulario[i];
       let lista_resposta=[];
-      let titulo="";
-      let cor="";
       // Pegar os inputs dentro do formulario
       let lista_inputs = formulario.querySelectorAll("input");
-      for (j=0;j<lista_inputs.length;j++){
-        let item = lista_inputs[j].value;
-        if(j===0){
-          titulo=item;
-        }
-        if(j===1){
-          cor=item;
 
+      if(lista_inputs.length!==0){
+        let resposta_correta = {
+            text: lista_inputs[2].value ,
+            image: lista_inputs[3].value ,
+            isCorrectAnswer: true
         }
-        if(j>1 && j<=4){
-          
+        let resposta_incorreta = {
+          text: lista_inputs[4].value,
+          image: lista_inputs[5].value,
+          isCorrectAnswer: false
         }
-      }
-      // A primeira condição é para PÁGINA_DOIS , verificar se a resposta incorreta 1 está preenchida, as outras não têm a mesma obrigatoriedade
-      
-      if(item.classList.contains("dois") || item.classList.contains("tres")) {
-        let primeiro = item.parentNode.children[0];
-        let segundo = item.parentNode.children[1];
-        if((primeiro.value!=="" && segundo.value==="") || (primeiro.value==="" && segundo.value!=="")){
-          alert("Algum campo não foi preenchido. Por favor, verifique.")
-          return false
-        } 
-      }else {
-        if(item.value===""){
-          alert("Algum campo não foi preenchido. Por favor, verifique.")
-          return false
+        lista_resposta.push(resposta_correta)
+        lista_resposta.push(resposta_incorreta)
+        if( lista_inputs[6].value!==""){
+          let resposta_incorreta = {
+            text: lista_inputs[6].value,
+            image: lista_inputs[7].value,
+            isCorrectAnswer: false
+          }
+          lista_resposta.push(resposta_incorreta)
         }
-      }
-      if(i===lista_inputs.length-1){
-        return true
+        if( lista_inputs[8].value!==""){
+          let resposta_incorreta = {
+            text: lista_inputs[8].value,
+            image: lista_inputs[9].value,
+            isCorrectAnswer: false
+          }
+          lista_resposta.push(resposta_incorreta)
+        }
+        let question = {
+          title:lista_inputs[0].value,
+          color:lista_inputs[1].value,
+          answers:lista_resposta
+        }
+        lista_perguntas.push(question)
       }
     }
+  }
 
   }
-}
-
+      
+   
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_dois() {
   let pagina_dois = document.querySelector(".pagina_dois");
