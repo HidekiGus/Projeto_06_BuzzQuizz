@@ -5,14 +5,14 @@ let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 
 function carregarQuizzes() {
-  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24')
+  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24');
 
   promise.then(quizzesServ);
 }
 
 // Função que torna as respostas aleatórias
 function embaralhar() { 
-  return Math.random() - 0.5
+  return Math.random() - 0.5;
 }
 
 
@@ -128,20 +128,30 @@ function exibir(elemento) {
   esconderElemento(".conteudo");
   // Pega o id que estava no nome da classe
   let id = elemento.classList[2];
-  carregarQuizzes(id)
+  carregarQuizzes(id);
 }
 
 // FIM DO  EXIBIR   QUIZZ     --------------------------------------
+
+// ESCONDE TODOS OS ELEMENTOS
+
+function esconderTudo() {  
+esconderElemento(".conteudo");
+esconderElemento(".paginaQuizz");
+esconderElemento(".pagina_um");
+esconderElemento(".pagina_dois");
+esconderElemento(".pagina_tres");
+esconderElemento(".pagina_quatro");
+}
+
 
 // CRIAÇÃO   DO    QUIZZ     --------------------------------
 
 function pagina_um() {
   let pagina_um = document.querySelector(".pagina_um");
-  esconderElemento(".conteudo");
-  esconderElemento(".paginaQuizz");
-  esconderElemento(".pagina_dois");
-  esconderElemento(".pagina_tres");
-  esconderElemento(".pagina_quatro");
+  esconderTudo();
+  exibirElemento(".pagina_um");
+
 
   pagina_um.innerHTML = `
 
@@ -167,16 +177,27 @@ function pagina_um() {
 
 //pagina_um()
 
+function pagina_tres() {
+  let qtdNiveis = document.querySelector(".quarto_input").value;
+  esconderTudo();
+  exibirElemento(".pagina_tres");
+
+
+
+
+}
+
+
 function especificacoesQuizz() {
-  let tituloInput = document.querySelector(".primeiro_input").value
-  let imagemInput = document.getElementsByClassName(".segundo_input")
+  let tituloInput = document.querySelector(".primeiro_input").value;
+  let imagemInput = document.getElementsByClassName(".segundo_input");
 
-  let qtdPerguntas = document.querySelector(".terceiro_input").value
-  let qtdNiveis = document.querySelector(".quarto_input").value
+  let qtdPerguntas = document.querySelector(".terceiro_input").value;
+  let qtdNiveis = document.querySelector(".quarto_input").value;
 
 
-  console.log(imagemInput.type)
-  if ((tituloInput.length >= 20 && tituloInput <= 65)) {
+  console.log(imagemInput.type);
+  if ((tituloInput.length >= 20) && (tituloInput.length <= 65)) {
     if (qtdPerguntas < 3) {
       alert("Erro! A quantidade mínima de perguntas é 3")
     }
@@ -196,12 +217,10 @@ function especificacoesQuizz() {
 function pagina_dois() {
   let pagina_dois = document.querySelector(".pagina_dois");
   // esconder os outros elementos do site
-  esconderElemento(".conteudo");
-  esconderElemento(".paginaQuizz");
-  esconderElemento(".pagina_um");
-  esconderElemento(".pagina_tres");
-  esconderElemento(".pagina_quatro");
-  pagina_dois.innerHTML =  ` 
+  esconderTudo();
+  exibirElemento(".pagina_dois");
+
+  pagina_dois.innerHTML +=  ` 
     <div class="titulo bold"> Crie suas perguntas </div>
     <div class="formulario" >
       <div class="bloco_inputs" >
@@ -233,7 +252,10 @@ function pagina_dois() {
     <div class="formulario" >
       <div class="bloco_inputs inline" >
           <div class="bold" >Pergunta 2 </div>
-          <ion-icon name="create-outline"></ion-icon>
+          <ion-icon name="create-outline" class="botao_colapsavel"></ion-icon>
+          <div class="testes conteudo_colapsavel">
+            OIOIOIOIOIOIOIOI
+          </div>
       </div>
     </div>
     <div class="formulario" >
@@ -246,8 +268,9 @@ function pagina_dois() {
           <button type="submit">Prosseguir para criar níveis</button>
     </div>
   `
+  //testarColaps();
 }
-//pagina_dois()
+pagina_dois()
 
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
@@ -256,11 +279,9 @@ function pagina_dois() {
 function pagina_quatro () {
   let pagina_quatro = document.querySelector(".pagina_quatro");
   // esconder os outros elementos do site
-  esconderElemento(".conteudo");
-  esconderElemento(".paginaQuizz");
-  esconderElemento(".pagina_um");
-  esconderElemento(".pagina_tres");
-  esconderElemento(".pagina_dois");
+  esconderTudo();
+  exibirElemento(".pagina_quatro");
+
   pagina_quatro.innerHTML =  ` 
     <div class="titulo bold"> Seu quizz está pronto! </div>
     <div class='capa_quizz_construcao texto_branco'>
@@ -270,11 +291,11 @@ function pagina_quatro () {
     </div>
     <div class="button">
           <button type="submit">Acessar Quizz</button>
-          <div class="titulo"> Voltar para home </div>
+          <div class="titulo" onclick="trocaTela('.pagina_quatro', '.conteudo')"> Voltar para home </div>
     </div>
   ` 
 }
-pagina_quatro()
+//pagina_quatro()
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
 
@@ -325,5 +346,30 @@ function controlaBotaoCriarQuiz() {
 controlaBotaoCriarQuiz();
 
 function botaoCriarQuiz() {
-  trocaTela(".conteudo", ".pagina_tres");
+  trocaTela(".conteudo", ".pagina_um");
+  pagina_um();
+}
+
+//esconderElemento(".pagina_quatro");
+//exibirElemento(".conteudo");
+
+function testarColaps() {
+
+  let coll = document.getElementsByClassName("botao_colapsavel");
+
+  for (let i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      let conteudo_colaps = this.nextElementSibling;
+      console.log(conteudo_colaps);
+      console.log(conteudo_colaps.style.display);
+      if (conteudo_colaps.style.maxHeight) {
+        console.log(conteudo_colaps.style.maxHeight);
+        conteudo_colaps.style.maxHeight = null;
+      } else {
+        conteudo_colaps.style.maxHeight = conteudo_colaps.style.maxHeight + "px";
+        console.log(conteudo_colaps.style.maxHeight);
+      }
+    })
+  }
+
 }

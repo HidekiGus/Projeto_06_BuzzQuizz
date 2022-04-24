@@ -143,6 +143,24 @@ body {
 
 /*  FORMULÁRIO  */
 
+.botao_colapsavel {
+    cursor: pointer;
+}
+
+.conteudo_colapsavel {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    position: relative;
+    display: none;
+    color: blue;
+    font-size: 60px;
+}
+
+.texto {
+
+}
+
 .formulario {
     width: 600px;
     height: auto;
