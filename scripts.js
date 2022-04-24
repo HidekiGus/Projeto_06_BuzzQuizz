@@ -3,6 +3,7 @@ let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
+<<<<<<< HEAD
 let lista_perguntas;
 
 
@@ -10,6 +11,12 @@ function carregarQuizzes(id) {
   let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
 
   promise.then(quizzesServ);
+=======
+
+function carregarQuizzes (id) {
+     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
+    promise.then(quizzesServ);
+>>>>>>> d90eb1197f98757c7dcf60624b6a92cd5f184a14
 }
 
 // Função que torna as respostas aleatórias
@@ -300,22 +307,25 @@ function pagina_um() {
     </div>
   </div>
   <div class="button">
-        <button type="submit">Prosseguir para criar perguntas</button>
+        <button type="submit" onclick="especificacoesQuizz()">Prosseguir para criar perguntas</button>
     </div> `
  }
 
-//pagina_um()
+ //pagina_um()
 
+ 
 function especificacoesQuizz() {
-  let tituloInput = document.querySelector(".primeiro_input").value
-  let imagemInput = document.getElementsByClassName(".segundo_input")
 
+function validateUrl(url) {
+ return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/i.test(url);
+}
+
+  let imagemInput = document.querySelector(".segundo_input").value
+  let tituloInput = document.querySelector(".primeiro_input").value
   let qtdPerguntas = document.querySelector(".terceiro_input").value
   let qtdNiveis = document.querySelector(".quarto_input").value
 
-
-  console.log(imagemInput.type)
-  if ((tituloInput.length >= 20 && tituloInput <= 65)) {
+  if ((tituloInput.length >= 20 && tituloInput.length <= 65) && validateUrl(imagemInput) === true) {
     if (qtdPerguntas < 3) {
       alert("Erro! A quantidade mínima de perguntas é 3")
     }
@@ -326,9 +336,13 @@ function especificacoesQuizz() {
     alert("Preencha todos os dados corretamente!")
   }
 
-
-
+  console.log(validateUrl(imagemInput))
+  console.log(imagemInput)
 }
+
+
+
+
 
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
