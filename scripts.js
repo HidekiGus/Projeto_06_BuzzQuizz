@@ -3,7 +3,7 @@ let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
-
+let lista_perguntas;
 
 
 function carregarQuizzes(id) {
@@ -339,6 +339,50 @@ function addPerguntas(){
   // Verifica se não inputs inválidos e/ou vazios
   if(verInvalid(".pagina_dois") && verInputs(".pagina_dois")){
     alert("sucesssooooooooooooo")
+    let pagina = document.querySelector(".pagina_dois");
+    let lista_formulario=pagina.querySelectorAll("formulario");
+
+    // Pegar a tag formulario
+    for (i=0;i<lista_formulario.length;i++){
+      let formulario = lista_formulario[i];
+      let lista_resposta=[];
+      let titulo="";
+      let cor="";
+      // Pegar os inputs dentro do formulario
+      let lista_inputs = formulario.querySelectorAll("input");
+      for (j=0;j<lista_inputs.length;j++){
+        let item = lista_inputs[j].value;
+        if(j===0){
+          titulo=item;
+        }
+        if(j===1){
+          cor=item;
+
+        }
+        if(j>1 && j<=4){
+          
+        }
+      }
+      // A primeira condição é para PÁGINA_DOIS , verificar se a resposta incorreta 1 está preenchida, as outras não têm a mesma obrigatoriedade
+      
+      if(item.classList.contains("dois") || item.classList.contains("tres")) {
+        let primeiro = item.parentNode.children[0];
+        let segundo = item.parentNode.children[1];
+        if((primeiro.value!=="" && segundo.value==="") || (primeiro.value==="" && segundo.value!=="")){
+          alert("Algum campo não foi preenchido. Por favor, verifique.")
+          return false
+        } 
+      }else {
+        if(item.value===""){
+          alert("Algum campo não foi preenchido. Por favor, verifique.")
+          return false
+        }
+      }
+      if(i===lista_inputs.length-1){
+        return true
+      }
+    }
+
   }
 }
 
