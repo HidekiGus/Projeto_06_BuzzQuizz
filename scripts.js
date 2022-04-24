@@ -9,17 +9,18 @@ function carregarQuizzes (id) {
     promise.then(quizzesServ);
 }
 
+carregarQuizzes(24)
+
 // Função que torna as respostas aleatórias
 function embaralhar() { 
   return Math.random() - 0.5
 }
 
-
 function quizzesServ(resposta) {
   quizzInfo = resposta.data;
   trocaTela(".conteudo" ,".paginaQuizz")
   esconderElemento(".criacao_quizz");
-  disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzInfo.image}');">
+  disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
   <h1>${quizzInfo.title}</h1>
   </div>`;
 
@@ -40,19 +41,31 @@ function quizzesServ(resposta) {
             <div class="respostas">
 
                 <div class="row-1">
-                    <img class="alternativa-1" src=${quizzInfo.questions[i].answers[0].image} alt="alternativa-1">
-                    <h3>${quizzInfo.questions[i].answers[0].text}</h3>
 
-                    <img class="alternativa-2" src=${quizzInfo.questions[i].answers[1].image} alt="alternativa-2">
+                    <div class="alternativa-1" onclick="acaoRespostas(this)">
+                    <img src=${quizzInfo.questions[i].answers[0].image} alt="alternativa-1">
+                    <h3>${quizzInfo.questions[i].answers[0].text}</h3>
+                    </div>          
+
+                    <div class="alternativa-2" onclick="acaoRespostas(this)">
+                    <img src=${quizzInfo.questions[i].answers[1].image} alt="alternativa-2">
                     <h3>${quizzInfo.questions[i].answers[1].text}</h3>
+                    </div> 
+
                 </div>
 
                 <div class="row-2">
-                    <img class="alternativa-3" src=${quizzInfo.questions[i].answers[2].image} alt="alternativa-3">
-                    <h3>${quizzInfo.questions[i].answers[2].text}</h3>
 
-                    <img class="alternativa-4" src=${quizzInfo.questions[i].answers[3].image} alt="alternativa-4">
+                    <div class="alternativa-3" onclick="acaoRespostas(this)">
+                    <img src=${quizzInfo.questions[i].answers[2].image} alt="alternativa-3">
+                    <h3>${quizzInfo.questions[i].answers[2].text}</h3>
+                    </div>
+
+                    <div class="alternativa-4" onclick="acaoRespostas(this)">
+                    <img src=${quizzInfo.questions[i].answers[3].image} alt="alternativa-4">
                     <h3>${quizzInfo.questions[i].answers[3].text}</h3>
+                    </div>
+
                 </div>
 
             </div>
@@ -65,6 +78,28 @@ function quizzesServ(resposta) {
 
 }
 
+// COMPORTAMENTO DE RESPOSTAS ---------------------------
+
+
+function acaoRespostas (elemento) {
+  let alt1 = document.querySelector(".alternativa-1")
+  let alt2 = document.querySelector(".alternativa-2")
+  let alt3 = document.querySelector(".alternativa-3")
+  let alt4 = document.querySelector(".alternativa-4")
+
+let perguntas = [alt1, alt2, alt3, alt4]
+
+  for (let i = 0; i < perguntas.length; i++) {
+    perguntas[i].classList.add("filtroBranco")
+    elemento.classList.remove("filtroBranco")
+    }
+ 
+}
+
+
+
+  
+//  elemento.classList.remove("filtroBranco")
 
 //  LISTAGEM      DOS      QUIZZES   ------------------------------
 
@@ -95,7 +130,7 @@ function pegarQuizzeSite() {
   let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
-pegarQuizzeSite()
+//pegarQuizzeSite()
 
 // Função chamada se a promise efetuado com sucesso
 // Pega a resposta da api 
@@ -402,7 +437,7 @@ function pagina_dois() {
   `
 }
 
-pagina_dois();
+//pagina_dois();
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
 // Adiciona uma mensagem de sucesso, representando a finalização da criação do quizz
