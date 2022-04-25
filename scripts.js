@@ -8,10 +8,10 @@ let lista_perguntas = [];
 function carregarQuizzes(id) {
   let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
   promise.then(quizzesServ);
-  promise.then()
+  
 }
 
-carregarQuizzes(24)
+//carregarQuizzes(24)
 
 // Função que torna as respostas aleatórias
 function embaralhar() {
@@ -104,9 +104,6 @@ function acaoRespostas(elemento) {
 
 }
 
-
-
-//  elemento.classList.remove("filtroBranco")
 
 //  LISTAGEM      DOS      QUIZZES   ------------------------------
 

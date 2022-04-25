@@ -137,6 +137,8 @@ body {
 
     width: 150px;
     height: 40px;
+
+    background: none;
 }
 
 
@@ -401,4 +403,41 @@ body {
 
 .desabled {
    pointer-events: none;
+}
+
+.restart {
+    background-color: #EC362D;
+    color: #ffffff;
+    border: 0px;
+    border-radius: 15px;
+    width: 260px;
+    padding: 10px 30px;
+    margin: 30px auto;
+    font-size: 21px;
+    font-weight: 400;
+    transition: all .3s;
+    margin-top: 1000px;
+}
+
+.home {
+    border: none;
+    background: none;
+    font-size: 21px;
+    font-weight: 400;
+    color: #818181;
+
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.home:hover{
+    text-decoration:underline;
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
