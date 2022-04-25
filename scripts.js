@@ -3,11 +3,12 @@ let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
+let lista_perguntas=[];
+let lista_niveis=[];
 
-function carregarQuizzes() {
-  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/24');
-
-  promise.then(quizzesServ);
+function carregarQuizzes (id) {
+     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
+    promise.then(quizzesServ);
 }
 
 // Função que torna as respostas aleatórias
@@ -18,15 +19,14 @@ function embaralhar() {
 
 function quizzesServ(resposta) {
   quizzInfo = resposta.data;
-  esconderElemento(".conteudo");
+  trocaTela(".conteudo" ,".paginaQuizz")
   esconderElemento(".criacao_quizz");
   disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzInfo.image}');">
   <h1>${quizzInfo.title}</h1>
   </div>`;
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
-    disporQuizz.innerHTML +=
-  
+   
     // A lista de respostas chama a função embaralha
     quizzInfo.questions[i].answers.sort(embaralhar)
 
@@ -127,8 +127,13 @@ function listar_quizzSite(resposta) {
 function exibir(elemento) {
   esconderElemento(".conteudo");
   // Pega o id que estava no nome da classe
-  let id = elemento.classList[2];
-  carregarQuizzes(id);
+  if (elemento.classList.length===1){
+    let id = elemento.classList[0];
+    carregarQuizzes(id)
+  }else{
+    let id = elemento.classList[2];
+    carregarQuizzes(id)
+  }
 }
 
 // FIM DO  EXIBIR   QUIZZ     --------------------------------------
@@ -145,7 +150,173 @@ esconderElemento(".pagina_quatro");
 }
 
 
+//  VOLTAR  PARA  HOME   --------------------------------------
+function voltar_home() {
+  trocaTela(".criacao_quizz" ,".conteudo")
+  esconderElemento(".paginaQuizz");
+}
+
 // CRIAÇÃO   DO    QUIZZ     --------------------------------
+
+
+
+// VERIFICAÇÕES DOS INPUTS     --------------------------------------
+
+// FUNÇÃO PARA VERIFICAR O NÚMERO DE CARACTERES 
+// A função pega a tag input , o numero minimo de caracteres e o maximo de caracteres
+function numCaracter( input, minCaracter,  maxCaracter )  {
+  let texto = input.value;
+  input.classList.toggle("invalid");
+  if(maxCaracter!==false){
+    if (texto.length >= minCaracter && texto.length <= maxCaracter) {
+      input.classList.remove("invalid")
+    }else {
+      input.classList.add("invalid")
+  }}else{
+    if (texto.length >= minCaracter) {
+      input.classList.remove("invalid")
+    }else {
+      input.classList.add("invalid")
+  }
+  }
+}
+
+// FUNÇÃO PARA VERIFICAR SE A COR É HEXADECIMAL
+function hexColor(input)  {
+
+  // Forma padrão de uma cor Hexadecimal
+  let formaHex = /^#[A-Fa-f0-9]{6}$/;
+  // ^ representa o início da string.
+  // # representa o código de cor hexadecimal deve começar com um símbolo '#'.
+  // [A-Fa-f0-9]{6} representa a letra de af, AF ou dígito de 0-9 com um comprimento de 6.
+  // $ representa o final da string.
+
+  let texto = input.value;
+
+  //  test() executa uma busca por uma correspondência entre uma expressão formaHex e a string texto
+  input.classList.toggle("invalid")
+  if(formaHex.test(texto)){
+    input.classList.remove("invalid")
+  }else {
+    input.classList.add("invalid")
+  }
+}
+
+// FUNÇÃO PARA VERIFICAR URL
+function verifURL(input)  {
+  // Forma padrão de uma url
+  let url = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+  // Formato final de uma URL de Imagem deve seguir padrão abaixo
+  let verImg= /\.(jpg|jpeg|png|webp|avif|gif|svg)$/;
+  input.classList.toggle("invalid");
+  let texto = input.value;
+
+  // Na PÁGINA_DOIS a condição abaixo será necessária para invalidar o input que vazio da resposta incorreta 1 , visto que precisa de pelo menos uma resposta incorreta
+  if(input.classList[1]!==undefined){
+    if(input.classList[1]==="um"){
+      if(texto.length===0){
+        input.classList.add("invalid")
+      }
+    }
+  }
+  
+  if (texto.length!==0) {
+    if(url.test(texto) && verImg.test(texto)){
+      input.classList.remove("invalid")
+    }else {
+      input.classList.add("invalid")
+    }}
+}
+
+// FUNÇÃO PRA VER SE VALOR É DE 0 A 100
+function verifPorcentagem(input) {
+  if ((input.value >= 0) && (input.value <= 100)) {
+    input.classList.remove("invalid");
+  } else {
+    input.classList.add("invalid");
+  }
+}
+
+// FUNÇÃO PRA VER SE EXISTE PELO MENOS 1 NIVEL COM 0%
+
+function existeNivelZero() {
+  let pagina = document.querySelector(".pagina_tres");
+  let lista_blocos = pagina.querySelectorAll(".bloco_inputs");
+  let contador_0 = 0;
+
+  //for (i=0; i<lista_blocos.length; i++) {
+  let lista_inputs = lista_blocos[0].querySelectorAll(".inputs");
+
+  if (lista_inputs[1].value === 0) {
+    contador_0++;
+  //  }
+  }
+  lista_blocos[0].classList.toggle("invalid");
+  if (contador_0 === 0) {
+    lista_blocos[0].classList.remove("invalid");
+    console.log("deu certo");
+  } else {
+    lista_blocos[0].classList.add("invalid");
+    console.log("deu errado");
+  }
+}
+
+// FUNÇÕES PARA VALIDAR SE OS INPUTS NÃO ESTÃO VAZIOS E SE HÁ ALGUM INPUT INVÁLIDO (ou seja com o invalid na classe)
+
+// Abaixo, a função verifica se há algum input essencial vazio
+// Retorna True se os inputs estiverem preenchidos
+function verInputs(nomePagina) {
+  let pagina = document.querySelector(nomePagina);
+  let lista_inputs=pagina.querySelectorAll("input");
+  for (i=0;i<lista_inputs.length;i++){
+    let item = lista_inputs[i];
+
+    // A primeira condição é para PÁGINA_DOIS , verificar se a resposta incorreta 1 está preenchida, as outras não têm a mesma obrigatoriedade
+    
+    if(item.classList.contains("dois") || item.classList.contains("tres")) {
+      let primeiro = item.parentNode.children[0];
+      let segundo = item.parentNode.children[1];
+      if((primeiro.value!=="" && segundo.value==="") || (primeiro.value==="" && segundo.value!=="")){
+        alert("Algum campo não foi preenchido. Por favor, verifique.")
+        return false
+      } 
+    }else {
+      if(item.value===""){
+        alert("Algum campo não foi preenchido. Por favor, verifique.")
+        return false
+      }
+    }
+    if(i===lista_inputs.length-1){
+      return true
+    }
+  }
+ 
+}
+
+// Abaixo, a função verifica se há algum input tem classe invalid
+// Retorna True se os inputs não tiverem invalid
+function verInvalid(nomePagina) {
+  let pagina = document.querySelector(nomePagina)
+
+  // Verifica se há algum elemento com a classe invalid
+  if(pagina.querySelector(".invalid")!==null){
+    let elemPai = pagina.querySelector(".invalid").parentNode;
+    if(elemPai.classList[0]==="dupla_input" && nomePagina===".pagina_dois"){
+      alert("Verifique o item Respostas Incorretas, há algo inválido.")
+      return false
+    }else{
+      alert(`Verifique o item  ${elemPai.innerText}, há algo inválido.`)
+      return false
+    }
+  }else {
+    return true
+  }
+}
+
+
+// FIM DE VERIFICAÇÕES DOS INPUTS   ---------------------------------------
+
+
 
 function pagina_um() {
   let pagina_um = document.querySelector(".pagina_um");
@@ -161,43 +332,35 @@ function pagina_um() {
 
     <div class="bloco_inputs" >
 
-        <input class="primeiro_input" minlength="20" maxlength="65" type="text" required placeholder="Titulo do seu Quizz"/>
+        <input class="primeiro_input inputs" minlength="20" maxlength="65" type="text" required placeholder="Titulo do seu Quizz"/>
 
-        <input class="segundo_input" type="url" required placeholder="URL da imagem do seu quizz"/>
+        <input class="segundo_input inputs" type="url" required placeholder="URL da imagem do seu quizz"/>
 
-        <input class="terceiro_input" type="text" placeholder="Quantidade de perguntas do quizz"/>
+        <input class="terceiro_input inputs" type="text" placeholder="Quantidade de perguntas do quizz"/>
 
-        <input class="quarto_input" type="text" placeholder="Quantidade de níveis do quizz"/>
+        <input class="quarto_input inputs" type="text" placeholder="Quantidade de níveis do quizz"/>
     </div>
   </div>
   <div class="button">
-        <button type="submit">Prosseguir para criar perguntas</button>
+        <button type="submit" onclick="especificacoesQuizz()">Prosseguir para criar perguntas</button>
     </div> `
  }
 
-//pagina_um()
+ //pagina_um()
 
-function pagina_tres() {
-  let qtdNiveis = document.querySelector(".quarto_input").value;
-  esconderTudo();
-  exibirElemento(".pagina_tres");
+ 
+function especificacoesQuizz() {
 
-
-
-
+function validateUrl(url) {
+ return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/i.test(url);
 }
 
+  let imagemInput = document.querySelector(".segundo_input").value
+  let tituloInput = document.querySelector(".primeiro_input").value
+  let qtdPerguntas = document.querySelector(".terceiro_input").value
+  let qtdNiveis = document.querySelector(".quarto_input").value
 
-function especificacoesQuizz() {
-  let tituloInput = document.querySelector(".primeiro_input").value;
-  let imagemInput = document.getElementsByClassName(".segundo_input");
-
-  let qtdPerguntas = document.querySelector(".terceiro_input").value;
-  let qtdNiveis = document.querySelector(".quarto_input").value;
-
-
-  console.log(imagemInput.type);
-  if ((tituloInput.length >= 20) && (tituloInput.length <= 65)) {
+  if ((tituloInput.length >= 20 && tituloInput.length <= 65) && validateUrl(imagemInput) === true) {
     if (qtdPerguntas < 3) {
       alert("Erro! A quantidade mínima de perguntas é 3")
     }
@@ -208,11 +371,105 @@ function especificacoesQuizz() {
     alert("Preencha todos os dados corretamente!")
   }
 
-
-
+  console.log(validateUrl(imagemInput))
+  console.log(imagemInput)
 }
 
+
+
+
+
+
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
+
+
+// Para validar e armazenar as perguntas 
+function addPerguntas(){
+  // Verifica se não inputs inválidos e/ou vazios
+  if(verInvalid(".pagina_dois") && verInputs(".pagina_dois")){
+   
+    let pagina = document.querySelector(".pagina_dois");
+    let lista_formulario=pagina.querySelectorAll(".formulario");
+
+    // Pegar a tag formulario
+    for (i=0;i<lista_formulario.length;i++){
+      let formulario = lista_formulario[i];
+      let lista_resposta=[];
+      // Pegar os inputs dentro do formulario
+      let lista_inputs = formulario.querySelectorAll("input");
+
+      if(lista_inputs.length!==0){
+        let resposta_correta = {
+            text: lista_inputs[2].value ,
+            image: lista_inputs[3].value ,
+            isCorrectAnswer: true
+        }
+        let resposta_incorreta = {
+          text: lista_inputs[4].value,
+          image: lista_inputs[5].value,
+          isCorrectAnswer: false
+        }
+        lista_resposta.push(resposta_correta)
+        lista_resposta.push(resposta_incorreta)
+        if( lista_inputs[6].value!==""){
+          let resposta_incorreta = {
+            text: lista_inputs[6].value,
+            image: lista_inputs[7].value,
+            isCorrectAnswer: false
+          }
+          lista_resposta.push(resposta_incorreta)
+        }
+        if( lista_inputs[8].value!==""){
+          let resposta_incorreta = {
+            text: lista_inputs[8].value,
+            image: lista_inputs[9].value,
+            isCorrectAnswer: false
+          }
+          lista_resposta.push(resposta_incorreta)
+        }
+        let question = {
+          title:lista_inputs[0].value,
+          color:lista_inputs[1].value,
+          answers:lista_resposta
+        }
+        lista_perguntas.push(question)
+      }
+    }
+  }
+  esconderTudo();
+  pagina_tres();
+  exibirElemento(".pagina_tres");
+}
+
+// Para validar e armazenar os níveis 
+function addNiveis(){
+  existeNivelZero();
+  // Verifica se não inputs inválidos e/ou vazios
+
+  if(verInputs(".pagina_tres")){
+   
+    let pagina = document.querySelector(".pagina_tres");
+    let lista_formulario=pagina.querySelectorAll(".formulario");
+
+    // Pegar a tag formulario
+    for (i=0;i<lista_formulario.length;i++){
+      let formulario = lista_formulario[i];
+      // Pegar os inputs dentro do formulario
+      let lista_inputs = formulario.querySelectorAll("input");
+
+      if(lista_inputs.length!==0){
+        let nivel = {
+          title:lista_inputs[0].value,
+          image:lista_inputs[1].value,
+          text:lista_inputs[2].value,
+          minValue:lista_inputs[3].value
+        }
+        lista_niveis.push(nivel);
+      }
+    }
+  }
+}
+   
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_dois() {
   let pagina_dois = document.querySelector(".pagina_dois");
@@ -225,37 +482,34 @@ function pagina_dois() {
     <div class="formulario" >
       <div class="bloco_inputs" >
           <div class="bold" >Pergunta 1</div>
-          <input class="primeiro_input" type="text" placeholder="Texto da Pergunta" />
-          <input class="segundo_input" type="text" placeholder="Cor de fundo da pergunta" />
+          <input class="inputs" onchange='numCaracter( this, 20, false)' type="text" placeholder="Texto da Pergunta" />
+          <input class="inputs" onchange='hexColor(this)' type="text" placeholder="Cor de fundo da pergunta (hexadecimal)" />
       </div>
       <div class="bloco_inputs" >
           <div class="bold" >Resposta Correta</div>
-          <input class="primeiro_input" type="text" placeholder="Resposta correta" />
-          <input class="segundo_input" type="text" placeholder="URL da imagem" />
+          <input class="inputs" onchange='numCaracter( this, 1, false)' type="text" placeholder="Resposta correta" />
+          <input class="inputs"  onchange='numCaracter( this, 1, false),verifURL(this)' type="text" placeholder="URL da imagem" />
       </div>
       <div class="bloco_inputs" >
           <div class="bold" >Respostas Incorretas</div>
           <div class="dupla_input">
-            <input class="primeiro_input" type="text" placeholder="Resposta Incorreta 1" />
-            <input class="segundo_input" type="text" placeholder="URL da imagem 1" />
+            <input class="inputs um" onchange='numCaracter( this, 1, false)'  type="text" placeholder="Resposta Incorreta 1" />
+            <input class="inputs um" onchange='verifURL(this)' type="text" placeholder="URL da imagem 1" />
           </div>
           <div class="dupla_input">
-            <input class="primeiro_input" type="text" placeholder="Resposta Incorreta 2" />
-            <input class="segundo_input" type="text" placeholder="URL da imagem 2" />
+            <input class="inputs dois" type="text" placeholder="Resposta Incorreta 2" />
+            <input class="inputs dois" onchange='verifURL(this)' type="text" placeholder="URL da imagem 2" />
           </div>
           <div class="dupla_input">
-            <input class="primeiro_input" type="text" placeholder="Resposta Incorreta 3" />
-            <input class="segundo_input" type="text" placeholder="URL da imagem 3" />
+            <input class="inputs tres" type="text" placeholder="Resposta Incorreta 3" />
+            <input class="inputs tres" onchange='verifURL(this)' type="text" placeholder="URL da imagem 3" />
           </div>
       </div>
     </div>
     <div class="formulario" >
       <div class="bloco_inputs inline" >
           <div class="bold" >Pergunta 2 </div>
-          <ion-icon name="create-outline" class="botao_colapsavel"></ion-icon>
-          <div class="testes conteudo_colapsavel">
-            OIOIOIOIOIOIOIOI
-          </div>
+          <ion-icon name="create-outline"></ion-icon>
       </div>
     </div>
     <div class="formulario" >
@@ -265,17 +519,51 @@ function pagina_dois() {
       </div>
     </div>
     <div class="button">
-          <button type="submit">Prosseguir para criar níveis</button>
+          <button onclick='addPerguntas()' type="submit">Prosseguir para criar níveis</button>
     </div>
   `
-  //testarColaps();
 }
-pagina_dois()
 
+//pagina_dois();
+
+// Adiciona o formulário de perguntas da etapa dois da criação
+function pagina_tres() {
+  let pagina_tres = document.querySelector(".pagina_tres");
+  // esconder os outros elementos do site
+  esconderTudo();
+  exibirElemento(".pagina_tres");
+
+  pagina_tres.innerHTML +=  ` 
+    <div class="titulo bold"> Agora, decida os níveis! </div>
+    <div class="formulario" >
+      <div class="bloco_inputs" >
+          <div class="bold">Nível 1</div>
+          <input class="inputs" onchange='numCaracter(this, 10, false)' type="text" placeholder="Título do nível" />
+          <input class="inputs" onchange='verifPorcentagem(this)' type="number" placeholder="% de acerto mínima" />
+          <input class="inputs" onchange='verifURL(this)' type="text" placeholder="URL da imagem do nível" />
+          <input class="inputs_grande" onchange='numCaracter(this, 30, false)' type="text" placeholder="Descrição do nível" />
+      </div>
+    </div>
+    <div class="formulario" >
+      <div class="bloco_inputs inline" >
+          <div class="bold" >Nível 2 </div>
+          <ion-icon name="create-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="formulario">
+      <div class="bloco_inputs inline">
+          <div class="bold">Nível 3 </div>
+          <ion-icon name="create-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="button">
+          <button onclick='addNiveis()' type="submit">Finalizar Quizz</button>
+    </div>
+  `
+}
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
-// 
-
+// Adiciona uma mensagem de sucesso, representando a finalização da criação do quizz
 function pagina_quatro () {
   let pagina_quatro = document.querySelector(".pagina_quatro");
   // esconder os outros elementos do site
@@ -290,8 +578,8 @@ function pagina_quatro () {
       <h2>O quão Potterhead é você?</h2>
     </div>
     <div class="button">
-          <button type="submit">Acessar Quizz</button>
-          <div class="titulo" onclick="trocaTela('.pagina_quatro', '.conteudo')"> Voltar para home </div>
+          <button onclick='exibir(this)' class='${criacao_id}' >Acessar Quizz</button>
+          <div onclick='voltar_home()' class="texto_cinza"> Voltar para home </div>
     </div>
   ` 
 }
@@ -299,7 +587,7 @@ function pagina_quatro () {
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
 
-// AREA DE TESTES ---\/-----\/-----\/---
+// FUNÇÕES PRA ESCONDER E EXIBIR ELEMENTOS ------------------
 
 // Esconde o elemento recebido como parâmetro
 function esconderElemento(tag) {
@@ -317,6 +605,9 @@ function trocaTela(elementoPraEsconder, elementoPraExibir) {
   esconderElemento(elementoPraEsconder);
   exibirElemento(elementoPraExibir);
 }
+
+
+// FIM FUNÇÕES PRA ESCONDER E EXIBIR ELEMENTOS --------------
 
 // Confere se o usuário tem quizzes
 function confereQuizzesUsuario() {
@@ -346,30 +637,7 @@ function controlaBotaoCriarQuiz() {
 controlaBotaoCriarQuiz();
 
 function botaoCriarQuiz() {
-  trocaTela(".conteudo", ".pagina_um");
+  esconderTudo();
+  exibirElemento(".pagina_um");
   pagina_um();
-}
-
-//esconderElemento(".pagina_quatro");
-//exibirElemento(".conteudo");
-
-function testarColaps() {
-
-  let coll = document.getElementsByClassName("botao_colapsavel");
-
-  for (let i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function () {
-      let conteudo_colaps = this.nextElementSibling;
-      console.log(conteudo_colaps);
-      console.log(conteudo_colaps.style.display);
-      if (conteudo_colaps.style.maxHeight) {
-        console.log(conteudo_colaps.style.maxHeight);
-        conteudo_colaps.style.maxHeight = null;
-      } else {
-        conteudo_colaps.style.maxHeight = conteudo_colaps.style.maxHeight + "px";
-        console.log(conteudo_colaps.style.maxHeight);
-      }
-    })
-  }
-
 }
