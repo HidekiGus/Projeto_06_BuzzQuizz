@@ -1,6 +1,6 @@
-// PEGAR QUIZZES DA API (não tá funcionando :P)
+// PEGAR QUIZZES DA API
 let quizzInfo;
-let disporQuizz = document.querySelector(".paginaQuizz");
+let disporPágina = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 let lista_perguntas = [];
@@ -11,7 +11,7 @@ function carregarQuizzes(id) {
   
 }
 
-//carregarQuizzes(24)
+carregarQuizzes(24)
 
 // Função que torna as respostas aleatórias
 function embaralhar() {
@@ -19,12 +19,31 @@ function embaralhar() {
 }
 
 function quizzesServ(resposta) {
+
   quizzInfo = resposta.data;
   trocaTela(".conteudo", ".paginaQuizz")
   esconderElemento(".criacao_quizz");
-  disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
+
+
+  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
   <h1>${quizzInfo.title}</h1>
-  </div>`;
+  </div>
+  
+  <div class="perguntas"></div>
+  
+  <div class="caixa-bottom">
+  <div class="resultado"></div>
+
+  <div class="botoes">
+  <button class="restart" onclick="restartQuizz()">Reiniciar Quizz</button>
+  <button class="home" onclick="voltarHome()">Voltar pra home</button>
+  </div>    
+
+</div>`;
+
+
+  let disporQuizz = document.querySelector(".perguntas")
+
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
 
@@ -78,6 +97,7 @@ function quizzesServ(resposta) {
 
   }
 
+
 }
 
 // COMPORTAMENTO DE RESPOSTAS ---------------------------
@@ -102,8 +122,33 @@ function acaoRespostas(elemento) {
 
   }
 
+  setTimeout(rolarProxPergunta ,2000)
+  
 }
 
+function rolarProxPergunta() {
+  window.scrollBy(0, 750)
+}
+
+// NAVEGAÇÃO   APÓS   QUIZZ
+
+
+function aparecerCaixaResultado() {
+
+}
+
+
+function restartQuizz () {
+  window.location.reload()
+  document.querySelector(".bannerQuiz").scrollIntoView({behavior: 'smooth'});
+  document.querySelector(".caixa-bottom").classList.add("escondido")
+}
+
+function voltarHome () {
+  trocaTela(".paginaQuizz",".conteudo")
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
 
 //  LISTAGEM      DOS      QUIZZES   ------------------------------
 
@@ -124,7 +169,7 @@ function listar_quizzUsuario() {
     </div>`
 }
 
-//listar_quizzUsuario()
+listar_quizzUsuario()
 
 
 // LISTAR TODOS OS QUIZZES 
@@ -134,7 +179,7 @@ function pegarQuizzeSite() {
   let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
-//pegarQuizzeSite()
+pegarQuizzeSite()
 
 // Função chamada se a promise efetuado com sucesso
 // Pega a resposta da api 
