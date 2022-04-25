@@ -3,37 +3,37 @@ let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
-let lista_perguntas=[];
+let lista_perguntas = [];
 
-function carregarQuizzes (id) {
-     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
-    promise.then(quizzesServ);
-    promise.then()
+function carregarQuizzes(id) {
+  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
+  promise.then(quizzesServ);
+  promise.then()
 }
 
 carregarQuizzes(24)
 
 // Função que torna as respostas aleatórias
-function embaralhar() { 
+function embaralhar() {
   return Math.random() - 0.5
 }
 
 function quizzesServ(resposta) {
   quizzInfo = resposta.data;
-  trocaTela(".conteudo" ,".paginaQuizz")
+  trocaTela(".conteudo", ".paginaQuizz")
   esconderElemento(".criacao_quizz");
   disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
   <h1>${quizzInfo.title}</h1>
   </div>`;
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
-   
+
     // A lista de respostas chama a função embaralha
     quizzInfo.questions[i].answers.sort(embaralhar)
 
-    disporQuizz.innerHTML += 
-    
-    `
+    disporQuizz.innerHTML +=
+
+      `
 
       <div class="pergunta">
             <div class="topo-pergunta">
@@ -44,32 +44,28 @@ function quizzesServ(resposta) {
 
                 <div class="row-1">
 
-                    <div class="alternativa-1" onclick="acaoRespostas(this)">
+                    <div class="alternativa-1 ${quizzInfo.questions[i].answers[0].isCorrectAnswer}" onclick="acaoRespostas(this)">
                     <img src=${quizzInfo.questions[i].answers[0].image} alt="alternativa-1">
                     <h3>${quizzInfo.questions[i].answers[0].text}</h3>
-                    <p class="escondido">${quizzInfo.questions[i].answers[0].isCorrectAnswer}</p>
                     </div>          
 
-                    <div class="alternativa-2" onclick="acaoRespostas(this)">
+                    <div class="alternativa-2 ${quizzInfo.questions[i].answers[1].isCorrectAnswer}" onclick="acaoRespostas(this)">
                     <img src=${quizzInfo.questions[i].answers[1].image} alt="alternativa-2">
                     <h3>${quizzInfo.questions[i].answers[1].text}</h3>
-                    <p class="escondido">${quizzInfo.questions[i].answers[1].isCorrectAnswer}</p>
                     </div> 
 
                 </div>
 
                 <div class="row-2">
 
-                    <div class="alternativa-3" onclick="acaoRespostas(this)">
+                    <div class="alternativa-3 ${quizzInfo.questions[i].answers[2].isCorrectAnswer}" onclick="acaoRespostas(this)">
                     <img src=${quizzInfo.questions[i].answers[2].image} alt="alternativa-3">
                     <h3>${quizzInfo.questions[i].answers[2].text}</h3>
-                    <p class="escondido">${quizzInfo.questions[i].answers[2].isCorrectAnswer}</p>
                     </div>
 
-                    <div class="alternativa-4" onclick="acaoRespostas(this)">
+                    <div class="alternativa-4 ${quizzInfo.questions[i].answers[3].isCorrectAnswer}" onclick="acaoRespostas(this)">
                     <img src=${quizzInfo.questions[i].answers[3].image} alt="alternativa-4">
                     <h3>${quizzInfo.questions[i].answers[3].text}</h3>
-                    <p class="escondido">${quizzInfo.questions[i].answers[3].isCorrectAnswer}</p>
                     </div>
 
                 </div>
@@ -85,12 +81,8 @@ function quizzesServ(resposta) {
 }
 
 // COMPORTAMENTO DE RESPOSTAS ---------------------------
-//quizzInfo = function seTaCerto (resposta) {
-//  resposta.data
-//}
 
-
-function acaoRespostas (elemento) {
+function acaoRespostas(elemento) {
   let qualPergunta = elemento.parentNode.parentNode;
   console.log(qualPergunta)
   let alt1 = qualPergunta.querySelector(".alternativa-1")
@@ -98,27 +90,22 @@ function acaoRespostas (elemento) {
   let alt3 = qualPergunta.querySelector(".alternativa-3")
   let alt4 = qualPergunta.querySelector(".alternativa-4")
 
-let perguntas = [alt1, alt2, alt3, alt4]
+  let perguntas = [alt1, alt2, alt3, alt4]
 
   for (let i = 0; i < perguntas.length; i++) {
     perguntas[i].classList.add("filtroBranco")
     elemento.classList.remove("filtroBranco")
     perguntas[i].classList.add("desabled")
-  
-    }
-    
+    if (perguntas[i].classList.contains("true")) {
+      perguntas[i].classList.add("letraVerde")
+    } else { perguntas[i].classList.add("letraVermelha") }
 
-  
- 
-//  let isCorrectAnswer = elemento.querySelector(".escondido").innerHTML
-//if (isCorrectAnswer) {
-//  console.log("FUNCIONANTE")
-//}
-    
+  }
+
 }
 
 
-  
+
 //  elemento.classList.remove("filtroBranco")
 
 //  LISTAGEM      DOS      QUIZZES   ------------------------------
@@ -180,10 +167,10 @@ function listar_quizzSite(resposta) {
 function exibir(elemento) {
   esconderElemento(".conteudo");
   // Pega o id que estava no nome da classe
-  if (elemento.classList.length===1){
+  if (elemento.classList.length === 1) {
     let id = elemento.classList[0];
     carregarQuizzes(id)
-  }else{
+  } else {
     let id = elemento.classList[2];
     carregarQuizzes(id)
   }
@@ -193,7 +180,7 @@ function exibir(elemento) {
 
 //  VOLTAR  PARA  HOME   --------------------------------------
 function voltar_home() {
-  trocaTela(".criacao_quizz" ,".conteudo")
+  trocaTela(".criacao_quizz", ".conteudo")
   esconderElemento(".paginaQuizz");
 }
 
@@ -205,25 +192,26 @@ function voltar_home() {
 
 // FUNÇÃO PARA VERIFICAR O NÚMERO DE CARACTERES 
 // A função pega a tag input , o numero minimo de caracteres e o maximo de caracteres
-function numCaracter( input, minCaracter,  maxCaracter )  {
+function numCaracter(input, minCaracter, maxCaracter) {
   let texto = input.value;
   input.classList.toggle("invalid");
-  if(maxCaracter!==false){
+  if (maxCaracter !== false) {
     if (texto.length >= minCaracter && texto.length <= maxCaracter) {
       input.classList.remove("invalid")
-    }else {
+    } else {
       input.classList.add("invalid")
-  }}else{
+    }
+  } else {
     if (texto.length >= minCaracter) {
       input.classList.remove("invalid")
-    }else {
+    } else {
       input.classList.add("invalid")
-  }
+    }
   }
 }
 
 // FUNÇÃO PARA VERIFICAR SE A COR É HEXADECIMAL
-function hexColor(input)  {
+function hexColor(input) {
 
   // Forma padrão de uma cor Hexadecimal
   let formaHex = /^#[A-Fa-f0-9]{6}$/;
@@ -236,37 +224,38 @@ function hexColor(input)  {
 
   //  test() executa uma busca por uma correspondência entre uma expressão formaHex e a string texto
   input.classList.toggle("invalid")
-  if(formaHex.test(texto)){
+  if (formaHex.test(texto)) {
     input.classList.remove("invalid")
-  }else {
+  } else {
     input.classList.add("invalid")
   }
 }
 
 // FUNÇÃO PARA VERIFICAR URL
-function verifURL(input)  {
+function verifURL(input) {
   // Forma padrão de uma url
   let url = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
   // Formato final de uma URL de Imagem deve seguir padrão abaixo
-  let verImg= /\.(jpg|jpeg|png|webp|avif|gif|svg)$/;
+  let verImg = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/;
   input.classList.toggle("invalid");
   let texto = input.value;
 
   // Na PÁGINA_DOIS a condição abaixo será necessária para invalidar o input que vazio da resposta incorreta 1 , visto que precisa de pelo menos uma resposta incorreta
-  if(input.classList[1]!==undefined){
-    if(input.classList[1]==="um"){
-      if(texto.length===0){
+  if (input.classList[1] !== undefined) {
+    if (input.classList[1] === "um") {
+      if (texto.length === 0) {
         input.classList.add("invalid")
       }
     }
   }
-  
-  if (texto.length!==0) {
-    if(url.test(texto) && verImg.test(texto)){
+
+  if (texto.length !== 0) {
+    if (url.test(texto) && verImg.test(texto)) {
       input.classList.remove("invalid")
-    }else {
+    } else {
       input.classList.add("invalid")
-    }}
+    }
+  }
 }
 
 // FUNÇÕES PARA VALIDAR SE OS INPUTS NÃO ESTÃO VAZIOS E SE HÁ ALGUM INPUT INVÁLIDO (ou seja com o invalid na classe)
@@ -275,30 +264,30 @@ function verifURL(input)  {
 // Retorna True se os inputs estiverem preenchidos
 function verInputs(nomePagina) {
   let pagina = document.querySelector(nomePagina);
-  let lista_inputs=pagina.querySelectorAll("input");
-  for (i=0;i<lista_inputs.length;i++){
+  let lista_inputs = pagina.querySelectorAll("input");
+  for (i = 0; i < lista_inputs.length; i++) {
     let item = lista_inputs[i];
 
     // A primeira condição é para PÁGINA_DOIS , verificar se a resposta incorreta 1 está preenchida, as outras não têm a mesma obrigatoriedade
-    
-    if(item.classList.contains("dois") || item.classList.contains("tres")) {
+
+    if (item.classList.contains("dois") || item.classList.contains("tres")) {
       let primeiro = item.parentNode.children[0];
       let segundo = item.parentNode.children[1];
-      if((primeiro.value!=="" && segundo.value==="") || (primeiro.value==="" && segundo.value!=="")){
+      if ((primeiro.value !== "" && segundo.value === "") || (primeiro.value === "" && segundo.value !== "")) {
         alert("Algum campo não foi preenchido. Por favor, verifique.")
         return false
-      } 
-    }else {
-      if(item.value===""){
+      }
+    } else {
+      if (item.value === "") {
         alert("Algum campo não foi preenchido. Por favor, verifique.")
         return false
       }
     }
-    if(i===lista_inputs.length-1){
+    if (i === lista_inputs.length - 1) {
       return true
     }
   }
- 
+
 }
 
 // Abaixo, a função verifica se há algum input tem classe invalid
@@ -307,16 +296,16 @@ function verInvalid(nomePagina) {
   let pagina = document.querySelector(nomePagina)
 
   // Verifica se há algum elemento com a classe invalid
-  if(pagina.querySelector(".invalid")!==null){
+  if (pagina.querySelector(".invalid") !== null) {
     let elemPai = pagina.querySelector(".invalid").parentNode;
-    if(elemPai.classList[0]==="dupla_input" && nomePagina===".pagina_dois"){
+    if (elemPai.classList[0] === "dupla_input" && nomePagina === ".pagina_dois") {
       alert("Verifique o item Respostas Incorretas, há algo inválido.")
       return false
-    }else{
+    } else {
       alert(`Verifique o item  ${elemPai.innerText}, há algo inválido.`)
       return false
     }
-  }else {
+  } else {
     return true
   }
 }
@@ -354,16 +343,16 @@ function pagina_um() {
   <div class="button">
         <button type="submit" onclick="especificacoesQuizz()">Prosseguir para criar perguntas</button>
     </div> `
- }
+}
 
- //pagina_um()
+//pagina_um()
 
- 
+
 function especificacoesQuizz() {
 
-function validateUrl(url) {
- return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/i.test(url);
-}
+  function validateUrl(url) {
+    return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/i.test(url);
+  }
 
   let imagemInput = document.querySelector(".segundo_input").value
   let tituloInput = document.querySelector(".primeiro_input").value
@@ -394,25 +383,25 @@ function validateUrl(url) {
 
 
 // Para validar e armazenar as perguntas 
-function addPerguntas(){
+function addPerguntas() {
   // Verifica se não inputs inválidos e/ou vazios
-  if(verInvalid(".pagina_dois") && verInputs(".pagina_dois")){
-   
+  if (verInvalid(".pagina_dois") && verInputs(".pagina_dois")) {
+
     let pagina = document.querySelector(".pagina_dois");
-    let lista_formulario=pagina.querySelectorAll(".formulario");
+    let lista_formulario = pagina.querySelectorAll(".formulario");
 
     // Pegar a tag formulario
-    for (i=0;i<lista_formulario.length;i++){
+    for (i = 0; i < lista_formulario.length; i++) {
       let formulario = lista_formulario[i];
-      let lista_resposta=[];
+      let lista_resposta = [];
       // Pegar os inputs dentro do formulario
       let lista_inputs = formulario.querySelectorAll("input");
 
-      if(lista_inputs.length!==0){
+      if (lista_inputs.length !== 0) {
         let resposta_correta = {
-            text: lista_inputs[2].value ,
-            image: lista_inputs[3].value ,
-            isCorrectAnswer: true
+          text: lista_inputs[2].value,
+          image: lista_inputs[3].value,
+          isCorrectAnswer: true
         }
         let resposta_incorreta = {
           text: lista_inputs[4].value,
@@ -421,7 +410,7 @@ function addPerguntas(){
         }
         lista_resposta.push(resposta_correta)
         lista_resposta.push(resposta_incorreta)
-        if( lista_inputs[6].value!==""){
+        if (lista_inputs[6].value !== "") {
           let resposta_incorreta = {
             text: lista_inputs[6].value,
             image: lista_inputs[7].value,
@@ -429,7 +418,7 @@ function addPerguntas(){
           }
           lista_resposta.push(resposta_incorreta)
         }
-        if( lista_inputs[8].value!==""){
+        if (lista_inputs[8].value !== "") {
           let resposta_incorreta = {
             text: lista_inputs[8].value,
             image: lista_inputs[9].value,
@@ -438,18 +427,18 @@ function addPerguntas(){
           lista_resposta.push(resposta_incorreta)
         }
         let question = {
-          title:lista_inputs[0].value,
-          color:lista_inputs[1].value,
-          answers:lista_resposta
+          title: lista_inputs[0].value,
+          color: lista_inputs[1].value,
+          answers: lista_resposta
         }
         lista_perguntas.push(question)
       }
     }
   }
 
-  }
-      
-   
+}
+
+
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_dois() {
   let pagina_dois = document.querySelector(".pagina_dois");
@@ -459,7 +448,7 @@ function pagina_dois() {
   esconderElemento(".pagina_um");
   esconderElemento(".pagina_tres");
   esconderElemento(".pagina_quatro");
-  pagina_dois.innerHTML =  ` 
+  pagina_dois.innerHTML = ` 
     <div class="titulo bold"> Crie suas perguntas </div>
     <div class="formulario" >
       <div class="bloco_inputs" >
@@ -510,7 +499,7 @@ function pagina_dois() {
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
 // Adiciona uma mensagem de sucesso, representando a finalização da criação do quizz
-function pagina_quatro () {
+function pagina_quatro() {
   let pagina_quatro = document.querySelector(".pagina_quatro");
   // esconder os outros elementos do site
   esconderElemento(".conteudo");
@@ -522,7 +511,7 @@ function pagina_quatro () {
   // Exemplo para testar o botão Acessar Quizz
   let criacao_id = 30;
 
-  pagina_quatro.innerHTML =  ` 
+  pagina_quatro.innerHTML = ` 
     <div class="titulo bold"> Seu quizz está pronto! </div>
     <div class='capa_quizz_construcao texto_branco'>
       <div class='degradee'></div>
@@ -533,7 +522,7 @@ function pagina_quatro () {
           <button onclick='exibir(this)' class='${criacao_id}' >Acessar Quizz</button>
           <div onclick='voltar_home()' class="texto_cinza"> Voltar para home </div>
     </div>
-  ` 
+  `
 }
 //pagina_quatro()
 

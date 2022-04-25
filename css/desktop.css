@@ -388,11 +388,15 @@ body {
 
 .filtroBranco h3 {
     opacity: 0.5;
-    color: red;
+    
 }
 
 .letraVerde {
     color: green;
+}
+
+.letraVermelha {
+    color: red;
 }
 
 .desabled {
