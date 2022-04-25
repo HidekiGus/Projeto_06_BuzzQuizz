@@ -8,6 +8,7 @@ let lista_perguntas=[];
 function carregarQuizzes (id) {
      let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
     promise.then(quizzesServ);
+    promise.then()
 }
 
 carregarQuizzes(24)
@@ -34,23 +35,25 @@ function quizzesServ(resposta) {
     
     `
 
-      <div class="primeira pergunta">
+      <div class="pergunta">
             <div class="topo-pergunta">
                 <h1>${quizzInfo.questions[i].title}</h1>
             </div>
 
-            <div class="respostas">
+            <div class="respostas ${[i]}">
 
                 <div class="row-1">
 
                     <div class="alternativa-1" onclick="acaoRespostas(this)">
                     <img src=${quizzInfo.questions[i].answers[0].image} alt="alternativa-1">
                     <h3>${quizzInfo.questions[i].answers[0].text}</h3>
+                    <p class="escondido">${quizzInfo.questions[i].answers[0].isCorrectAnswer}</p>
                     </div>          
 
                     <div class="alternativa-2" onclick="acaoRespostas(this)">
                     <img src=${quizzInfo.questions[i].answers[1].image} alt="alternativa-2">
                     <h3>${quizzInfo.questions[i].answers[1].text}</h3>
+                    <p class="escondido">${quizzInfo.questions[i].answers[1].isCorrectAnswer}</p>
                     </div> 
 
                 </div>
@@ -60,11 +63,13 @@ function quizzesServ(resposta) {
                     <div class="alternativa-3" onclick="acaoRespostas(this)">
                     <img src=${quizzInfo.questions[i].answers[2].image} alt="alternativa-3">
                     <h3>${quizzInfo.questions[i].answers[2].text}</h3>
+                    <p class="escondido">${quizzInfo.questions[i].answers[2].isCorrectAnswer}</p>
                     </div>
 
                     <div class="alternativa-4" onclick="acaoRespostas(this)">
                     <img src=${quizzInfo.questions[i].answers[3].image} alt="alternativa-4">
                     <h3>${quizzInfo.questions[i].answers[3].text}</h3>
+                    <p class="escondido">${quizzInfo.questions[i].answers[3].isCorrectAnswer}</p>
                     </div>
 
                 </div>
@@ -80,23 +85,37 @@ function quizzesServ(resposta) {
 }
 
 // COMPORTAMENTO DE RESPOSTAS ---------------------------
+//quizzInfo = function seTaCerto (resposta) {
+//  resposta.data
+//}
 
 
 function acaoRespostas (elemento) {
-  let alt1 = document.querySelector(".alternativa-1")
-  let alt2 = document.querySelector(".alternativa-2")
-  let alt3 = document.querySelector(".alternativa-3")
-  let alt4 = document.querySelector(".alternativa-4")
+  let qualPergunta = elemento.parentNode.parentNode;
+  console.log(qualPergunta)
+  let alt1 = qualPergunta.querySelector(".alternativa-1")
+  let alt2 = qualPergunta.querySelector(".alternativa-2")
+  let alt3 = qualPergunta.querySelector(".alternativa-3")
+  let alt4 = qualPergunta.querySelector(".alternativa-4")
 
 let perguntas = [alt1, alt2, alt3, alt4]
 
   for (let i = 0; i < perguntas.length; i++) {
     perguntas[i].classList.add("filtroBranco")
     elemento.classList.remove("filtroBranco")
+    perguntas[i].classList.add("desabled")
+  
     }
- 
-}
+    
 
+  
+ 
+//  let isCorrectAnswer = elemento.querySelector(".escondido").innerHTML
+//if (isCorrectAnswer) {
+//  console.log("FUNCIONANTE")
+//}
+    
+}
 
 
   
