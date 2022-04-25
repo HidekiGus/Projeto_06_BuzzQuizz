@@ -384,6 +384,9 @@ body {
 
 }
 
+.conteudo_colapsavel {
+    max-height: 0;}
+
 .filtroBranco {
    opacity: 0.5;
 }
