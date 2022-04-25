@@ -397,7 +397,7 @@ function addPerguntas() {
       if (lista_inputs.length !== 0) {
         let resposta_correta = {
           text: lista_inputs[2].value,
-          image: lista_inputs[3,9,0].value,
+          image: lista_inputs[3].value,
           isCorrectAnswer: true
         }
         let resposta_incorreta = {
@@ -435,6 +435,61 @@ function addPerguntas() {
 
 }
 
+// FUNÇÃO ABAIXO É UMA FUNÇÃO QUE ABRE E FECHA UM ELEMENTO/ FORMULÁRIO, INSERINDO E TIRANDO CÓDIGOS
+function collapse(string) {
+  // pega o formulario correspondente ao numero na string
+  let form = document.querySelector(".formulario"+".num"+string);
+  // verifica se o formulario foi aberto ou não , ou seja , verifica se na classe da div class formulario tem a classe "aberto"
+  // se false ele vai inserir inputs para abrir formulario
+  // se true ele vai voltar ao que era antes
+  let class_form = form.classList.contains("aberto");
+  if(class_form===false){
+    form.classList.toggle("aberto") // add a classe aberto
+    let div_inicial =form.querySelector(".bloco_inputs"); // pega a div com classe bloco_inputs
+    div_inicial.innerHTML=  div_inicial.innerHTML + `
+       <input class="inputs" onchange='numCaracter( this, 20, false)' type="text" placeholder="Texto da Pergunta" />
+       <input class="inputs" onchange='hexColor(this)' type="text" placeholder="Cor de fundo da pergunta (hexadecimal)" />
+    `
+
+    let div_sec =form.querySelector(".bold");
+    div_sec.setAttribute("onclick", `collapse("${string}")`) // adiciona onclick no titulo do formulario (ex: Pergunta 2)
+    form.querySelector("ion-icon").classList.toggle("escondido"); // esconde o ion-icon
+    div_inicial.classList.toggle("inline") // a classe inline que alinhava o icone com o titulo é retirado
+    form.innerHTML=  form.innerHTML + `
+    <div class="bloco_inputs" >
+        <div class="bold" >Resposta Correta</div>
+        <input class="inputs" onchange='numCaracter( this, 1, false)' type="text" placeholder="Resposta correta" />
+        <input class="inputs"  onchange='numCaracter( this, 1, false),verifURL(this)' type="text" placeholder="URL da imagem" />
+    </div>
+    <div class="bloco_inputs" >
+        <div class="bold" >Respostas Incorretas</div>
+        <div class="dupla_input">
+          <input class="inputs um" onchange='numCaracter( this, 1, false)'  type="text" placeholder="Resposta Incorreta 1" />
+          <input class="inputs um" onchange='verifURL(this)' type="text" placeholder="URL da imagem 1" />
+        </div>
+        <div class="dupla_input">
+          <input class="inputs dois" type="text" placeholder="Resposta Incorreta 2" />
+          <input class="inputs dois" onchange='verifURL(this)' type="text" placeholder="URL da imagem 2" />
+        </div>
+        <div class="dupla_input">
+          <input class="inputs tres" type="text" placeholder="Resposta Incorreta 3" />
+          <input class="inputs tres" onchange='verifURL(this)' type="text" placeholder="URL da imagem 3" />
+        </div>
+    </div>
+    `
+
+  } else {
+    form.classList.toggle("aberto");  // tira a classe aberto
+    form.innerHTML="";
+    // abaixo a div de classe formulario volta ao que era antes 
+    form.innerHTML=  form.innerHTML + `
+    <div class="bloco_inputs inline" >
+      <div class="bold" >Pergunta ${string}</div>
+      <ion-icon onclick='collapse("${string}")' name="create-outline"></ion-icon>
+    </div>
+    `
+  }
+}
 
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_dois() {
@@ -447,7 +502,7 @@ function pagina_dois() {
   esconderElemento(".pagina_quatro");
   pagina_dois.innerHTML = ` 
     <div class="titulo bold"> Crie suas perguntas </div>
-    <div class="formulario" >
+    <div class="formulario num1" >
       <div class="bloco_inputs" >
           <div class="bold" >Pergunta 1</div>
           <input class="inputs" onchange='numCaracter( this, 20, false)' type="text" placeholder="Texto da Pergunta" />
@@ -474,17 +529,18 @@ function pagina_dois() {
           </div>
       </div>
     </div>
-    <div class="formulario" >
+    <div class="formulario num2" >
       <div class="bloco_inputs inline" >
-          <div class="bold" >Pergunta 2 </div>
-          <ion-icon name="create-outline"></ion-icon>
+          <div class="bold" >Pergunta 2</div>
+          <ion-icon onclick='collapse("2")' name="create-outline"></ion-icon>
       </div>
     </div>
-    <div class="formulario" >
+    <div class="formulario num3" >
       <div class="bloco_inputs inline" >
-          <div class="bold" >Pergunta 3 </div>
-          <ion-icon name="create-outline"></ion-icon>
+          <div class="bold" >Pergunta 3</div>
+          <ion-icon onclick='collapse("3")' name="create-outline"></ion-icon>
       </div>
+    </div>
     </div>
     <div class="button">
           <button onclick='addPerguntas()' type="submit">Prosseguir para criar níveis</button>
@@ -492,7 +548,7 @@ function pagina_dois() {
   `
 }
 
-//pagina_dois();
+pagina_dois();
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
 // Adiciona uma mensagem de sucesso, representando a finalização da criação do quizz
