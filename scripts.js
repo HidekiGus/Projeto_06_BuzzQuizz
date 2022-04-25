@@ -390,14 +390,14 @@ function addPerguntas() {
     // Pegar a tag formulario
     for (i = 0; i < lista_formulario.length; i++) {
       let formulario = lista_formulario[i];
-      let lista_resposta = [5,6];
+      let lista_resposta = [];
       // Pegar os inputs dentro do formulario
       let lista_inputs = formulario.querySelectorAll("input");
 
       if (lista_inputs.length !== 0) {
         let resposta_correta = {
           text: lista_inputs[2].value,
-          image: lista_inputs[3].value,
+          image: lista_inputs[3,9,0].value,
           isCorrectAnswer: true
         }
         let resposta_incorreta = {
