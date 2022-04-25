@@ -286,18 +286,18 @@ function existeNivelZero() {
 
   //for (i=0; i<lista_blocos.length; i++) {
   let lista_inputs = lista_blocos[0].querySelectorAll(".inputs");
-
-  if (lista_inputs[1].value === 0) {
-    contador_0++;
-  //  }
+  let variavel = lista_inputs[1].value;
+  if (variavel === '0') {
+    contador_0 = 1;
+    console.log("deu");
   }
   lista_blocos[0].classList.toggle("invalid");
   if (contador_0 === 0) {
-    lista_blocos[0].classList.remove("invalid");
-    console.log("deu certo");
-  } else {
     lista_blocos[0].classList.add("invalid");
-    console.log("deu errado");
+    console.log("nao tem input 0");
+  } else {
+    lista_blocos[0].classList.remove("invalid");
+    console.log("tem pelo menos 1 == 0");
   }
 }
 
@@ -413,6 +413,7 @@ function especificacoesQuizz() {
 
   console.log(validateUrl(imagemInput))
   console.log(imagemInput)
+  criacao_divs();
 }
 
 
@@ -512,95 +513,20 @@ function addNiveis(){
    
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_dois() {
-  let pagina_dois = document.querySelector(".pagina_dois");
   // esconder os outros elementos do site
   esconderTudo();
   exibirElemento(".pagina_dois");
-
-  pagina_dois.innerHTML +=  ` 
-    <div class="titulo bold"> Crie suas perguntas </div>
-    <div class="formulario" >
-      <div class="bloco_inputs" >
-          <div class="bold" >Pergunta 1</div>
-          <input class="inputs" onchange='numCaracter( this, 20, false)' type="text" placeholder="Texto da Pergunta" />
-          <input class="inputs" onchange='hexColor(this)' type="text" placeholder="Cor de fundo da pergunta (hexadecimal)" />
-      </div>
-      <div class="bloco_inputs" >
-          <div class="bold" >Resposta Correta</div>
-          <input class="inputs" onchange='numCaracter( this, 1, false)' type="text" placeholder="Resposta correta" />
-          <input class="inputs"  onchange='numCaracter( this, 1, false),verifURL(this)' type="text" placeholder="URL da imagem" />
-      </div>
-      <div class="bloco_inputs" >
-          <div class="bold" >Respostas Incorretas</div>
-          <div class="dupla_input">
-            <input class="inputs um" onchange='numCaracter( this, 1, false)'  type="text" placeholder="Resposta Incorreta 1" />
-            <input class="inputs um" onchange='verifURL(this)' type="text" placeholder="URL da imagem 1" />
-          </div>
-          <div class="dupla_input">
-            <input class="inputs dois" type="text" placeholder="Resposta Incorreta 2" />
-            <input class="inputs dois" onchange='verifURL(this)' type="text" placeholder="URL da imagem 2" />
-          </div>
-          <div class="dupla_input">
-            <input class="inputs tres" type="text" placeholder="Resposta Incorreta 3" />
-            <input class="inputs tres" onchange='verifURL(this)' type="text" placeholder="URL da imagem 3" />
-          </div>
-      </div>
-    </div>
-    <div class="formulario" >
-      <div class="bloco_inputs inline" >
-          <div class="bold" >Pergunta 2 </div>
-          <ion-icon name="create-outline"></ion-icon>
-      </div>
-    </div>
-    <div class="formulario" >
-      <div class="bloco_inputs inline" >
-          <div class="bold" >Pergunta 3 </div>
-          <ion-icon name="create-outline"></ion-icon>
-      </div>
-    </div>
-    <div class="button">
-          <button onclick='addPerguntas()' type="submit">Prosseguir para criar níveis</button>
-    </div>
-  `
 }
 
 //pagina_dois();
 
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_tres() {
-  let pagina_tres = document.querySelector(".pagina_tres");
   // esconder os outros elementos do site
   esconderTudo();
   exibirElemento(".pagina_tres");
-
-  pagina_tres.innerHTML +=  ` 
-    <div class="titulo bold"> Agora, decida os níveis! </div>
-    <div class="formulario" >
-      <div class="bloco_inputs" >
-          <div class="bold">Nível 1</div>
-          <input class="inputs" onchange='numCaracter(this, 10, false)' type="text" placeholder="Título do nível" />
-          <input class="inputs" onchange='verifPorcentagem(this)' type="number" placeholder="% de acerto mínima" />
-          <input class="inputs" onchange='verifURL(this)' type="text" placeholder="URL da imagem do nível" />
-          <input class="inputs_grande" onchange='numCaracter(this, 30, false)' type="text" placeholder="Descrição do nível" />
-      </div>
-    </div>
-    <div class="formulario" >
-      <div class="bloco_inputs inline" >
-          <div class="bold" >Nível 2 </div>
-          <ion-icon name="create-outline"></ion-icon>
-      </div>
-    </div>
-    <div class="formulario">
-      <div class="bloco_inputs inline">
-          <div class="bold">Nível 3 </div>
-          <ion-icon name="create-outline"></ion-icon>
-      </div>
-    </div>
-    <div class="button">
-          <button onclick='addNiveis()' type="submit">Finalizar Quizz</button>
-    </div>
-  `
 }
+
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
 // Adiciona uma mensagem de sucesso, representando a finalização da criação do quizz
@@ -680,4 +606,90 @@ function botaoCriarQuiz() {
   esconderTudo();
   exibirElemento(".pagina_um");
   pagina_um();
+}
+
+
+
+function criacao_divs() {
+  let pagina = document.querySelector(".pagina_um");
+  let inputs = pagina.querySelectorAll("input");
+
+  let num_perguntas = Number(inputs[2].value);
+  let num_niveis = Number(inputs[3].value);
+
+  let pagina_dois = document.querySelector(".pagina_dois");
+  let pagina_tres = document.querySelector(".pagina_tres");
+
+  // CRIAÇÃO DA PAGINA DOIS
+
+  pagina_dois.innerHTML +=  ` 
+  <div class="titulo bold"> Crie suas perguntas </div>
+  `;
+
+  for (i=0; i<num_perguntas; i++) {
+    pagina_dois.innerHTML += `
+    <div class="formulario" >
+    <div class="bloco_inputs" >
+        <div class="bold" >Pergunta ${i+1}</div>
+        <input class="inputs" onchange='numCaracter( this, 20, false)' type="text" placeholder="Texto da Pergunta" />
+        <input class="inputs" onchange='hexColor(this)' type="text" placeholder="Cor de fundo da pergunta (hexadecimal)" />
+    </div>
+    <div class="bloco_inputs" >
+        <div class="bold" >Resposta Correta</div>
+        <input class="inputs" onchange='numCaracter( this, 1, false)' type="text" placeholder="Resposta correta" />
+        <input class="inputs"  onchange='numCaracter( this, 1, false),verifURL(this)' type="text" placeholder="URL da imagem" />
+    </div>
+    <div class="bloco_inputs" >
+        <div class="bold" >Respostas Incorretas</div>
+        <div class="dupla_input">
+          <input class="inputs um" onchange='numCaracter( this, 1, false)'  type="text" placeholder="Resposta Incorreta 1" />
+          <input class="inputs um" onchange='verifURL(this)' type="text" placeholder="URL da imagem 1" />
+        </div>
+        <div class="dupla_input">
+          <input class="inputs dois" type="text" placeholder="Resposta Incorreta 2" />
+          <input class="inputs dois" onchange='verifURL(this)' type="text" placeholder="URL da imagem 2" />
+        </div>
+        <div class="dupla_input">
+          <input class="inputs tres" type="text" placeholder="Resposta Incorreta 3" />
+          <input class="inputs tres" onchange='verifURL(this)' type="text" placeholder="URL da imagem 3" />
+        </div>
+    </div>
+  </div>`
+  }
+
+  pagina_dois.innerHTML += `
+  <div class="button">
+        <button onclick='addPerguntas()' type="submit">Prosseguir para criar níveis</button>
+  </div>
+`;
+
+  // FIM DA CRIAÇÃO DA PAGINA DOIS
+
+  // CRIAÇÃO DA PAGINA TRES
+
+  pagina_tres.innerHTML +=  ` 
+  <div class="titulo bold"> Agora, decida os níveis! </div>
+  `;
+
+  for (i=0; i<num_niveis; i++) {
+    pagina_tres.innerHTML += `
+    <div class="formulario" >
+      <div class="bloco_inputs" >
+          <div class="bold">Nível ${i+1}</div>
+          <input class="inputs" onchange='numCaracter(this, 10, false)' type="text" placeholder="Título do nível" />
+          <input class="inputs" onchange='verifPorcentagem(this)' type="number" placeholder="% de acerto mínima" />
+          <input class="inputs" onchange='verifURL(this)' type="text" placeholder="URL da imagem do nível" />
+          <input class="inputs_grande" onchange='numCaracter(this, 30, false)' type="text" placeholder="Descrição do nível" />
+      </div>
+    </div>
+    `
+  }
+
+  pagina_tres.innerHTML += `
+  <div class="button">
+    <button onclick='addNiveis()' type="submit">Finalizar Quizz</button>
+  </div>
+`;
+
+  // FIM DA CRIAÇÃO DA PAGINA TRES
 }
