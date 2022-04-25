@@ -137,6 +137,8 @@ body {
 
     width: 150px;
     height: 40px;
+
+    background: none;
 }
 
 
@@ -382,8 +384,65 @@ body {
 
 }
 
+<<<<<<< HEAD
 .conteudo_colapsavel {
     max-height: 0;
+=======
+.filtroBranco {
+   opacity: 0.5;
 }
 
+.filtroBranco h3 {
+    opacity: 0.5;
+    
+}
 
+.letraVerde {
+    color: green;
+}
+
+.letraVermelha {
+    color: red;
+}
+
+.desabled {
+   pointer-events: none;
+}
+
+.restart {
+    background-color: #EC362D;
+    color: #ffffff;
+    border: 0px;
+    border-radius: 15px;
+    width: 260px;
+    padding: 10px 30px;
+    margin: 30px auto;
+    font-size: 21px;
+    font-weight: 400;
+    transition: all .3s;
+    margin-top: 1000px;
+}
+
+.home {
+    border: none;
+    background: none;
+    font-size: 21px;
+    font-weight: 400;
+    color: #818181;
+
+}
+
+button:hover {
+    cursor: pointer;
+>>>>>>> 1c741c77fa378a547072b16dd75d7c3f97de4106
+}
+
+.home:hover{
+    text-decoration:underline;
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
