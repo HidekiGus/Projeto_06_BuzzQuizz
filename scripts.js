@@ -390,7 +390,7 @@ function addPerguntas() {
     // Pegar a tag formulario
     for (i = 0; i < lista_formulario.length; i++) {
       let formulario = lista_formulario[i];
-      let lista_resposta = [];
+      let lista_resposta = [5,6];
       // Pegar os inputs dentro do formulario
       let lista_inputs = formulario.querySelectorAll("input");
 
