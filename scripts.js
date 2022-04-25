@@ -3,7 +3,7 @@ let quizzInfo;
 let disporQuizz = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
-
+let lista_perguntas = [];
 
 function carregarQuizzes(id) {
   let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
