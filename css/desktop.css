@@ -384,10 +384,9 @@ body {
 
 }
 
-<<<<<<< HEAD
 .conteudo_colapsavel {
-    max-height: 0;
-=======
+    max-height: 0;}
+
 .filtroBranco {
    opacity: 0.5;
 }
@@ -409,6 +408,11 @@ body {
    pointer-events: none;
 }
 
+.caixa-bottom {
+    margin-bottom: 50px;
+    
+}
+
 .restart {
     background-color: #EC362D;
     color: #ffffff;
@@ -420,7 +424,6 @@ body {
     font-size: 21px;
     font-weight: 400;
     transition: all .3s;
-    margin-top: 1000px;
 }
 
 .home {
@@ -434,7 +437,6 @@ body {
 
 button:hover {
     cursor: pointer;
->>>>>>> 1c741c77fa378a547072b16dd75d7c3f97de4106
 }
 
 .home:hover{
