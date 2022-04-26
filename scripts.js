@@ -105,7 +105,6 @@ function quizzesServ(resposta) {
 
 function acaoRespostas(elemento) {
   let qualPergunta = elemento.parentNode.parentNode;
-  console.log(qualPergunta)
   let alt1 = qualPergunta.querySelector(".alternativa-1")
   let alt2 = qualPergunta.querySelector(".alternativa-2")
   let alt3 = qualPergunta.querySelector(".alternativa-3")
@@ -334,15 +333,12 @@ function existeNivelZero() {
   let variavel = lista_inputs[1].value;
   if (variavel === '0') {
     contador_0 = 1;
-    console.log("deu");
   }
   lista_blocos[0].classList.toggle("invalid");
   if (contador_0 === 0) {
     lista_blocos[0].classList.add("invalid");
-    console.log("nao tem input 0");
   } else {
     lista_blocos[0].classList.remove("invalid");
-    console.log("tem pelo menos 1 == 0");
   }
 }
 
@@ -455,9 +451,6 @@ function especificacoesQuizz() {
   } else {
     alert("Preencha todos os dados corretamente!")
   }
-
-  console.log(validateUrl(imagemInput))
-  console.log(imagemInput)
   criacao_divs();
 }
 
@@ -522,7 +515,6 @@ function addPerguntas() {
         lista_perguntas.push(question)
       }
     }
-    console.log(lista_perguntas)
     esconderTudo();
     pagina_tres();
     exibirElemento(".pagina_tres");
@@ -791,10 +783,7 @@ function armazena_id(response) {
 
   let item = localStorage.getItem("lista_ids");
   lista_ids = JSON.parse(item);
-  console.log(lista_ids);
-  console.log("divisão ---------");
   lista_ids.push(id);
-  console.log(lista_ids);
   let dadosSerializados = JSON.stringify(lista_ids);
   localStorage.setItem("lista_ids", dadosSerializados);
 }
