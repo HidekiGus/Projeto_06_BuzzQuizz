@@ -5,6 +5,7 @@ let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 let lista_perguntas=[];
 let lista_niveis=[];
+let id_quizz;
 
 function carregarQuizzes(id) {
   let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
@@ -25,8 +26,9 @@ function quizzesServ(resposta) {
   trocaTela(".conteudo", ".paginaQuizz")
   esconderElemento(".criacao_quizz");
 
-
-  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
+  
+  disporPágina.innerHTML="";
+  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image}); background-size: cover;">
   <h1>${quizzInfo.title}</h1>
   </div>
   
@@ -140,7 +142,8 @@ function aparecerCaixaResultado() {
 
 
 function restartQuizz () {
-  window.location.reload()
+  esconderElemento(".conteudo")
+  carregarQuizzes(id_quizz)
   document.querySelector(".bannerQuiz").scrollIntoView({behavior: 'smooth'});
   document.querySelector(".caixa-bottom").classList.add("escondido")
 }
@@ -180,7 +183,7 @@ function pegarQuizzeSite() {
   let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
-//pegarQuizzeSite()
+pegarQuizzeSite()
 
 // Função chamada se a promise efetuado com sucesso
 // Pega a resposta da api 
@@ -212,9 +215,11 @@ function exibir(elemento) {
   // Pega o id que estava no nome da classe
   if (elemento.classList.length === 1) {
     let id = elemento.classList[0];
+    id_quizz=id;
     carregarQuizzes(id)
   } else {
     let id = elemento.classList[2];
+    id_quizz=id;
     carregarQuizzes(id)
   }
 }
@@ -622,7 +627,7 @@ function pagina_dois() {
   
 }
 
-pagina_dois();
+//pagina_dois();
 
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_tres() {
