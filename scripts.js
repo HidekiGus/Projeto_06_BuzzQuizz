@@ -165,7 +165,7 @@ function listar_quizzUsuario() {
     </div>`
 }
 
-//listar_quizzUsuario()
+listar_quizzUsuario()
 
 
 // LISTAR TODOS OS QUIZZES 
@@ -175,7 +175,7 @@ function pegarQuizzeSite() {
   let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
-//pegarQuizzeSite()
+pegarQuizzeSite()
 
 // Função chamada se a promise efetuado com sucesso
 // Pega a resposta da api 

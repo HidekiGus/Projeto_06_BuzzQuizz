@@ -343,10 +343,9 @@ body {
     height: 227px;
     margin-top: 20px;
     object-fit: cover;
-    
     padding: 8px;
     text-align: center;
-    background-repeat: no-repeat;
+    
 }
 
 
@@ -364,7 +363,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 137.99px;
-    width: 100%;
+    width: 688.16px;
     background-color: rgb(6, 133, 118);
     font-size: 27px;
     color: #ffffff;
@@ -382,15 +381,13 @@ body {
     flex-direction: column;
     align-items: center;
     display: flex;
-    justify-content: space-between;
-    margin-top: 26px;
+    margin: 26px auto 50px auto;
     padding-bottom: 20px;
 }
 
 .row-2{
     display: flex;
     justify-content: space-between;
-    width:100%;
     margin-top: 26px;
 }
 
@@ -400,7 +397,6 @@ body {
 
 .respostas {
     display: flex;
-    flex-wrap: wrap;
     align-items: inline;
     flex-direction: column;
     
@@ -414,8 +410,10 @@ body {
 
 }
 
+
+
 .respostas img {
-    width: 100%;
+    width: 329.91px;
     height: 190.2px;
     object-fit: cover;
 }
