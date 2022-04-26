@@ -312,6 +312,13 @@ body {
     font-weight: bold;
 }
 
+.topo-resultado > h1{
+    font-size: 20px;
+}
+
+.topo-pergunta > h1{
+    font-size: 22px;
+}
 
 .texto_branco {
     color:#ffffff;
@@ -522,7 +529,7 @@ button:hover {
 
 .row-1 h3 {
     margin-top: 5px;
-    font-size: 20px;
+    font-size: 16px;
     word-break:break-word;
 
 }
