@@ -92,8 +92,8 @@
 }
 
 .respostas img {
- width: 300px;
- height: 200px;
+ width: 98%;
+ height: 70%;
 margin: 0;
   
 }
@@ -105,8 +105,15 @@ margin: 0;
 
 }
 
+@media (max-width: 600px) {
+  .respostas h3 {
+    font-size: 15px;
+    word-break: break-word;
+  }
+}
 
-@media (max-width: 700px) {
+
+/*
 
     .respostas img {
       width: 260px;
@@ -159,30 +166,13 @@ margin: 0;
 
 @media (max-width: 520px) {
   .respostas img {
-    width: 215px;
+    width: 98%;
     margin-right: 15px;
   }
-}
-
-@media (max-width: 430px) {
-  .respostas img {
-    width: 180px;
-    height: 120px;
-   
-  }
 
   .respostas h3 {
     font-size: 15px;
   }
 }
 
-@media (max-width: 380px) {
-  .respostas img {
-    width: 162px;
-    height: 110px;
-  }
-
-  .respostas h3 {
-    font-size: 15px;
-  }
-}
+*/
