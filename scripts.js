@@ -5,6 +5,10 @@ let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 let lista_perguntas=[];
 let lista_niveis=[];
+let id_quizz;
+let pontos_quizz=0;
+let num_perguntas;
+let niveis;
 
 function carregarQuizzes(id) {
   let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
@@ -19,22 +23,25 @@ function embaralhar() {
   return Math.random() - 0.5;
 }
 
+
+
 function quizzesServ(resposta) {
 
   quizzInfo = resposta.data;
   trocaTela(".conteudo", ".paginaQuizz")
   esconderElemento(".criacao_quizz");
 
-
-  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
+  
+  disporPágina.innerHTML="";
+  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image}); background-size: cover;">
   <h1>${quizzInfo.title}</h1>
   </div>
   
   <div class="perguntas"></div>
-  
+  <div class="espaco_resultado">
+    
+  </div>
   <div class="caixa-bottom">
-  <div class="resultado"></div>
-
   <div class="botoes">
   <button class="restart" onclick="restartQuizz()">Reiniciar Quizz</button>
   <button class="home" onclick="voltarHome()">Voltar pra home</button>
@@ -44,8 +51,8 @@ function quizzesServ(resposta) {
 
 
   let disporQuizz = document.querySelector(".perguntas")
-
-
+  num_perguntas=quizzInfo.questions.length;
+  niveis = quizzInfo.levels;
   for (let i = 0; i < quizzInfo.questions.length; i++) {
 
     // A lista de respostas chama a função embaralha
@@ -98,31 +105,50 @@ function quizzesServ(resposta) {
 
   }
 
-
 }
 
 // COMPORTAMENTO DE RESPOSTAS ---------------------------
 
+
+function verificarTodas(quizz_perguntas) {
+  for ( i = 0; i < quizz_perguntas.length; i++) {
+    if(quizz_perguntas[i].classList.contains("check")===false){
+      return false
+    }
+    if(i===quizz_perguntas.length-1){
+      return true
+    }
+  }
+}
+
 function acaoRespostas(elemento) {
   let qualPergunta = elemento.parentNode.parentNode;
-  console.log(qualPergunta)
+  qualPergunta.parentNode.classList.add("check");
+  let tagPerguntas = qualPergunta.parentNode.parentNode.querySelectorAll(".pergunta");
+  
   let alt1 = qualPergunta.querySelector(".alternativa-1")
   let alt2 = qualPergunta.querySelector(".alternativa-2")
   let alt3 = qualPergunta.querySelector(".alternativa-3")
   let alt4 = qualPergunta.querySelector(".alternativa-4")
 
   let perguntas = [alt1, alt2, alt3, alt4]
-
+  if(elemento.classList.contains("true")){
+    pontos_quizz=pontos_quizz+1;
+  }
   for (let i = 0; i < perguntas.length; i++) {
     perguntas[i].classList.add("filtroBranco")
     elemento.classList.remove("filtroBranco")
     perguntas[i].classList.add("desabled")
     if (perguntas[i].classList.contains("true")) {
       perguntas[i].classList.add("letraVerde")
+
     } else { perguntas[i].classList.add("letraVermelha") }
 
   }
 
+  if(verificarTodas(tagPerguntas)){
+    finalizacaoQuizz(pontos_quizz,num_perguntas,niveis)
+  }
   setTimeout(rolarProxPergunta ,2000)
   
 }
@@ -131,16 +157,11 @@ function rolarProxPergunta() {
   window.scrollBy(0, 750)
 }
 
-// NAVEGAÇÃO   APÓS   QUIZZ
-
-
-function aparecerCaixaResultado() {
-
-}
 
 
 function restartQuizz () {
-  window.location.reload()
+  esconderElemento(".conteudo")
+  carregarQuizzes(id_quizz)
   document.querySelector(".bannerQuiz").scrollIntoView({behavior: 'smooth'});
   document.querySelector(".caixa-bottom").classList.add("escondido")
 }
@@ -149,6 +170,40 @@ function voltarHome () {
   trocaTela(".paginaQuizz",".conteudo")
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
+}
+
+// NAVEGAÇÃO   APÓS   QUIZZ
+
+function finalizacaoQuizz(pontos, questoes,niveis) {
+  let porcent = Math.round((pontos/questoes)*100);
+  console.log(niveis)
+  let guarda_i =0;
+  for ( i=0;i<niveis.length;i++){
+    let min_valor=niveis[i].minValue
+    if(porcent>=Number(min_valor)){
+      guarda_i = i;
+    }
+    if(i===niveis.length-1){
+      let nivel=niveis[guarda_i];
+      let resultado = document.querySelector(".espaco_resultado");
+      resultado.innerHTML=`
+      <div class="resultado" >
+          <div class="topo-resultado">
+            <h1>${nivel.title}</h1>
+          </div>
+
+          <div class="row-1">
+            <div class="bloco" >
+              <img src='${nivel.image}' alt="alternativa-1">
+            </div>          
+            <div class="bloco" >
+              <h3>${nivel.text}</h3>
+            </div>
+          </div>
+      </div>
+      `
+    }
+  }
 }
 
 //  LISTAGEM      DOS      QUIZZES   ------------------------------
@@ -180,7 +235,7 @@ function pegarQuizzeSite() {
   let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
-//pegarQuizzeSite()
+pegarQuizzeSite()
 
 // Função chamada se a promise efetuado com sucesso
 // Pega a resposta da api 
@@ -212,9 +267,11 @@ function exibir(elemento) {
   // Pega o id que estava no nome da classe
   if (elemento.classList.length === 1) {
     let id = elemento.classList[0];
+    id_quizz=id;
     carregarQuizzes(id)
   } else {
     let id = elemento.classList[2];
+    id_quizz=id;
     carregarQuizzes(id)
   }
 }
@@ -456,8 +513,6 @@ function especificacoesQuizz() {
     alert("Preencha todos os dados corretamente!")
   }
 
-  console.log(validateUrl(imagemInput))
-  console.log(imagemInput)
   criacao_divs();
 }
 

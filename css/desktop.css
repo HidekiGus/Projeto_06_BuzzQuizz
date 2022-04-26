@@ -11,6 +11,8 @@ body {
   
 }
 
+
+
 .topo {
     
     background-color: #EC362D;
@@ -39,9 +41,10 @@ body {
     margin: 0px -1%;
 }
 
+
 .capa_quizz {
     width: 22vmax;
-    height: 15vmax;
+    height: 12vmax;
     margin-top: 2%;
     position: relative;
     border-radius: 5px;
@@ -314,6 +317,13 @@ body {
     font-weight: bold;
 }
 
+.topo-resultado > h1{
+    font-size: 20px;
+}
+
+.topo-pergunta > h1{
+    font-size: 22px;
+}
 
 .texto_branco {
     color:#ffffff;
@@ -332,7 +342,8 @@ body {
     width: 100%;
     height: 227px;
     margin-top: 20px;
-    object-fit: cover;
+    padding: 8px;
+    text-align: center;
     background-repeat: no-repeat;
 }
 
@@ -343,6 +354,7 @@ body {
     color: #ffffff;
     font-weight: 400;
     z-index: 1;
+    word-break:break-word;
 }
 
 .topo-pergunta {
@@ -350,39 +362,58 @@ body {
     justify-content: center;
     align-items: center;
     height: 137.99px;
-    width: 688.16px;
+    width: 100%;
     background-color: rgb(6, 133, 118);
     font-size: 27px;
     color: #ffffff;
     font-weight: 400;
-   margin-top: 28px;
+    padding: 8px;
+    text-align: center;
+    word-break:break-word;
 }
 
 .pergunta{
     width: 759px;
-    height: 676px;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
-   margin: 42px auto 50px auto;
+    margin: 48px auto 50px auto;
+    padding: 20px 30px;
     
+}
+.row-1 {
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    margin-top: 26px;
+}
+
+.row-2{
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    margin-top: 26px;
+}
+
+.alternativa-1,.alternativa-2,.alternativa-3,.alternativa-4 {
+    width: 336px;
 }
 
 .respostas {
     display: flex;
+    flex-wrap: wrap;
     align-items: inline;
 }
 
 .respostas img {
-    width: 329.91px;
-    height: 175.2px;
+    width: 100%;
+    height: 190.2px;
     object-fit: cover;
-    margin: 20px 12px 12px 12px;
 }
 
 .respostas h3 {
-    margin: 0px 12px 0px 12px;
+    margin-top: 5px;
     font-size: 20px;
     font-weight: 700;
     word-break:break-word;
@@ -452,4 +483,58 @@ button:hover {
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+/* RESULTADO DO QUIZZ */
+
+.topo-resultado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 137.99px;
+    width: 100%;
+    background-color: #EC362D;
+    font-size: 27px;
+    color: #ffffff;
+    font-weight: 400;
+    padding: 8px;
+    word-break:break-word;
+    text-align: center;
+}
+
+.resultado{
+    width: 759px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    margin: 48px auto 50px auto;
+    padding: 20px 30px;
+    
+}
+.row-1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width:100%;
+    margin-top: 26px;
+}
+
+
+.bloco{
+    width: 336px;
+}
+
+
+
+.row-1 img {
+    width: 100%;
+    height: 190.2px;
+    object-fit: cover;
+}
+
+.row-1 h3 {
+    margin-top: 5px;
+    font-size: 16px;
+    word-break:break-word;
+
 }
