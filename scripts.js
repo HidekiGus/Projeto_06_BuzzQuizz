@@ -137,9 +137,11 @@ function restartQuizz () {
   window.location.reload()
   document.querySelector(".bannerQuiz").scrollIntoView({behavior: 'smooth'});
   document.querySelector(".caixa-bottom").classList.add("escondido")
+ 
 }
 
 function voltarHome () {
+  window.location.reload()
   trocaTela(".paginaQuizz",".conteudo")
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
@@ -190,7 +192,7 @@ function pegarQuizzeSite() {
   let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
-pegarQuizzeSite()
+//pegarQuizzeSite()
 
 
 function comparaId(ids_usuario,id_servidor){
