@@ -622,7 +622,7 @@ function pagina_dois() {
   
 }
 
-pagina_dois();
+//pagina_dois();
 
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_tres() {
@@ -762,7 +762,7 @@ function criacao_divs() {
           <input class="inputs" onchange='numCaracter(this, 10, false)' type="text" placeholder="Título do nível" />
           <input class="inputs" onchange='verifPorcentagem(this)' type="number" placeholder="% de acerto mínima" />
           <input class="inputs" onchange='verifURL(this)' type="text" placeholder="URL da imagem do nível" />
-          <input class="inputs_grande" onchange='numCaracter(this, 30, false)' type="text" placeholder="Descrição do nível" />
+          <input class="inputs grande" onchange='numCaracter(this, 30, false)' type="text" placeholder="Descrição do nível" />
       </div>
     </div>
     `
@@ -776,3 +776,4 @@ function criacao_divs() {
 
   // FIM DA CRIAÇÃO DA PAGINA TRES
 }
+pagina_um();
