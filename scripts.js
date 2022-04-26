@@ -12,7 +12,6 @@ function carregarQuizzes(id) {
   
 }
 
-carregarQuizzes(24)
 
 // Função que torna as respostas aleatórias
 function embaralhar() { 
@@ -26,7 +25,7 @@ function quizzesServ(resposta) {
   esconderElemento(".criacao_quizz");
 
 
-  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
+  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});  background-size: cover;">
   <h1>${quizzInfo.title}</h1>
   </div>
   
@@ -105,7 +104,6 @@ function quizzesServ(resposta) {
 
 function acaoRespostas(elemento) {
   let qualPergunta = elemento.parentNode.parentNode;
-  console.log(qualPergunta)
   let alt1 = qualPergunta.querySelector(".alternativa-1")
   let alt2 = qualPergunta.querySelector(".alternativa-2")
   let alt3 = qualPergunta.querySelector(".alternativa-3")
@@ -328,18 +326,15 @@ function existeNivelZero() {
 
   //for (i=0; i<lista_blocos.length; i++) {
   let lista_inputs = lista_blocos[0].querySelectorAll(".inputs");
-
-  if (lista_inputs[1].value === 0) {
-    contador_0++;
-  //  }
+  let variavel = lista_inputs[1].value;
+  if (variavel === '0') {
+    contador_0 = 1;
   }
   lista_blocos[0].classList.toggle("invalid");
   if (contador_0 === 0) {
-    lista_blocos[0].classList.remove("invalid");
-    console.log("deu certo");
-  } else {
     lista_blocos[0].classList.add("invalid");
-    console.log("deu errado");
+  } else {
+    lista_blocos[0].classList.remove("invalid");
   }
 }
 
@@ -452,9 +447,7 @@ function especificacoesQuizz() {
   } else {
     alert("Preencha todos os dados corretamente!")
   }
-
-  console.log(validateUrl(imagemInput))
-  console.log(imagemInput)
+  criacao_divs();
 }
 
 
@@ -464,13 +457,14 @@ function especificacoesQuizz() {
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
 
-
 // Para validar e armazenar as perguntas 
 function addPerguntas() {
+
+  let pagina = document.querySelector(".pagina_dois");
+  if(pagina.querySelector(".aberto")!==null) {
   // Verifica se não inputs inválidos e/ou vazios
   if (verInvalid(".pagina_dois") && verInputs(".pagina_dois")) {
 
-    let pagina = document.querySelector(".pagina_dois");
     let lista_formulario = pagina.querySelectorAll(".formulario");
 
     // Pegar a tag formulario
@@ -483,7 +477,7 @@ function addPerguntas() {
       if (lista_inputs.length !== 0) {
         let resposta_correta = {
           text: lista_inputs[2].value,
-          image: lista_inputs[3,9,0].value,
+          image: lista_inputs[3].value,
           isCorrectAnswer: true
         }
         let resposta_incorreta = {
@@ -517,12 +511,68 @@ function addPerguntas() {
         lista_perguntas.push(question)
       }
     }
+    esconderTudo();
+    pagina_tres();
+    exibirElemento(".pagina_tres");
   }
-  esconderTudo();
-  pagina_tres();
-  exibirElemento(".pagina_tres");
+  }
 }
 
+// FUNÇÃO ABAIXO É UMA FUNÇÃO QUE ABRE E FECHA UM ELEMENTO/ FORMULÁRIO, INSERINDO E TIRANDO CÓDIGOS
+function collapse(string) {
+  // pega o formulario correspondente ao numero na string
+  let form = document.querySelector(".formulario"+".num"+string);
+  // verifica se o formulario foi aberto ou não , ou seja , verifica se na classe da div class formulario tem a classe "aberto"
+  // se false ele vai inserir inputs para abrir formulario
+  // se true ele vai voltar ao que era antes
+  let class_form = form.classList.contains("aberto");
+  if(class_form===false){
+    form.classList.toggle("aberto") // add a classe aberto
+    let div_inicial =form.querySelector(".bloco_inputs"); // pega a div com classe bloco_inputs
+    div_inicial.innerHTML=  div_inicial.innerHTML + `
+       <input class="inputs" onchange='numCaracter( this, 20, false)' type="text" placeholder="Texto da Pergunta" />
+       <input class="inputs" onchange='hexColor(this)' type="text" placeholder="Cor de fundo da pergunta (hexadecimal)" />
+    `
+
+    let div_sec =form.querySelector(".bold");
+    div_sec.setAttribute("onclick", `collapse("${string}")`) // adiciona onclick no titulo do formulario (ex: Pergunta 2)
+    form.querySelector("ion-icon").classList.toggle("escondido"); // esconde o ion-icon
+    div_inicial.classList.toggle("inline") // a classe inline que alinhava o icone com o titulo é retirado
+    form.innerHTML=  form.innerHTML + `
+    <div class="bloco_inputs" >
+        <div class="bold" >Resposta Correta</div>
+        <input class="inputs" onchange='numCaracter( this, 1, false)' type="text" placeholder="Resposta correta" />
+        <input class="inputs"  onchange='numCaracter( this, 1, false),verifURL(this)' type="text" placeholder="URL da imagem" />
+    </div>
+    <div class="bloco_inputs" >
+        <div class="bold" >Respostas Incorretas</div>
+        <div class="dupla_input">
+          <input class="inputs um" onchange='numCaracter( this, 1, false)'  type="text" placeholder="Resposta Incorreta 1" />
+          <input class="inputs um" onchange='verifURL(this)' type="text" placeholder="URL da imagem 1" />
+        </div>
+        <div class="dupla_input">
+          <input class="inputs dois" type="text" placeholder="Resposta Incorreta 2" />
+          <input class="inputs dois" onchange='verifURL(this)' type="text" placeholder="URL da imagem 2" />
+        </div>
+        <div class="dupla_input">
+          <input class="inputs tres" type="text" placeholder="Resposta Incorreta 3" />
+          <input class="inputs tres" onchange='verifURL(this)' type="text" placeholder="URL da imagem 3" />
+        </div>
+    </div>
+    `
+
+  } else {
+    form.classList.toggle("aberto");  // tira a classe aberto
+    form.innerHTML="";
+    // abaixo a div de classe formulario volta ao que era antes 
+    form.innerHTML=  form.innerHTML + `
+    <div class="bloco_inputs inline" >
+      <div class="bold" >Pergunta ${string}</div>
+      <ion-icon onclick='collapse("${string}")' name="create-outline"></ion-icon>
+    </div>
+    `
+  }
+}
 // Para validar e armazenar os níveis 
 function addNiveis(){
   existeNivelZero();
@@ -542,107 +592,34 @@ function addNiveis(){
       if(lista_inputs.length!==0){
         let nivel = {
           title:lista_inputs[0].value,
-          image:lista_inputs[1].value,
-          text:lista_inputs[2].value,
-          minValue:lista_inputs[3].value
+          image:lista_inputs[2].value,
+          text:lista_inputs[3].value,
+          minValue:lista_inputs[1].value
         }
         lista_niveis.push(nivel);
       }
     }
+    enviar_quiz();
   }
 }
    
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_dois() {
-  let pagina_dois = document.querySelector(".pagina_dois");
   // esconder os outros elementos do site
   esconderTudo();
   exibirElemento(".pagina_dois");
-
-  pagina_dois.innerHTML +=  ` 
-    <div class="titulo bold"> Crie suas perguntas </div>
-    <div class="formulario" >
-      <div class="bloco_inputs" >
-          <div class="bold" >Pergunta 1</div>
-          <input class="inputs" onchange='numCaracter( this, 20, false)' type="text" placeholder="Texto da Pergunta" />
-          <input class="inputs" onchange='hexColor(this)' type="text" placeholder="Cor de fundo da pergunta (hexadecimal)" />
-      </div>
-      <div class="bloco_inputs" >
-          <div class="bold" >Resposta Correta</div>
-          <input class="inputs" onchange='numCaracter( this, 1, false)' type="text" placeholder="Resposta correta" />
-          <input class="inputs"  onchange='numCaracter( this, 1, false),verifURL(this)' type="text" placeholder="URL da imagem" />
-      </div>
-      <div class="bloco_inputs" >
-          <div class="bold" >Respostas Incorretas</div>
-          <div class="dupla_input">
-            <input class="inputs um" onchange='numCaracter( this, 1, false)'  type="text" placeholder="Resposta Incorreta 1" />
-            <input class="inputs um" onchange='verifURL(this)' type="text" placeholder="URL da imagem 1" />
-          </div>
-          <div class="dupla_input">
-            <input class="inputs dois" type="text" placeholder="Resposta Incorreta 2" />
-            <input class="inputs dois" onchange='verifURL(this)' type="text" placeholder="URL da imagem 2" />
-          </div>
-          <div class="dupla_input">
-            <input class="inputs tres" type="text" placeholder="Resposta Incorreta 3" />
-            <input class="inputs tres" onchange='verifURL(this)' type="text" placeholder="URL da imagem 3" />
-          </div>
-      </div>
-    </div>
-    <div class="formulario" >
-      <div class="bloco_inputs inline" >
-          <div class="bold" >Pergunta 2 </div>
-          <ion-icon name="create-outline"></ion-icon>
-      </div>
-    </div>
-    <div class="formulario" >
-      <div class="bloco_inputs inline" >
-          <div class="bold" >Pergunta 3 </div>
-          <ion-icon name="create-outline"></ion-icon>
-      </div>
-    </div>
-    <div class="button">
-          <button onclick='addPerguntas()' type="submit">Prosseguir para criar níveis</button>
-    </div>
-  `
+  
 }
 
 //pagina_dois();
 
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_tres() {
-  let pagina_tres = document.querySelector(".pagina_tres");
   // esconder os outros elementos do site
   esconderTudo();
   exibirElemento(".pagina_tres");
-
-  pagina_tres.innerHTML +=  ` 
-    <div class="titulo bold"> Agora, decida os níveis! </div>
-    <div class="formulario" >
-      <div class="bloco_inputs" >
-          <div class="bold">Nível 1</div>
-          <input class="inputs" onchange='numCaracter(this, 10, false)' type="text" placeholder="Título do nível" />
-          <input class="inputs" onchange='verifPorcentagem(this)' type="number" placeholder="% de acerto mínima" />
-          <input class="inputs" onchange='verifURL(this)' type="text" placeholder="URL da imagem do nível" />
-          <input class="inputs_grande" onchange='numCaracter(this, 30, false)' type="text" placeholder="Descrição do nível" />
-      </div>
-    </div>
-    <div class="formulario" >
-      <div class="bloco_inputs inline" >
-          <div class="bold" >Nível 2 </div>
-          <ion-icon name="create-outline"></ion-icon>
-      </div>
-    </div>
-    <div class="formulario">
-      <div class="bloco_inputs inline">
-          <div class="bold">Nível 3 </div>
-          <ion-icon name="create-outline"></ion-icon>
-      </div>
-    </div>
-    <div class="button">
-          <button onclick='addNiveis()' type="submit">Finalizar Quizz</button>
-    </div>
-  `
 }
+
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
 // Adiciona uma mensagem de sucesso, representando a finalização da criação do quizz
@@ -722,4 +699,106 @@ function botaoCriarQuiz() {
   esconderTudo();
   exibirElemento(".pagina_um");
   pagina_um();
+}
+
+
+
+function criacao_divs() {
+  let pagina = document.querySelector(".pagina_um");
+  let inputs = pagina.querySelectorAll("input");
+
+  let num_perguntas = Number(inputs[2].value);
+  let num_niveis = Number(inputs[3].value);
+
+  let pagina_dois = document.querySelector(".pagina_dois");
+  let pagina_tres = document.querySelector(".pagina_tres");
+
+  // CRIAÇÃO DA PAGINA DOIS
+
+  pagina_dois.innerHTML +=  ` 
+  <div class="titulo bold"> Crie suas perguntas </div>
+  `;
+
+  for (i=0; i<num_perguntas; i++) {
+    pagina_dois.innerHTML += `
+    <div class="formulario num${i+1}" >
+    <div class="bloco_inputs inline" >
+          <div class="bold" >Pergunta ${i+1}</div>
+          <ion-icon onclick='collapse("${i+1}")' name="create-outline"></ion-icon>
+      </div>
+  </div>`
+  }
+
+  pagina_dois.innerHTML += `
+  <div class="button">
+        <button onclick='addPerguntas()' type="submit">Prosseguir para criar níveis</button>
+  </div>
+`;
+
+  // FIM DA CRIAÇÃO DA PAGINA DOIS
+
+  // CRIAÇÃO DA PAGINA TRES
+
+  pagina_tres.innerHTML +=  ` 
+  <div class="titulo bold"> Agora, decida os níveis! </div>
+  `;
+
+  for (i=0; i<num_niveis; i++) {
+    pagina_tres.innerHTML += `
+    <div class="formulario" >
+      <div class="bloco_inputs" >
+          <div class="bold">Nível ${i+1}</div>
+          <input class="inputs" onchange='numCaracter(this, 10, false)' type="text" placeholder="Título do nível" />
+          <input class="inputs" onchange='verifPorcentagem(this)' type="number" placeholder="% de acerto mínima" />
+          <input class="inputs" onchange='verifURL(this)' type="text" placeholder="URL da imagem do nível" />
+          <input class="inputs grande" onchange='numCaracter(this, 30, false)' type="text" placeholder="Descrição do nível" />
+      </div>
+    </div>
+    `
+  }
+
+  pagina_tres.innerHTML += `
+  <div class="button">
+    <button onclick='addNiveis()' type="submit">Finalizar Quizz</button>
+  </div>
+  `;
+
+  // FIM DA CRIAÇÃO DA PAGINA TRES
+}
+
+function armazenar_uma_vez() {
+  let lista_ids = [];
+  let salvar_primeiro = JSON.stringify(lista_ids);
+  localStorage.setItem("lista_ids", salvar_primeiro);
+}
+
+armazenar_uma_vez();
+
+function armazena_id(response) {
+  let id = response.data.id;
+
+  let item = localStorage.getItem("lista_ids");
+  lista_ids = JSON.parse(item);
+  lista_ids.push(id);
+  let dadosSerializados = JSON.stringify(lista_ids);
+  localStorage.setItem("lista_ids", dadosSerializados);
+}
+
+function extrai_ids() {
+  let item = localStorage.getItem("lista_ids");
+  lista_ids = JSON.parse(item);
+  return lista_ids;
+}
+
+function enviar_quiz() {
+  let pagina_dados = document.querySelector(".pagina_um");
+  let lista_inputs = pagina_dados.querySelectorAll("input");
+  let quiz = {
+                title: lista_inputs[0].value,
+                image: lista_inputs[1].value,
+                questions: lista_perguntas,
+                levels: lista_niveis
+  }
+  let promessa = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes', quiz);
+  promessa.then(armazena_id);
 }
