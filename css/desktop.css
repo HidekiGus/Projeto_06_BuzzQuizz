@@ -479,6 +479,10 @@ button:hover {
     text-decoration:underline;
 }
 
+.final_home:hover{
+    text-decoration:underline;
+}
+
 .botoes {
     display: flex;
     justify-content: center;
