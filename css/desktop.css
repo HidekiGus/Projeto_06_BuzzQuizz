@@ -41,7 +41,6 @@ body {
     margin: 0px -1%;
 }
 
-
 .capa_quizz {
     width: 22vmax;
     height: 12vmax;
@@ -514,7 +513,7 @@ button:hover {
 }
 
 .resultado{
-    width: 759px;
+    width: 51%;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
