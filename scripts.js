@@ -12,7 +12,6 @@ function carregarQuizzes(id) {
   
 }
 
-//carregarQuizzes(24)
 
 // Função que torna as respostas aleatórias
 function embaralhar() { 
@@ -26,7 +25,7 @@ function quizzesServ(resposta) {
   esconderElemento(".criacao_quizz");
 
 
-  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
+  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});  background-size: cover;">
   <h1>${quizzInfo.title}</h1>
   </div>
   
@@ -179,7 +178,7 @@ function pegarQuizzeSite() {
   let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
-//pegarQuizzeSite()
+pegarQuizzeSite()
 
 // Função chamada se a promise efetuado com sucesso
 // Pega a resposta da api 
