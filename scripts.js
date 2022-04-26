@@ -134,18 +134,15 @@ function rolarProxPergunta() {
 // NAVEGAÇÃO   APÓS   QUIZZ
 
 
-function aparecerCaixaResultado() {
-
-}
-
-
 function restartQuizz () {
   window.location.reload()
   document.querySelector(".bannerQuiz").scrollIntoView({behavior: 'smooth'});
   document.querySelector(".caixa-bottom").classList.add("escondido")
+ 
 }
 
 function voltarHome () {
+  window.location.reload()
   trocaTela(".paginaQuizz",".conteudo")
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
@@ -170,7 +167,7 @@ function listar_quizzUsuario() {
     </div>`
 }
 
-listar_quizzUsuario()
+//listar_quizzUsuario()
 
 
 // LISTAR TODOS OS QUIZZES 
@@ -180,7 +177,7 @@ function pegarQuizzeSite() {
   let promise = axios.get(api + "quizzes");
   promise.then(listar_quizzSite);
 }
-pegarQuizzeSite()
+//pegarQuizzeSite()
 
 // Função chamada se a promise efetuado com sucesso
 // Pega a resposta da api 

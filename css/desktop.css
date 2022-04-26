@@ -328,7 +328,7 @@ body {
     height: 227px;
     margin-top: 20px;
     object-fit: cover;
-    background-repeat: no-repeat;
+    
 }
 
 
@@ -338,6 +338,7 @@ body {
     color: #ffffff;
     font-weight: 400;
     z-index: 1;
+    
 }
 
 .topo-pergunta {
@@ -351,6 +352,7 @@ body {
     color: #ffffff;
     font-weight: 400;
    margin-top: 28px;
+   text-align: center;
 }
 
 .pergunta{
@@ -360,13 +362,25 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-   margin: 42px auto 50px auto;
+    margin: 42px auto 50px auto;
+    padding-bottom: 20px;
+    
     
 }
 
 .respostas {
     display: flex;
     align-items: inline;
+    flex-direction: column;
+    
+}
+
+.row-1, .row-2 {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+
 }
 
 .respostas img {
@@ -377,10 +391,12 @@ body {
 }
 
 .respostas h3 {
-    margin: 0px 12px 0px 12px;
+    margin-top: 10px;
+    margin-left: 12px;
     font-size: 20px;
     font-weight: 700;
-    word-break:break-word;
+    word-break: break-word;
+    max-width: 329px;
 
 }
 
