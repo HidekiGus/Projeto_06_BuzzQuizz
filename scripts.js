@@ -1,9 +1,10 @@
-// PEGAR QUIZZES DA API (não tá funcionando :P)
+// PEGAR QUIZZES DA API
 let quizzInfo;
-let disporQuizz = document.querySelector(".paginaQuizz");
+let disporPágina = document.querySelector(".paginaQuizz");
 let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
-let lista_perguntas = [];
+let lista_perguntas=[];
+let lista_niveis=[];
 
 function carregarQuizzes(id) {
   let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
@@ -14,17 +15,36 @@ function carregarQuizzes(id) {
 //carregarQuizzes(24)
 
 // Função que torna as respostas aleatórias
-function embaralhar() {
-  return Math.random() - 0.5
+function embaralhar() { 
+  return Math.random() - 0.5;
 }
 
 function quizzesServ(resposta) {
+
   quizzInfo = resposta.data;
   trocaTela(".conteudo", ".paginaQuizz")
   esconderElemento(".criacao_quizz");
-  disporQuizz.innerHTML = `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
+
+
+  disporPágina.innerHTML += `<div class="bannerQuiz" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(${quizzInfo.image});">
   <h1>${quizzInfo.title}</h1>
-  </div>`;
+  </div>
+  
+  <div class="perguntas"></div>
+  
+  <div class="caixa-bottom">
+  <div class="resultado"></div>
+
+  <div class="botoes">
+  <button class="restart" onclick="restartQuizz()">Reiniciar Quizz</button>
+  <button class="home" onclick="voltarHome()">Voltar pra home</button>
+  </div>    
+
+</div>`;
+
+
+  let disporQuizz = document.querySelector(".perguntas")
+
 
   for (let i = 0; i < quizzInfo.questions.length; i++) {
 
@@ -78,6 +98,7 @@ function quizzesServ(resposta) {
 
   }
 
+
 }
 
 // COMPORTAMENTO DE RESPOSTAS ---------------------------
@@ -102,8 +123,33 @@ function acaoRespostas(elemento) {
 
   }
 
+  setTimeout(rolarProxPergunta ,2000)
+  
 }
 
+function rolarProxPergunta() {
+  window.scrollBy(0, 750)
+}
+
+// NAVEGAÇÃO   APÓS   QUIZZ
+
+
+function aparecerCaixaResultado() {
+
+}
+
+
+function restartQuizz () {
+  window.location.reload()
+  document.querySelector(".bannerQuiz").scrollIntoView({behavior: 'smooth'});
+  document.querySelector(".caixa-bottom").classList.add("escondido")
+}
+
+function voltarHome () {
+  trocaTela(".paginaQuizz",".conteudo")
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
 
 //  LISTAGEM      DOS      QUIZZES   ------------------------------
 
@@ -124,7 +170,7 @@ function listar_quizzUsuario() {
     </div>`
 }
 
-//listar_quizzUsuario()
+listar_quizzUsuario()
 
 
 // LISTAR TODOS OS QUIZZES 
@@ -174,6 +220,18 @@ function exibir(elemento) {
 }
 
 // FIM DO  EXIBIR   QUIZZ     --------------------------------------
+
+// ESCONDE TODOS OS ELEMENTOS
+
+function esconderTudo() {  
+esconderElemento(".conteudo");
+esconderElemento(".paginaQuizz");
+esconderElemento(".pagina_um");
+esconderElemento(".pagina_dois");
+esconderElemento(".pagina_tres");
+esconderElemento(".pagina_quatro");
+}
+
 
 //  VOLTAR  PARA  HOME   --------------------------------------
 function voltar_home() {
@@ -255,6 +313,39 @@ function verifURL(input) {
   }
 }
 
+// FUNÇÃO PRA VER SE VALOR É DE 0 A 100
+function verifPorcentagem(input) {
+  if ((input.value >= 0) && (input.value <= 100)) {
+    input.classList.remove("invalid");
+  } else {
+    input.classList.add("invalid");
+  }
+}
+
+// FUNÇÃO PRA VER SE EXISTE PELO MENOS 1 NIVEL COM 0%
+
+function existeNivelZero() {
+  let pagina = document.querySelector(".pagina_tres");
+  let lista_blocos = pagina.querySelectorAll(".bloco_inputs");
+  let contador_0 = 0;
+
+  //for (i=0; i<lista_blocos.length; i++) {
+  let lista_inputs = lista_blocos[0].querySelectorAll(".inputs");
+  let variavel = lista_inputs[1].value;
+  if (variavel === '0') {
+    contador_0 = 1;
+    console.log("deu");
+  }
+  lista_blocos[0].classList.toggle("invalid");
+  if (contador_0 === 0) {
+    lista_blocos[0].classList.add("invalid");
+    console.log("nao tem input 0");
+  } else {
+    lista_blocos[0].classList.remove("invalid");
+    console.log("tem pelo menos 1 == 0");
+  }
+}
+
 // FUNÇÕES PARA VALIDAR SE OS INPUTS NÃO ESTÃO VAZIOS E SE HÁ ALGUM INPUT INVÁLIDO (ou seja com o invalid na classe)
 
 // Abaixo, a função verifica se há algum input essencial vazio
@@ -314,11 +405,9 @@ function verInvalid(nomePagina) {
 
 function pagina_um() {
   let pagina_um = document.querySelector(".pagina_um");
-  esconderElemento(".conteudo");
-  esconderElemento(".paginaQuizz");
-  esconderElemento(".pagina_dois");
-  esconderElemento(".pagina_tres");
-  esconderElemento(".pagina_quatro");
+  esconderTudo();
+  exibirElemento(".pagina_um");
+
 
   pagina_um.innerHTML = `
 
@@ -369,6 +458,7 @@ function especificacoesQuizz() {
 
   console.log(validateUrl(imagemInput))
   console.log(imagemInput)
+  criacao_divs();
 }
 
 
@@ -378,13 +468,14 @@ function especificacoesQuizz() {
 
 // TELA 3.2 : PERGUNTAS DO QUIZ (conforme requisitos no notion)
 
-
 // Para validar e armazenar as perguntas 
 function addPerguntas() {
+
+  let pagina = document.querySelector(".pagina_dois");
+  if(pagina.querySelector(".aberto")!==null) {
   // Verifica se não inputs inválidos e/ou vazios
   if (verInvalid(".pagina_dois") && verInputs(".pagina_dois")) {
 
-    let pagina = document.querySelector(".pagina_dois");
     let lista_formulario = pagina.querySelectorAll(".formulario");
 
     // Pegar a tag formulario
@@ -431,8 +522,12 @@ function addPerguntas() {
         lista_perguntas.push(question)
       }
     }
+    console.log(lista_perguntas)
+    esconderTudo();
+    pagina_tres();
+    exibirElemento(".pagina_tres");
   }
-
+  }
 }
 
 // FUNÇÃO ABAIXO É UMA FUNÇÃO QUE ABRE E FECHA UM ELEMENTO/ FORMULÁRIO, INSERINDO E TIRANDO CÓDIGOS
@@ -490,79 +585,60 @@ function collapse(string) {
     `
   }
 }
+// Para validar e armazenar os níveis 
+function addNiveis(){
+  existeNivelZero();
+  // Verifica se não inputs inválidos e/ou vazios
 
+  if(verInputs(".pagina_tres")){
+   
+    let pagina = document.querySelector(".pagina_tres");
+    let lista_formulario=pagina.querySelectorAll(".formulario");
+
+    // Pegar a tag formulario
+    for (i=0;i<lista_formulario.length;i++){
+      let formulario = lista_formulario[i];
+      // Pegar os inputs dentro do formulario
+      let lista_inputs = formulario.querySelectorAll("input");
+
+      if(lista_inputs.length!==0){
+        let nivel = {
+          title:lista_inputs[0].value,
+          image:lista_inputs[1].value,
+          text:lista_inputs[2].value,
+          minValue:lista_inputs[3].value
+        }
+        lista_niveis.push(nivel);
+      }
+    }
+  }
+}
+   
 // Adiciona o formulário de perguntas da etapa dois da criação
 function pagina_dois() {
-  let pagina_dois = document.querySelector(".pagina_dois");
   // esconder os outros elementos do site
-  esconderElemento(".conteudo");
-  esconderElemento(".paginaQuizz");
-  esconderElemento(".pagina_um");
-  esconderElemento(".pagina_tres");
-  esconderElemento(".pagina_quatro");
-  pagina_dois.innerHTML = ` 
-    <div class="titulo bold"> Crie suas perguntas </div>
-    <div class="formulario num1" >
-      <div class="bloco_inputs" >
-          <div class="bold" >Pergunta 1</div>
-          <input class="inputs" onchange='numCaracter( this, 20, false)' type="text" placeholder="Texto da Pergunta" />
-          <input class="inputs" onchange='hexColor(this)' type="text" placeholder="Cor de fundo da pergunta (hexadecimal)" />
-      </div>
-      <div class="bloco_inputs" >
-          <div class="bold" >Resposta Correta</div>
-          <input class="inputs" onchange='numCaracter( this, 1, false)' type="text" placeholder="Resposta correta" />
-          <input class="inputs"  onchange='numCaracter( this, 1, false),verifURL(this)' type="text" placeholder="URL da imagem" />
-      </div>
-      <div class="bloco_inputs" >
-          <div class="bold" >Respostas Incorretas</div>
-          <div class="dupla_input">
-            <input class="inputs um" onchange='numCaracter( this, 1, false)'  type="text" placeholder="Resposta Incorreta 1" />
-            <input class="inputs um" onchange='verifURL(this)' type="text" placeholder="URL da imagem 1" />
-          </div>
-          <div class="dupla_input">
-            <input class="inputs dois" type="text" placeholder="Resposta Incorreta 2" />
-            <input class="inputs dois" onchange='verifURL(this)' type="text" placeholder="URL da imagem 2" />
-          </div>
-          <div class="dupla_input">
-            <input class="inputs tres" type="text" placeholder="Resposta Incorreta 3" />
-            <input class="inputs tres" onchange='verifURL(this)' type="text" placeholder="URL da imagem 3" />
-          </div>
-      </div>
-    </div>
-    <div class="formulario num2" >
-      <div class="bloco_inputs inline" >
-          <div class="bold" >Pergunta 2</div>
-          <ion-icon onclick='collapse("2")' name="create-outline"></ion-icon>
-      </div>
-    </div>
-    <div class="formulario num3" >
-      <div class="bloco_inputs inline" >
-          <div class="bold" >Pergunta 3</div>
-          <ion-icon onclick='collapse("3")' name="create-outline"></ion-icon>
-      </div>
-    </div>
-    </div>
-    <div class="button">
-          <button onclick='addPerguntas()' type="submit">Prosseguir para criar níveis</button>
-    </div>
-  `
+  esconderTudo();
+  exibirElemento(".pagina_dois");
+  
 }
 
 pagina_dois();
+
+// Adiciona o formulário de perguntas da etapa dois da criação
+function pagina_tres() {
+  // esconder os outros elementos do site
+  esconderTudo();
+  exibirElemento(".pagina_tres");
+}
+
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
 // Adiciona uma mensagem de sucesso, representando a finalização da criação do quizz
 function pagina_quatro() {
   let pagina_quatro = document.querySelector(".pagina_quatro");
   // esconder os outros elementos do site
-  esconderElemento(".conteudo");
-  esconderElemento(".paginaQuizz");
-  esconderElemento(".pagina_um");
-  esconderElemento(".pagina_tres");
-  esconderElemento(".pagina_dois");
-
-  // Exemplo para testar o botão Acessar Quizz
-  let criacao_id = 30;
+  esconderTudo();
+  exibirElemento(".pagina_quatro");
 
   pagina_quatro.innerHTML = ` 
     <div class="titulo bold"> Seu quizz está pronto! </div>
@@ -578,11 +654,10 @@ function pagina_quatro() {
   `
 }
 //pagina_quatro()
-
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
 
-// AREA DE TESTES ---\/-----\/-----\/---
+// FUNÇÕES PRA ESCONDER E EXIBIR ELEMENTOS ------------------
 
 // Esconde o elemento recebido como parâmetro
 function esconderElemento(tag) {
@@ -600,6 +675,9 @@ function trocaTela(elementoPraEsconder, elementoPraExibir) {
   esconderElemento(elementoPraEsconder);
   exibirElemento(elementoPraExibir);
 }
+
+
+// FIM FUNÇÕES PRA ESCONDER E EXIBIR ELEMENTOS --------------
 
 // Confere se o usuário tem quizzes
 function confereQuizzesUsuario() {
@@ -629,5 +707,72 @@ function controlaBotaoCriarQuiz() {
 controlaBotaoCriarQuiz();
 
 function botaoCriarQuiz() {
-  trocaTela(".conteudo", ".pagina_tres");
+  esconderTudo();
+  exibirElemento(".pagina_um");
+  pagina_um();
+}
+
+
+
+function criacao_divs() {
+  let pagina = document.querySelector(".pagina_um");
+  let inputs = pagina.querySelectorAll("input");
+
+  let num_perguntas = Number(inputs[2].value);
+  let num_niveis = Number(inputs[3].value);
+
+  let pagina_dois = document.querySelector(".pagina_dois");
+  let pagina_tres = document.querySelector(".pagina_tres");
+
+  // CRIAÇÃO DA PAGINA DOIS
+
+  pagina_dois.innerHTML +=  ` 
+  <div class="titulo bold"> Crie suas perguntas </div>
+  `;
+
+  for (i=0; i<num_perguntas; i++) {
+    pagina_dois.innerHTML += `
+    <div class="formulario num${i+1}" >
+    <div class="bloco_inputs inline" >
+          <div class="bold" >Pergunta ${i+1}</div>
+          <ion-icon onclick='collapse("${i+1}")' name="create-outline"></ion-icon>
+      </div>
+  </div>`
+  }
+
+  pagina_dois.innerHTML += `
+  <div class="button">
+        <button onclick='addPerguntas()' type="submit">Prosseguir para criar níveis</button>
+  </div>
+`;
+
+  // FIM DA CRIAÇÃO DA PAGINA DOIS
+
+  // CRIAÇÃO DA PAGINA TRES
+
+  pagina_tres.innerHTML +=  ` 
+  <div class="titulo bold"> Agora, decida os níveis! </div>
+  `;
+
+ for (i=0; i<num_niveis; i++) {
+    pagina_tres.innerHTML += `
+    <div class="formulario" >
+      <div class="bloco_inputs" >
+          <div class="bold">Nível ${i+1}</div>
+          <input class="inputs" onchange='numCaracter(this, 10, false)' type="text" placeholder="Título do nível" />
+          <input class="inputs" onchange='verifPorcentagem(this)' type="number" placeholder="% de acerto mínima" />
+          <input class="inputs" onchange='verifURL(this)' type="text" placeholder="URL da imagem do nível" />
+          <input class="inputs_grande" onchange='numCaracter(this, 30, false)' type="text" placeholder="Descrição do nível" />
+      </div>
+    </div>
+    `
+  }
+
+  pagina_tres.innerHTML += `
+  <div class="button">
+    <button onclick='addNiveis()' type="submit">Finalizar Quizz</button>
+  </div>
+`;
+
+  // FIM DA CRIAÇÃO DA PAGINA TRES
 }

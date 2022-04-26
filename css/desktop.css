@@ -384,6 +384,9 @@ body {
 
 }
 
+.conteudo_colapsavel {
+    max-height: 0;}
+
 .filtroBranco {
    opacity: 0.5;
 }
@@ -405,6 +408,11 @@ body {
    pointer-events: none;
 }
 
+.caixa-bottom {
+    margin-bottom: 50px;
+    
+}
+
 .restart {
     background-color: #EC362D;
     color: #ffffff;
@@ -416,7 +424,6 @@ body {
     font-size: 21px;
     font-weight: 400;
     transition: all .3s;
-    margin-top: 1000px;
 }
 
 .home {
