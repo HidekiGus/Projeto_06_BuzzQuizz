@@ -20,6 +20,12 @@ function embaralhar() {
   return Math.random() - 0.5;
 }
 
+// NAVEGAÇÃO   APÓS   QUIZZ
+
+function finalizacaoQuizz() {
+
+}
+
 function quizzesServ(resposta) {
 
   quizzInfo = resposta.data;
@@ -33,10 +39,21 @@ function quizzesServ(resposta) {
   </div>
   
   <div class="perguntas"></div>
-  
-  <div class="caixa-bottom">
-  <div class="resultado"></div>
+  <div class="resultado escondido">
+    <div class="topo-resultado">
+      <h1>dddddddddddddd</h1>
+    </div>
 
+    <div class="row-1">
+      <div class="bloco" >
+        <img src='imagens/potterhead.jpg' alt="alternativa-1">
+      </div>          
+      <div class="bloco" >
+        <h3>ddddddddddddddddddd</h3>
+      </div>
+    </div>
+  </div>
+  <div class="caixa-bottom">
   <div class="botoes">
   <button class="restart" onclick="restartQuizz()">Reiniciar Quizz</button>
   <button class="home" onclick="voltarHome()">Voltar pra home</button>
@@ -100,14 +117,13 @@ function quizzesServ(resposta) {
 
   }
 
-
 }
 
 // COMPORTAMENTO DE RESPOSTAS ---------------------------
 
 function acaoRespostas(elemento) {
   let qualPergunta = elemento.parentNode.parentNode;
-  console.log(qualPergunta)
+ 
   let alt1 = qualPergunta.querySelector(".alternativa-1")
   let alt2 = qualPergunta.querySelector(".alternativa-2")
   let alt3 = qualPergunta.querySelector(".alternativa-3")
@@ -133,12 +149,6 @@ function rolarProxPergunta() {
   window.scrollBy(0, 750)
 }
 
-// NAVEGAÇÃO   APÓS   QUIZZ
-
-
-function aparecerCaixaResultado() {
-
-}
 
 
 function restartQuizz () {
