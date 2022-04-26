@@ -5,6 +5,7 @@ let api = "https://mock-api.driven.com.br/api/v6/buzzquizz/";
 let lista_quizzes;
 let lista_perguntas=[];
 let lista_niveis=[];
+let texto_quizz_usuario = "";
 
 function carregarQuizzes(id) {
   let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
@@ -13,13 +14,15 @@ function carregarQuizzes(id) {
 }
 
 
+
+
 // Função que torna as respostas aleatórias
 function embaralhar() { 
   return Math.random() - 0.5;
 }
 
 function quizzesServ(resposta) {
-
+  disporPágina.innerHTML="";
   quizzInfo = resposta.data;
   trocaTela(".conteudo", ".paginaQuizz")
   esconderElemento(".criacao_quizz");
@@ -129,8 +132,6 @@ function rolarProxPergunta() {
   window.scrollBy(0, 750)
 }
 
-// NAVEGAÇÃO   APÓS   QUIZZ
-
 
 function restartQuizz () {
   window.location.reload()
@@ -146,26 +147,42 @@ function voltarHome () {
   document.documentElement.scrollTop = 0;
 }
 
-//  LISTAGEM      DOS      QUIZZES   ------------------------------
+//  LISTAGEM   DOS    QUIZZES   --------------------------------
 
-
-
-function listar_quizzUsuario() {
-  let opcoes_quizz = document.querySelector(".quizzesdoUsuario").querySelector(".opcoes_quizz");
-  opcoes_quizz.innerHTML = `
-    <div onclick='exibir(this)' class='capa_quizz texto_branco'>
-      <div class='degradee'></div>
-      <img src='imagens/potterhead.jpg'/>
-      <h2>O quão Potterhead é você?</h2>
-    </div>
-    <div  onclick='exibir(this)' class='capa_quizz texto_branco'>
-      <div class='degradee'></div>
-      <img src='imagens/potterhead.jpg' />
-      <h2>O quão Potterhead é você?</h2>
-    </div>`
+function carregarQuizzesUsuario(id) {
+  let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/' + id)
+  promise.then(quizzes_do_usuario);
+  
 }
 
+function quizzes_do_usuario(resposta){
+    let info_quizz= resposta.data;
+   
+    // add id no nome da classe para ser pego depois para exibir quizz
+    texto_quizz_usuario = texto_quizz_usuario + `
+    <div onclick='exibir(this)' class='capa_quizz texto_branco  ${info_quizz.id}'>  
+      <div class='degradee'></div>
+      <img src="${info_quizz.image}"  />
+      <h2>${info_quizz.title}</h2>
+     </div> `
+  
+  
+  let opcoes_quizz = document.querySelector(".quizzesdoUsuario").querySelector(".opcoes_quizz");
+  opcoes_quizz.innerHTML = texto_quizz_usuario;
+  controlaBotaoCriarQuiz();
+}
+
+function listar_quizzUsuario() {
+  let lista_quiz_usuario=extrai_ids();
+  console.log(lista_quiz_usuario)
+  for(j=0;j<lista_quiz_usuario.length; j++){
+    carregarQuizzesUsuario(lista_quiz_usuario[j])
+  }
+  
+}
 listar_quizzUsuario()
+
+
 
 
 // LISTAR TODOS OS QUIZZES 
@@ -177,6 +194,16 @@ function pegarQuizzeSite() {
 }
 pegarQuizzeSite()
 
+
+function comparaId(ids_usuario,id_servidor){
+  for(j=0;j<ids_usuario.length;j++){
+    if(ids_usuario[j]===id_servidor){
+      return true
+    }
+  }
+  return false
+}
+
 // Função chamada se a promise efetuado com sucesso
 // Pega a resposta da api 
 // E adiciona os quizzes na tela principal do site abaixo de "Todos os quizzes"
@@ -184,14 +211,19 @@ function listar_quizzSite(resposta) {
   lista_quizzes = resposta.data;
   let texto = "";
   for (i = 0; i < lista_quizzes.length; i++) {
+    let listadeids=extrai_ids();
+    if(comparaId(listadeids,lista_quizzes[i].id)){
+     
+    }else{
     // add id no nome da classe para ser pego depois para exibir quizz
     texto = texto + `
-    <div onclick='exibir(this)' class='capa_quizz texto_branco  ${lista_quizzes[i].id}'>  
-      <div class='degradee'></div>
-      <img src="${lista_quizzes[i].image}"  />
-      <h2>${lista_quizzes[i].title}</h2>
-     </div> `
+      <div onclick='exibir(this)' class='capa_quizz texto_branco  ${lista_quizzes[i].id}'>  
+        <div class='degradee'></div>
+        <img src="${lista_quizzes[i].image}"  />
+        <h2>${lista_quizzes[i].title}</h2>
+      </div> `
   }
+}
   let opcoes_quizz = document.querySelector(".quizzesSite").querySelector(".opcoes_quizz");
   opcoes_quizz.innerHTML = texto;
 
@@ -623,7 +655,7 @@ function pagina_tres() {
 
 // TELA 3.4: SUCESSO DO QUIZ (conforme requisitos no notion)
 // Adiciona uma mensagem de sucesso, representando a finalização da criação do quizz
-function pagina_quatro() {
+function pagina_quatro(id_criacao) {
   let pagina_quatro = document.querySelector(".pagina_quatro");
   // esconder os outros elementos do site
   esconderTudo();
@@ -637,12 +669,12 @@ function pagina_quatro() {
       <h2>O quão Potterhead é você?</h2>
     </div>
     <div class="button">
-          <button onclick='exibir(this)' class='${criacao_id}' >Acessar Quizz</button>
-          <div onclick='voltar_home()' class="texto_cinza"> Voltar para home </div>
+          <button onclick='exibir(this)' class='${id_criacao}' >Acessar Quizz</button>
+          <div onclick='voltar_home()' class="final_home texto_cinza"> Voltar para home </div>
     </div>
   `
 }
-//pagina_quatro()
+
 // FIM DA CRIAÇÃO  DE  UM QUIZZ    --------------------------
 
 
@@ -735,6 +767,7 @@ function criacao_divs() {
   </div>
 `;
 
+
   // FIM DA CRIAÇÃO DA PAGINA DOIS
 
   // CRIAÇÃO DA PAGINA TRES
@@ -766,22 +799,16 @@ function criacao_divs() {
   // FIM DA CRIAÇÃO DA PAGINA TRES
 }
 
-function armazenar_uma_vez() {
-  let lista_ids = [];
-  let salvar_primeiro = JSON.stringify(lista_ids);
-  localStorage.setItem("lista_ids", salvar_primeiro);
-}
-
-armazenar_uma_vez();
 
 function armazena_id(response) {
   let id = response.data.id;
-
+  let id_criacao=id;
   let item = localStorage.getItem("lista_ids");
   lista_ids = JSON.parse(item);
   lista_ids.push(id);
   let dadosSerializados = JSON.stringify(lista_ids);
   localStorage.setItem("lista_ids", dadosSerializados);
+  pagina_quatro(id_criacao)
 }
 
 function extrai_ids() {
@@ -789,6 +816,8 @@ function extrai_ids() {
   lista_ids = JSON.parse(item);
   return lista_ids;
 }
+
+
 
 function enviar_quiz() {
   let pagina_dados = document.querySelector(".pagina_um");
@@ -799,6 +828,7 @@ function enviar_quiz() {
                 questions: lista_perguntas,
                 levels: lista_niveis
   }
+  console.log(quiz)
   let promessa = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes', quiz);
   promessa.then(armazena_id);
 }
